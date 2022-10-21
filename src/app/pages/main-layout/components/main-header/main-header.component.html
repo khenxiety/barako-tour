@@ -1,0 +1,229 @@
+<header
+  (scroll)="onscroll()"
+  [ngClass]="navScroll ? 'bg-light shadow2' : 'bg-transparent'"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-4 flex">
+        <div class="logo">
+          <a href="/">
+            <img
+              src="assets/logo2.png"
+              class="drop-shadow"
+              height="60px"
+              width="auto"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
+      <div class="col-4 flex-2">
+        <nav class="nav">
+          <ul class="nav-group">
+            <li>
+              <a
+                routerLink="/barako-tour/main-home"
+                routerLinkActive="active"
+                [ngClass]="navScroll ? 'text-brown' : 'text-white'"
+                >Home</a
+              >
+            </li>
+
+            <li>
+              <a
+                routerLink="/barako-tour/tourist-spots"
+                routerLinkActive="active"
+                [ngClass]="navScroll ? 'text-brown' : 'text-white'"
+                >Tourism</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/barako-tour/history"
+                routerLinkActive="active"
+                [ngClass]="navScroll ? 'text-brown' : 'text-white'"
+                >History</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/barako-tour/about"
+                routerLinkActive="active"
+                [ngClass]="navScroll ? 'text-brown' : 'text-white'"
+                >About</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <nav [class]="collapse ? 'nav-mobile ' : 'nav-mobile collapse'">
+          <ul class="nav-group">
+            <li>
+              <a
+                routerLink="/barako-tour/main-home"
+                routerLinkActive="active"
+                (click)="toCollapse()"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/barako-tour/tourist-spots"
+                routerLinkActive="active"
+                (click)="toCollapse()"
+                >Tourism</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/barako-tour/history"
+                routerLinkActive="active"
+                (click)="toCollapse()"
+                >History</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/barako-tour/about"
+                routerLinkActive="active"
+                (click)="toCollapse()"
+                >About</a
+              >
+            </li>
+
+            <li>
+              <a
+                routerLink="/barako-tour/history"
+                routerLinkActive="active"
+                (click)="toCollapse()"
+                >Help</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/barako-tour/history"
+                routerLinkActive="active"
+                (click)="toCollapse()"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/barako-tour/history"
+                routerLinkActive="active"
+                (click)="toCollapse()"
+                >Signup</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="col-4 flex-3">
+        <div class="login">
+          <a routerLink="./batangas-event" class="me-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              [ngClass]="
+                navScroll
+                  ? 'bi bi-calendar4-event fill-black'
+                  : 'bi bi-calendar4-event fill-white'
+              "
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1H2zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5z"
+              />
+              <path
+                d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"
+              />
+            </svg>
+          </a>
+          <div class="dropdown">
+            <div class="desktop">
+              <button
+                class="btn custom-btn shadow2"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  class="bi bi-list"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  class="bi bi-person-circle ms-2"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                  />
+                </svg>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item text-dark" href="#">Login</a></li>
+                <li>
+                  <a class="dropdown-item text-dark" href="#">Sign Up</a>
+                </li>
+                <li>
+                  <a class="dropdown-item text-dark" href="#">Help</a>
+                </li>
+              </ul>
+            </div>
+            <div class="mobile">
+              <button
+                class="btn custom-btn shadow2"
+                type="button"
+                (click)="toCollapse()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  class="bi bi-list"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  class="bi bi-person-circle ms-2"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "barako-tour": {
+      "hosting": {
+        "tour.webclient": [
+          "barako-tour"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "barako-tour"
+  }
+}

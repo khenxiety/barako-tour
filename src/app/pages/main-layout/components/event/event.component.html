@@ -1,0 +1,58 @@
+<div class="page-wrapper">
+  <div class="page-content" data-aos="fade-up">
+    <div
+      class="container py-5"
+      style="
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 80px);
+      "
+    >
+      <div class="row my-4">
+        <div class="col">
+          <h3 class="text-center text-brown">Events in Batangas</h3>
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-5 mb-3 d-flex justify-content-center">
+          <p-calendar
+            [(ngModel)]="date14"
+            [inline]="true"
+            [showWeek]="true"
+            (ngModelChange)="test()"
+          ></p-calendar>
+        </div>
+        <div class="col-md-7">
+          <div class="card text-brown">
+            <div class="card-body">
+              <p-image
+                src="assets/images/sublian.jpg"
+                alt="Image"
+                [preview]="true"
+                width="100%"
+                height="400px"
+                style="aspect-ratio: 1"
+              >
+              </p-image>
+
+              <div class="text-wrapper my-3">
+                <header><h3 class="text-brown">Sublian Festival</h3></header>
+
+                <small>Event Date: July 23rd</small>
+
+                <p class="text-brown mt-2">
+                  The Sublian festival, a two week long celebration which
+                  culminates every year on the 23rd of July, is rooted in the
+                  Batangueños’ devotion to the town’s patron: the Holy Cross in
+                  Bauan and Agoncillo, and the Sto. Niño in Batangas City.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-image"></div>
+</div>

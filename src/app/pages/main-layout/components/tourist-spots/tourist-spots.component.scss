@@ -1,0 +1,218 @@
+
+*{
+    transition: .3s all ease-in-out;
+
+}
+
+.hero{
+
+    height: 400px;
+
+    background-repeat: no-repeat;
+    background-position:center;
+    background-attachment: fixed;
+
+    position: relative;
+    display: grid;
+  place-items: center;
+    color: white;
+
+    .black-gradient{
+        position: absolute;
+        background: linear-gradient(to-bottom ,rgba(0, 0, 0, 0.712),rgb(0, 0, 0));
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        width:  100%;
+
+    }
+
+
+    h1 {
+        font-size: 4.3rem;
+        font-weight: 900;
+        line-height: 1;
+        color: #fff;
+        position: relative;
+        width: max-content;
+        z-index: 1;
+      }
+
+}
+.page-wrapper{
+    min-height: 100vh;
+
+    
+
+
+    background:linear-gradient(#eff1dbe8,#eff1dbda),url('/assets/batangas map.png') ;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+   
+
+    color: white;
+    position: relative;
+
+    h1{
+        font-weight: 700;
+    }
+
+    .page-content{
+        
+    }
+}
+
+
+
+.custom-btn{
+    border: none;
+    background: rgba(0, 0, 0, 0.618);
+    color: white;
+    padding: 1em;
+
+
+    &:hover{
+        background-color: #d91b2b;
+    }
+
+    &:active{
+        background-color: #d91b2b;
+
+    }
+    
+}
+.ghost-div{
+    width: 90px;
+    min-height: 300px;
+
+
+}
+
+
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.flex2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.flex3{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+}
+
+
+
+.about-img{
+    padding: 1.2em;
+    background-image:linear-gradient(to bottom,rgba(196, 196, 196, 0.63),rgb(255, 255, 255)), url('/assets/images/BT.png');
+    background-size: cover;
+    background-position: center;
+   
+    position: relative;
+    width: 80%;
+    transition: all .5s;
+    transform:rotateZ(7deg);
+   
+    height: max-content;
+   
+    .image{
+        width:100%;
+    }
+   
+
+
+   
+}
+.about-img::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: 20px;
+    width: 100%;
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/rip.svg) bottom center;
+    background-size: 150%;
+    filter: drop-shadow(0 6px 2px rgba(0,0,0,0.24));
+    
+    
+    
+}
+:host ::ng-deep .p-tabview{
+    .p-tabview-nav{
+        color: black;
+    }
+
+.p-tabview-panels{
+    // background-color: red;
+    min-height: 600px;
+
+}
+.p-tabview-selected{
+    // background-color: red;
+
+}
+}
+
+
+.input{
+    background-color: rgba(255, 255, 255, 0.644);
+    width: 40%;
+    min-width: 300px;
+    margin: 0;
+    border-radius: 50px;
+    padding: .5em;
+    box-shadow: 0 1px 3px rgba(113, 113, 113, 0.12), 0 1px 2px rgba(112, 112, 112, 0.24);
+    a{
+        text-decoration: none;
+    }
+    .fab-button{
+        background-color: #d91b2b;
+        border: none;
+        height: 100%;
+        border-radius: 100%;
+        float: right;
+        height: 50px;
+        width: 50px;
+
+    }
+
+
+    &:hover{
+        box-shadow: 0 3px 6px rgba(113, 113, 113,.16), 0 3px 6px rgba(113, 113, 113,.23);
+
+    }
+
+    
+
+
+
+
+}
+.custom-input{
+    background: transparent;
+    height: 100%;
+    width: 95%;
+    border: none;
+    outline: none;
+}
+                .custom-btn-drop {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.644);
+
+    color: black;
+    border-radius: 21px;
+    box-shadow: 0 1px 3px rgba(113, 113, 113, 0.12), 0 1px 2px rgba(112, 112, 112, 0.24);
+
+    max-height: 40px;
+}

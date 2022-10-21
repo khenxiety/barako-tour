@@ -1,0 +1,257 @@
+<section
+  data-aos="fade-up"
+  [ngStyle]="{
+    background:
+      'linear-gradient(rgba(0, 0, 0, 0.2),rgb(0, 0, 0,0.2)),url(/assets/images/bats.jpg)',
+    backgroundAttachment: 'fixed',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPositionY: '-250px'
+  }"
+  class="hero"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col d-flex">
+        <h1 class="h1-responsive text-center">
+          <!-- <span style="font-weight: 200">Isla</span> -->
+          Barako Tour
+        </h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrapper">
+  <div class="page-content" data-aos="fade-up">
+    <div
+      class="container py-5"
+      style="
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 80px);
+      "
+    >
+      <div class="row my-4">
+        <div class="col-12">
+          <h3 class="text-center text-brown">
+            What do you want to discover in Batangas?
+          </h3>
+        </div>
+      </div>
+      <div class="row my-5">
+        <div class="col-12 flex">
+          <div class="input">
+            <div class="row text-center">
+              <div class="col-3 flex3"><a href="">Places</a></div>
+
+              <div class="col-3 flex3"><a href="">Food</a></div>
+
+              <div class="col-3 flex3"><a href="#festivals">Festivals</a></div>
+
+              <div class="col-3">
+                <button class="fab-button btn flex">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="white"
+                    class="bi bi-search"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <!-- <ul class="nav text-center">
+            <li>
+              
+            </li>
+            <li></li>
+            <li></li>
+            <li>
+              
+            </li>
+          </ul> -->
+
+            <!-- <input type="text" class="custom-input" /> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <header class="my-4">
+            <h2 class="text-brown d-flex align-items-center">
+              Tourist Spots
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-map-fill ms-3"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.502.502 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5V.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.498.498 0 0 0-.196 0L5 14.09zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1-.5-.1z"
+                />
+              </svg>
+            </h2>
+          </header>
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <article>
+                <p class="text-brown text-justify">
+                  The province of Batangas is located in the CALABARZON region
+                  of the Philippines. A huge section of the province sits on the
+                  southwestern coast of Luzon island.
+                </p>
+                <p class="text-brown text-justify">
+                  Batangas is one of the most popular holiday destinations for
+                  domestic travelers mainly because of its proximity to Manila,
+                  the Philippines' capital. If you want a quick weekend getaway
+                  or vacation, Batangas is perfect as it is only about 108 km
+                  away, around a 2 - 2.5 hours drive from Manila.
+                </p>
+              </article>
+            </div>
+            <!-- <div class="col hidden-sm-up">test</div> -->
+          </div>
+
+          <swiper
+            [config]="config1"
+            (swiper)="onSwiper($event)"
+            (slideChange)="onSlideChange()"
+            class="mt-4"
+          >
+            <!-- <ng-template swiperSlide>
+              <div class="ghost-div"></div>
+            </ng-template> -->
+            <ng-template swiperSlide *ngFor="let count of test">
+              <div class="card">
+                <div class="black-gradient"></div>
+                <img src="{{ count.pic }}" alt="{{ count.pic }}" />
+
+                <div class="floating-btn">
+                  <div class="title text-center mb-3">Some Title</div>
+                  <button
+                    class="btn custom-btn"
+                    routerLink="/barako-tour/tourist-spots"
+                  >
+                    View
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          </swiper>
+        </div>
+      </div>
+      <div class="row my-5">
+        <div class="col-12">
+          <header class="my-4">
+            <h2 class="text-brown">Foodtrips</h2>
+          </header>
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <article>
+                <p class="text-brown text-justify">
+                  Blessed with bountiful natural resources and a mountainous
+                  topography, Batangas melds a favorable climate, the refreshing
+                  sea breeze, and the warm hospitality of Batangueños. Batangas
+                  is not only known for having sweeping views of picturesque
+                  beaches and offering the nearest countryside experience from
+                  Manila, but for its vast and diverse selection of Batangueño
+                  food as well.
+                </p>
+                <p class="text-brown text-justify">
+                  From the famous bulalo to the lesser known tamales ng Ibaan,
+                  Batangas has a special culinary offering for anyone craving a
+                  steaming hot meal to a simple sticky rice snack to pair with
+                  the potent taste of Barako coffee.
+                </p>
+              </article>
+            </div>
+            <!-- <div class="col hidden-sm-up">test</div> -->
+          </div>
+
+          <swiper
+            [config]="config1"
+            (swiper)="onSwiper($event)"
+            (slideChange)="onSlideChange()"
+            class="mt-4"
+          >
+            <!-- <ng-template swiperSlide>
+              <div class="ghost-div"></div>
+            </ng-template> -->
+            <ng-template swiperSlide *ngFor="let count of foods">
+              <div
+                class="card"
+                uk-scrollspy="cls: uk-animation-fade;   repeat: true"
+              >
+                <div class="black-gradient"></div>
+                <img src="{{ count.pic }}" alt="{{ count.pic }}" />
+                <div class="floating-btn">
+                  <div class="title text-center mb-3">Some Title</div>
+                  <button class="btn custom-btn">View</button>
+                </div>
+              </div>
+            </ng-template>
+          </swiper>
+        </div>
+      </div>
+      <div class="row my-5" id="festivals">
+        <div class="col-12">
+          <header class="mb-4">
+            <h2 class="text-brown">Festivals</h2>
+          </header>
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <article>
+                <p class="text-brown text-justify">
+                  Batangas is one of the first established provinces in the
+                  country as it has been around for more than four hundred
+                  years. Its abundant farmland, bountiful agricultural produce,
+                  and rich history led to their colorful and exciting culture.
+                </p>
+                <p class="text-brown text-justify">
+                  Hence, Batanguenos learned to express their gratitude and joy
+                  by celebrating their countless blessings. They organize and
+                  prepare festivals so they can share their abundance and
+                  blessings with everyone.
+                </p>
+              </article>
+            </div>
+            <!-- <div class="col hidden-sm-up">test</div> -->
+          </div>
+
+          <swiper
+            [config]="config1"
+            (swiper)="onSwiper($event)"
+            (slideChange)="onSlideChange()"
+            class="mt-4"
+          >
+            <!-- <ng-template swiperSlide>
+              <div class="ghost-div"></div>
+            </ng-template> -->
+            <ng-template swiperSlide *ngFor="let count of test">
+              <div class="card">
+                <div class="black-gradient"></div>
+                <img src="{{ count.pic }}" alt="{{ count.pic }}" />
+                <div class="floating-btn">
+                  <div class="title text-center mb-3">Some Title</div>
+                  <button class="btn custom-btn">View</button>
+                </div>
+              </div>
+            </ng-template>
+          </swiper>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="bg-image"></div> -->
+</div>

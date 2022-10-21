@@ -1,0 +1,73 @@
+
+*{
+    transition: .3s all ease-in-out;
+
+}
+.page-wrapper{
+    min-height: 100vh;
+    padding-top: 80px;
+
+    
+
+
+   
+
+    color: white;
+    position: relative;
+
+    h1{
+        font-weight: 700;
+    }
+
+    .page-content{
+        background:linear-gradient(#eff1db,#eff1dbda),url('/assets/batangas map.png') ;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+    }
+}
+
+.image{
+    height:calc(100vh - 80px - 30vh);
+    width:100%;
+}
+
+.custom-btn{
+    border: none;
+    background: rgba(0, 0, 0, 0.618);
+    color: white;
+    padding: 1em;
+
+
+    &:hover{
+        background-color: #d91b2b;
+    }
+
+    &:active{
+        background-color: #d91b2b;
+
+    }
+    
+}
+.ghost-div{
+    width: 90px;
+    min-height: 300px;
+
+
+}
+
+
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.flex3{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+}
+
