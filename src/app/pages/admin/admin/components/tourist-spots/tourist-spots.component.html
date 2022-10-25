@@ -308,9 +308,12 @@
               formControlName="locationId"
               class="form-select"
             >
-              <option value="testid">TEst</option>
-              <option value="testid">test</option>
-              <option value="testid">test</option>
+              <option
+                *ngFor="let municipality of municipalities"
+                [value]="municipality.id"
+              >
+                {{ municipality.municipality }}
+              </option>
             </select>
 
             <small
@@ -628,9 +631,12 @@
               formControlName="locationId"
               class="form-select"
             >
-              <option value="testid">TEst</option>
-              <option value="testid">test</option>
-              <option value="testid">test</option>
+              <option
+                *ngFor="let municipality of municipalities"
+                [value]="municipality.id"
+              >
+                {{ municipality.municipality }}
+              </option>
             </select>
 
             <small

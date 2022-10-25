@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { collection, Firestore } from '@angular/fire/firestore';
+import { getDocs } from 'firebase/firestore';
 
 @Component({
   selector: 'app-history',
@@ -81,11 +83,41 @@ export class HistoryComponent implements OnInit {
       numVisible: 1,
     },
   ];
-  constructor() {}
+
+  municipalitiesList: Array<any> = [];
+  constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {
     window.scroll({
       top: 0,
+    });
+    this.getMunicipalities();
+  }
+
+  searchFilter(event: any) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if (filterValue == '') {
+      this.getMunicipalities();
+      return;
+    }
+
+    this.municipalitiesList = this.municipalitiesList.filter(
+      (res: any) =>
+        res.municipality.toLowerCase().includes(filterValue.toLowerCase()) ||
+        res.mayor.toLowerCase().includes(filterValue.toLowerCase())
+    );
+  }
+
+  getMunicipalities() {
+    const tourQuery = collection(this.firestore, 'history');
+
+    getDocs(tourQuery).then((res: any) => {
+      this.municipalitiesList = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+      // this.spinner.hide();
     });
   }
 }

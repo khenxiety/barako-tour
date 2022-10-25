@@ -39,6 +39,8 @@ export class TouristSpotsComponent implements OnInit {
     | ElementRef
     | undefined;
   tours: Array<any> = [];
+  municipalities: Array<any> = [];
+
   public formBuild: FormGroup = new FormGroup({});
   public updateForm: FormGroup = new FormGroup({});
 
@@ -60,6 +62,7 @@ export class TouristSpotsComponent implements OnInit {
     this.spinner.show();
     this.buildForm();
 
+    this.getMunicipalities();
     this.getTours();
   }
 
@@ -68,6 +71,18 @@ export class TouristSpotsComponent implements OnInit {
 
     getDocs(tourQuery).then((res: any) => {
       this.tours = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+      this.spinner.hide();
+    });
+  }
+  getMunicipalities() {
+    const tourQuery = collection(this.firestore, 'history');
+
+    getDocs(tourQuery).then((res: any) => {
+      this.municipalities = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
         }),

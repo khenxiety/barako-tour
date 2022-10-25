@@ -17,6 +17,9 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClientModule } from '@angular/common/http';
+import { EditorModule } from 'primeng/editor';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
+import { ManageCommentsComponent } from './components/manage-comments/manage-comments.component';
 const routes: Routes = [
   {
     path: 'barako-admin',
@@ -51,6 +54,14 @@ const routes: Routes = [
         component: EventsComponent,
       },
       {
+        path: 'manage-accounts',
+        component: ManageUsersComponent,
+      },
+      {
+        path: 'manage-comments',
+        component: ManageCommentsComponent,
+      },
+      {
         path: '',
         redirectTo: 'manage-history',
         pathMatch: 'full',
@@ -78,6 +89,8 @@ const routes: Routes = [
     DashboardComponent,
     BreadcrumbsComponent,
     AdminHeaderComponent,
+    ManageUsersComponent,
+    ManageCommentsComponent,
   ],
   imports: [
     CommonModule,
@@ -89,6 +102,7 @@ const routes: Routes = [
     ConfirmPopupModule,
     FileUploadModule,
     HttpClientModule,
+    EditorModule,
   ],
 })
 export class AdminModule {}

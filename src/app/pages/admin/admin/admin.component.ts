@@ -40,6 +40,14 @@ export class AdminComponent implements OnInit {
       title: 'manage-about',
       route: '/manage-about',
     },
+    {
+      title: 'manage-accounts',
+      route: '/manage-accounts',
+    },
+    {
+      title: 'manage-comments',
+      route: '/manage-comments',
+    },
   ];
   constructor(private messageService: MessageService) {}
 
