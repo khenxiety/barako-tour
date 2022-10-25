@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
+  providers: [MessageService],
 })
 export class AdminComponent implements OnInit {
   isCollapsed: boolean = false;
@@ -12,6 +14,10 @@ export class AdminComponent implements OnInit {
     //   title: 'dashboard',
     //   route: '/dashboard',
     // },
+    {
+      title: 'manage-municipalities',
+      route: '/manage-history',
+    },
     {
       title: 'manage-tourist-spots',
       route: '/manage-tourist-spots',
@@ -27,10 +33,6 @@ export class AdminComponent implements OnInit {
     },
 
     {
-      title: 'manage-history',
-      route: '/manage-history',
-    },
-    {
       title: 'manage-event',
       route: '/manage-event',
     },
@@ -39,7 +41,7 @@ export class AdminComponent implements OnInit {
       route: '/manage-about',
     },
   ];
-  constructor() {}
+  constructor(private messageService: MessageService) {}
 
   ngOnInit(): void {}
 

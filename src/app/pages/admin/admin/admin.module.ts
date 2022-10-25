@@ -12,6 +12,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { TableModule } from 'primeng/table';
 import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { FileUploadModule } from 'primeng/fileupload';
+import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [
   {
     path: 'barako-admin',
@@ -47,7 +52,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'manage-tourist-spots',
+        redirectTo: 'manage-history',
         pathMatch: 'full',
       },
     ],
@@ -74,6 +79,16 @@ const routes: Routes = [
     BreadcrumbsComponent,
     AdminHeaderComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), TableModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    TableModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastModule,
+    ConfirmPopupModule,
+    FileUploadModule,
+    HttpClientModule,
+  ],
 })
 export class AdminModule {}

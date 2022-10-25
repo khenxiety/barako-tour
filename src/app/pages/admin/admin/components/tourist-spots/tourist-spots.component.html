@@ -1,3 +1,5 @@
+<p-toast position="top-right"></p-toast>
+<p-confirmPopup></p-confirmPopup>
 <div class="page-wrapper p-3">
   <div class="container-fluid">
     <div class="row">
@@ -17,7 +19,13 @@
           Add Tourist Spot
         </button>
         <div class="filters d-flex justify-content-between">
-          <input type="text" class="form-control me-2" placeholder="Search" />
+          <input
+            type="text"
+            class="form-control me-2"
+            placeholder="Search"
+            [(ngModel)]="searchValue"
+            (keyup)="searchFilter($event)"
+          />
           <button
             class="btn btn-primary d-flex"
             data-bs-toggle="modal"
@@ -48,23 +56,30 @@
               <div class="post-left d-flex">
                 <div class="img">
                   <img
-                    src="{{ tour.image }}"
+                    src="{{
+                      tour.imageGallery[0]
+                        ? tour.imageGallery[0]
+                        : 'assets/images/bats.jpg'
+                    }}"
                     height="100%"
                     width="200px"
+                    style="aspect-ratio: 1"
                     alt=""
                   />
                 </div>
                 <div class="text-wrapper" style="margin-left: 2em">
                   <h5 class="h5-responsive">
-                    {{ tour.title }}
+                    {{ tour.tourTitle }}
                   </h5>
                   <p><strong>Location:</strong> {{ tour.location }}</p>
+                  <p><strong>Summary:</strong> {{ tour.descriptionSummary }}</p>
 
                   <button
                     type="button"
                     class="btn btn-primary"
                     data-bs-toggle="modal"
-                    data-bs-target="#details-modal"
+                    data-bs-target="#edit-modal"
+                    (click)="selectedData(tour)"
                   >
                     View all Details
                   </button>
@@ -93,6 +108,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#edit-modal"
                 class="btn btn-primary edit"
+                (click)="selectedData(tour)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -116,8 +132,7 @@
               <button
                 id="delete"
                 class="btn btn-danger delete"
-                data-bs-toggle="modal"
-                data-bs-target="#delete-modal"
+                (click)="confirm($event, tour.id)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -149,25 +164,252 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
           Add Tourist Spot
         </h1>
         <button
+          #addTourCloseModal
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body">
+        <form action="" [formGroup]="formBuild">
+          <div class="mb-2">
+            <label for="tourTitle" class="form-label">Tour Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="tourTitle"
+            />
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['tourTitle'].hasError('required') &&
+                formBuild.controls['tourTitle'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="location" class="form-label">Location:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="location"
+            />
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['location'].hasError('required') &&
+                formBuild.controls['location'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionSummary" class="form-label"
+              >Description (Summary):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionSummary"
+              formControlName="descriptionSummary"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['descriptionSummary'].hasError('required') &&
+                formBuild.controls['descriptionSummary'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionIntro" class="form-label"
+              >Description (Introduction):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionIntro"
+              formControlName="descriptionIntro"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['descriptionIntro'].hasError('required') &&
+                formBuild.controls['descriptionIntro'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionBody" class="form-label"
+              >Description (Body):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionBody"
+              formControlName="descriptionBody"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['descriptionBody'].hasError('required') &&
+                formBuild.controls['descriptionBody'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionOutro" class="form-label"
+              >Description (Outro):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionOutro"
+              formControlName="descriptionOutro"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['descriptionOutro'].hasError('required') &&
+                formBuild.controls['descriptionOutro'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="locationId" class="form-label">LocationId:</label>
+            <select
+              name="locationId"
+              id="locationId"
+              formControlName="locationId"
+              class="form-select"
+            >
+              <option value="testid">TEst</option>
+              <option value="testid">test</option>
+              <option value="testid">test</option>
+            </select>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['locationId'].hasError('required') &&
+                formBuild.controls['locationId'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+
+          <div class="mb-2">
+            <label for="upload" class="form-label">Tour Gallery:</label>
+            <p-fileUpload
+              id="upload"
+              name="myfile[]"
+              [customUpload]="true"
+              (uploadHandler)="myUploader($event)"
+              [multiple]="true"
+            ></p-fileUpload>
+          </div>
+
+          <div class="mb-2">
+            <label for="website" class="form-label">Website:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="website"
+              id="website"
+            />
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['website'].hasError('required') &&
+                formBuild.controls['website'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+
+          <div class="mb-2">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-2">
+                  <label for="contact" class="form-label">Contact:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="contact"
+                    id="contact"
+                  />
+
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      formBuild.controls['contact'].hasError('required') &&
+                      formBuild.controls['contact'].touched
+                    "
+                  >
+                    Please fill up the field
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-2">
+                  <label for="email" class="form-label">Email:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="email"
+                    id="email"
+                  />
+
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      formBuild.controls['email'].hasError('required') &&
+                      formBuild.controls['email'].touched
+                    "
+                  >
+                    Please fill up the field
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+          Cancel
         </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="addTourist()">
+          Add Tour
+        </button>
       </div>
     </div>
   </div>
@@ -192,7 +434,7 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
@@ -222,7 +464,7 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
@@ -241,23 +483,253 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Tour</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Update Tourist Spot
+        </h1>
         <button
+          #updateTourCloseModal
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body">
+        <form action="" [formGroup]="updateForm">
+          <div class="mb-2">
+            <label for="tourTitle" class="form-label">Tour Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="tourTitle"
+            />
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['tourTitle'].hasError('required') &&
+                updateForm.controls['tourTitle'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="location" class="form-label">Location:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="location"
+            />
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['location'].hasError('required') &&
+                updateForm.controls['location'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionSummary" class="form-label"
+              >Description (Summary):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionSummary"
+              formControlName="descriptionSummary"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['descriptionSummary'].hasError(
+                  'required'
+                ) && updateForm.controls['descriptionSummary'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionIntro" class="form-label"
+              >Description (Introduction):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionIntro"
+              formControlName="descriptionIntro"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['descriptionIntro'].hasError('required') &&
+                updateForm.controls['descriptionIntro'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionBody" class="form-label"
+              >Description (Body):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionBody"
+              formControlName="descriptionBody"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['descriptionBody'].hasError('required') &&
+                updateForm.controls['descriptionBody'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionOutro" class="form-label"
+              >Description (Outro):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionOutro"
+              formControlName="descriptionOutro"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['descriptionOutro'].hasError('required') &&
+                updateForm.controls['descriptionOutro'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="locationId" class="form-label">LocationId:</label>
+            <select
+              name="locationId"
+              id="locationId"
+              formControlName="locationId"
+              class="form-select"
+            >
+              <option value="testid">TEst</option>
+              <option value="testid">test</option>
+              <option value="testid">test</option>
+            </select>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['locationId'].hasError('required') &&
+                updateForm.controls['locationId'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+
+          <div class="mb-2">
+            <label for="upload" class="form-label">Tour Gallery:</label>
+            <p-fileUpload
+              id="upload"
+              name="myfile[]"
+              [customUpload]="true"
+              (uploadHandler)="myUploader($event)"
+              [multiple]="true"
+            ></p-fileUpload>
+          </div>
+
+          <div class="mb-2">
+            <label for="website" class="form-label">Website:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="website"
+              id="website"
+            />
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['website'].hasError('required') &&
+                updateForm.controls['website'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+
+          <div class="mb-2">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-2">
+                  <label for="contact" class="form-label">Contact:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="contact"
+                    id="contact"
+                  />
+
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      updateForm.controls['contact'].hasError('required') &&
+                      updateForm.controls['contact'].touched
+                    "
+                  >
+                    Please fill up the field
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-2">
+                  <label for="email" class="form-label">Email:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="email"
+                    id="email"
+                  />
+
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      updateForm.controls['email'].hasError('required') &&
+                      updateForm.controls['email'].touched
+                    "
+                  >
+                    Please fill up the field
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+          Cancel
         </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="updateTour()">
+          Update Tour
+        </button>
       </div>
     </div>
   </div>

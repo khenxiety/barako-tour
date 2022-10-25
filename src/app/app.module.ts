@@ -13,6 +13,9 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastModule } from 'primeng/toast';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 @NgModule({
   declarations: [AppComponent, AdminLoginComponent],
   imports: [
@@ -26,6 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     HttpClientModule,
+    ToastModule,
+    NgxSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

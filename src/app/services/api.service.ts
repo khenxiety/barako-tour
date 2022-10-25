@@ -11,4 +11,8 @@ export class ApiService {
 
   //   return this.http.get('')
   // }
+
+  test() {
+    return this.http.get('http://localhost:8000/orders');
+  }
 }
