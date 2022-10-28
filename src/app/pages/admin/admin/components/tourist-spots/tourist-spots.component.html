@@ -1,5 +1,5 @@
 <p-toast position="top-right"></p-toast>
-<p-confirmPopup></p-confirmPopup>
+
 <div class="page-wrapper p-3">
   <div class="container-fluid">
     <div class="row">
@@ -57,8 +57,8 @@
                 <div class="img">
                   <img
                     src="{{
-                      tour.imageGallery[0]
-                        ? tour.imageGallery[0]
+                      tour.imageGallery[0]?.thumbnailImageSrc
+                        ? tour.imageGallery[0]?.thumbnailImageSrc
                         : 'assets/images/bats.jpg'
                     }}"
                     height="100%"
@@ -132,8 +132,10 @@
               <button
                 id="delete"
                 class="btn btn-danger delete"
+                style="position: relative"
                 (click)="confirm($event, tour.id)"
               >
+                <p-confirmPopup></p-confirmPopup>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -237,57 +239,16 @@
               Please fill up the field
             </small>
           </div>
-          <div class="mb-2">
-            <label for="descriptionIntro" class="form-label"
-              >Description (Introduction):</label
-            >
-            <textarea
-              class="form-control"
-              id="descriptionIntro"
-              formControlName="descriptionIntro"
-              rows="3"
-            ></textarea>
 
-            <small
-              class="text-danger"
-              *ngIf="
-                formBuild.controls['descriptionIntro'].hasError('required') &&
-                formBuild.controls['descriptionIntro'].touched
-              "
-            >
-              Please fill up the field
-            </small>
-          </div>
-          <div class="mb-2">
-            <label for="descriptionBody" class="form-label"
-              >Description (Body):</label
-            >
-            <textarea
-              class="form-control"
-              id="descriptionBody"
-              formControlName="descriptionBody"
-              rows="3"
-            ></textarea>
-
-            <small
-              class="text-danger"
-              *ngIf="
-                formBuild.controls['descriptionBody'].hasError('required') &&
-                formBuild.controls['descriptionBody'].touched
-              "
-            >
-              Please fill up the field
-            </small>
-          </div>
           <div class="mb-2">
             <label for="descriptionOutro" class="form-label"
-              >Description (Outro):</label
+              >Description:</label
             >
             <textarea
               class="form-control"
               id="descriptionOutro"
               formControlName="descriptionOutro"
-              rows="3"
+              rows="8"
             ></textarea>
 
             <small
@@ -560,57 +521,16 @@
               Please fill up the field
             </small>
           </div>
-          <div class="mb-2">
-            <label for="descriptionIntro" class="form-label"
-              >Description (Introduction):</label
-            >
-            <textarea
-              class="form-control"
-              id="descriptionIntro"
-              formControlName="descriptionIntro"
-              rows="3"
-            ></textarea>
 
-            <small
-              class="text-danger"
-              *ngIf="
-                updateForm.controls['descriptionIntro'].hasError('required') &&
-                updateForm.controls['descriptionIntro'].touched
-              "
-            >
-              Please fill up the field
-            </small>
-          </div>
-          <div class="mb-2">
-            <label for="descriptionBody" class="form-label"
-              >Description (Body):</label
-            >
-            <textarea
-              class="form-control"
-              id="descriptionBody"
-              formControlName="descriptionBody"
-              rows="3"
-            ></textarea>
-
-            <small
-              class="text-danger"
-              *ngIf="
-                updateForm.controls['descriptionBody'].hasError('required') &&
-                updateForm.controls['descriptionBody'].touched
-              "
-            >
-              Please fill up the field
-            </small>
-          </div>
           <div class="mb-2">
             <label for="descriptionOutro" class="form-label"
-              >Description (Outro):</label
+              >Description:</label
             >
             <textarea
               class="form-control"
               id="descriptionOutro"
               formControlName="descriptionOutro"
-              rows="3"
+              rows="8"
             ></textarea>
 
             <small

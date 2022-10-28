@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { collection, Firestore, getDocs } from '@angular/fire/firestore';
 import SwiperCore, { SwiperOptions } from 'swiper';
 @Component({
   selector: 'app-main-home',
@@ -46,12 +47,18 @@ export class MainHomeComponent implements OnInit {
       pic: 'assets/Batangas-City.jpg',
     },
   ];
-  constructor() {}
+
+  foodtrips: Array<any> = [];
+  tours: Array<any> = [];
+  constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {
     window.scroll({
       top: 0,
     });
+
+    this.getTours();
+    this.getFoodtrips();
   }
   config2: SwiperOptions = {
     slidesPerView: 1,
@@ -84,6 +91,29 @@ export class MainHomeComponent implements OnInit {
       },
     },
   };
+
+  getTours() {
+    const tourQuery = collection(this.firestore, 'tours');
+
+    getDocs(tourQuery).then((res: any) => {
+      this.tours = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+    });
+  }
+  getFoodtrips() {
+    const tourQuery = collection(this.firestore, 'foodtrip');
+
+    getDocs(tourQuery).then((res: any) => {
+      this.foodtrips = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+    });
+  }
   onSwiper([swiper]: any) {
     console.log(swiper);
   }

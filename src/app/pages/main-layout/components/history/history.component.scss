@@ -1,166 +1,156 @@
-
-*{
-    transition: .3s all ease-in-out;
-
+* {
+  transition: 0.3s all ease-in-out;
 }
 
-h1,h2,h3,h5,h6{
-    margin: 0;
+h1,
+h2,
+h3,
+h5,
+h6 {
+  margin: 0;
 }
-.page-wrapper{
-    min-height: 100vh;
-    padding-top: 80px;
-
-    
-
-
-   
-
-    color: white;
-    position: relative;
-
-    h1{
-        font-weight: 700;
-    }
-
-    .page-content{
-        background:linear-gradient(#eff1db,#eff1dbda),url('/assets/batangas map.png') ;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-attachment: fixed;
-    }
+.variable-binding {
+  text-align: justify;
 }
+.page-wrapper {
+  min-height: 100vh;
+  padding-top: 80px;
 
-.image{
-    height:calc(100vh - 80px - 30vh);
-    width:100%;
+  color: white;
+  position: relative;
+
+  h1 {
+    font-weight: 700;
+  }
+
+  .page-content {
+    background: linear-gradient(#eff1db, #eff1dbda),
+      url("/assets/batangas map.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+  }
 }
 
-.custom-btn{
+.image {
+  height: calc(100vh - 80px - 30vh);
+  width: 100%;
+}
+
+.custom-btn {
+  border: none;
+  background: rgba(0, 0, 0, 0.618);
+  color: white;
+  padding: 1em;
+
+  &:hover {
+    background-color: #d91b2b;
+  }
+
+  &:active {
+    background-color: #d91b2b;
+  }
+}
+
+.input {
+  background-color: rgba(255, 255, 255, 0.644);
+  width: 40%;
+  min-width: 300px;
+  margin: 0;
+  border-radius: 50px;
+  padding: 0.5em;
+  box-shadow: 0 1px 3px rgba(113, 113, 113, 0.12),
+    0 1px 2px rgba(112, 112, 112, 0.24);
+  a {
+    text-decoration: none;
+  }
+  .fab-button {
+    background-color: #d91b2b;
     border: none;
-    background: rgba(0, 0, 0, 0.618);
-    color: white;
-    padding: 1em;
+    height: 100%;
+    border-radius: 100%;
+    float: right;
+    height: 50px;
+    width: 50px;
+  }
 
-
-    &:hover{
-        background-color: #d91b2b;
-    }
-
-    &:active{
-        background-color: #d91b2b;
-
-    }
-    
+  &:hover {
+    box-shadow: 0 3px 6px rgba(113, 113, 113, 0.16),
+      0 3px 6px rgba(113, 113, 113, 0.23);
+  }
 }
 
-.input{
-    background-color: rgba(255, 255, 255, 0.644);
-    width: 40%;
-    min-width: 300px;
-    margin: 0;
-    border-radius: 50px;
-    padding: .5em;
-    box-shadow: 0 1px 3px rgba(113, 113, 113, 0.12), 0 1px 2px rgba(112, 112, 112, 0.24);
-    a{
-        text-decoration: none;
-    }
-    .fab-button{
-        background-color: #d91b2b;
-        border: none;
-        height: 100%;
-        border-radius: 100%;
-        float: right;
-        height: 50px;
-        width: 50px;
-
-    }
-
-
-    &:hover{
-        box-shadow: 0 3px 6px rgba(113, 113, 113,.16), 0 3px 6px rgba(113, 113, 113,.23);
-
-    }
-
-
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.flex{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+.flex2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.flex2{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
+.flex3 {
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
 
-.flex3{
-    display: flex;
-    justify-content: right;
-    align-items: center;
+.card-cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
+  .tour-img {
+    height: 100%;
+    width: 80px;
+    aspect-ratio: 1;
+  }
 }
 
-.card-cont{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-    .tour-img{
-        height: 100%;
-        width: 80px;
-        aspect-ratio: 1;
-    }
-}
+:host ::ng-deep .p-tabview {
+  .p-tabview-nav {
+    color: black;
+  }
 
-:host ::ng-deep .p-tabview{
-    .p-tabview-nav{
-        color: black;
-    }
-
-.p-tabview-panels{
+  .p-tabview-panels {
     // background-color: red;
     min-height: 600px;
-
-}
-.p-tabview-selected{
+  }
+  .p-tabview-selected {
     // background-color: red;
-
+  }
 }
-}
 
-.comments-list{
-    .comment{
-        .comment-header{}
-
+.comments-list {
+  .comment {
+    .comment-header {
     }
+  }
 }
 
-
-.custom-input{
-    background: transparent;
-    height: 100%;
-    width: 95%;
-    border: none;
-    outline: none;
+.custom-input {
+  background: transparent;
+  height: 100%;
+  width: 95%;
+  border: none;
+  outline: none;
 }
-                .custom-btn-drop {
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.644);
+.custom-btn-drop {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.644);
 
-    color: black;
-    border-radius: 21px;
-    box-shadow: 0 1px 3px rgba(113, 113, 113, 0.12), 0 1px 2px rgba(112, 112, 112, 0.24);
+  color: black;
+  border-radius: 21px;
+  box-shadow: 0 1px 3px rgba(113, 113, 113, 0.12),
+    0 1px 2px rgba(112, 112, 112, 0.24);
 
-    max-height: 40px;
+  max-height: 40px;
 }
 
-:host ::ng-deep .p-galleria-thumbnail-container{
-    background: var(--text-color-dark);
+:host ::ng-deep .p-galleria-thumbnail-container {
+  background: var(--text-color-dark);
 }

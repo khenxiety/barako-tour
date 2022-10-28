@@ -20,7 +20,13 @@ import { SublianComponent } from './components/sublian/sublian.component';
 import { TabViewModule } from 'primeng/tabview';
 import { GalleriaModule } from 'primeng/galleria';
 import { PinComponent } from './components/svg-icons/pin/pin.component';
+import { MarkdownModule } from 'ngx-markdown';
 import { TourDetailsComponent } from './components/tour-details/tour-details.component';
+import 'prismjs';
+import 'prismjs/components/prism-typescript.min.js';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
+import 'prismjs/plugins/line-highlight/prism-line-highlight.js';
+import { CommentsComponent } from './components/comments/comments.component';
 const routes: Routes = [
   {
     path: 'barako-tour',
@@ -51,7 +57,7 @@ const routes: Routes = [
         component: TouristSpotsComponent,
       },
       {
-        path: 'tourist-spots/tour-details',
+        path: 'tourist-spots/tour-details/:id',
         component: TourDetailsComponent,
       },
       {
@@ -83,6 +89,7 @@ const routes: Routes = [
     SublianComponent,
     PinComponent,
     TourDetailsComponent,
+    CommentsComponent,
   ],
   imports: [
     CommonModule,
@@ -93,6 +100,7 @@ const routes: Routes = [
     ImageModule,
     TabViewModule,
     GalleriaModule,
+    MarkdownModule,
   ],
 })
 export class MainPageModuleModule {}

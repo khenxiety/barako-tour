@@ -131,16 +131,27 @@
             <!-- <ng-template swiperSlide>
               <div class="ghost-div"></div>
             </ng-template> -->
-            <ng-template swiperSlide *ngFor="let count of test">
+            <ng-template swiperSlide *ngFor="let count of tours">
               <div class="card">
                 <div class="black-gradient"></div>
-                <img src="{{ count.pic }}" alt="{{ count.pic }}" />
+                <img
+                  src="{{
+                    count.imageGallery[0]?.previewImageSrc
+                      ? count.imageGallery[0]?.previewImageSrc
+                      : '/assets/images/bats.jpg'
+                  }}"
+                  alt="{{ count.pic }}"
+                />
 
                 <div class="floating-btn">
-                  <div class="title text-center mb-3">Some Title</div>
+                  <div class="title text-center mb-3">
+                    {{ count.tourTitle }}
+                  </div>
                   <button
                     class="btn custom-btn"
-                    routerLink="/barako-tour/tourist-spots"
+                    routerLink="/barako-tour/tourist-spots/tour-details/{{
+                      count.id
+                    }}"
                   >
                     View
                   </button>
@@ -187,15 +198,24 @@
             <!-- <ng-template swiperSlide>
               <div class="ghost-div"></div>
             </ng-template> -->
-            <ng-template swiperSlide *ngFor="let count of foods">
+            <ng-template swiperSlide *ngFor="let food of foodtrips">
               <div
                 class="card"
                 uk-scrollspy="cls: uk-animation-fade;   repeat: true"
               >
                 <div class="black-gradient"></div>
-                <img src="{{ count.pic }}" alt="{{ count.pic }}" />
+                <img
+                  src="{{
+                    food.imageGallery[0]?.previewImageSrc
+                      ? food.imageGallery[0]?.previewImageSrc
+                      : '/assets/images/bats.jpg'
+                  }}"
+                  alt="{{ food.pic }}"
+                />
                 <div class="floating-btn">
-                  <div class="title text-center mb-3">Some Title</div>
+                  <div class="title text-center mb-3">
+                    {{ food.foodTripTitle }}
+                  </div>
                   <button class="btn custom-btn">View</button>
                 </div>
               </div>

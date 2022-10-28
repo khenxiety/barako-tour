@@ -1,12 +1,12 @@
 <p-toast position="top-right"></p-toast>
-
+<p-confirmPopup></p-confirmPopup>
 <div class="page-wrapper p-3">
   <div class="container-fluid">
     <div class="row">
-      <app-breadcrumbs [location]="'Manage Foodtrips'"></app-breadcrumbs>
+      <app-breadcrumbs [location]="'Manage FoodTrip'"></app-breadcrumbs>
 
       <header>
-        <h3>Manage Foodtrips</h3>
+        <h3>Manage FoodTrip</h3>
       </header>
     </div>
     <div class="row my-3">
@@ -19,7 +19,13 @@
           Add Foodtrip
         </button>
         <div class="filters d-flex justify-content-between">
-          <input type="text" class="form-control me-2" placeholder="Search" />
+          <input
+            type="text"
+            class="form-control me-2"
+            placeholder="Search"
+            [(ngModel)]="searchValue"
+            (keyup)="searchFilter($event)"
+          />
           <button
             class="btn btn-primary d-flex"
             data-bs-toggle="modal"
@@ -42,7 +48,7 @@
         </div>
       </header>
     </div>
-    <div class="row my-4" *ngFor="let tour of tours">
+    <div class="row my-4" *ngFor="let tour of foodtrip">
       <div class="col me-4">
         <div class="card w-100">
           <div class="crd-body">
@@ -50,40 +56,36 @@
               <div class="post-left d-flex">
                 <div class="img">
                   <img
-                    src="{{ tour.image }}"
+                    src="{{
+                      tour.imageGallery[0]?.thumbnailImageSrc
+                        ? tour.imageGallery[0]?.thumbnailImageSrc
+                        : 'assets/images/bats.jpg'
+                    }}"
                     height="100%"
                     width="200px"
+                    style="aspect-ratio: 1"
                     alt=""
                   />
                 </div>
                 <div class="text-wrapper" style="margin-left: 2em">
                   <h5 class="h5-responsive">
-                    {{ tour.title }}
+                    {{ tour?.foodTripTitle }}
                   </h5>
-                  <p><strong>Location:</strong> {{ tour.location }}</p>
+                  <p><strong>Originated:</strong> {{ tour?.originated }}</p>
+                  <p>
+                    <strong>Summary:</strong> {{ tour?.descriptionSummary }}
+                  </p>
 
                   <button
                     type="button"
                     class="btn btn-primary"
                     data-bs-toggle="modal"
-                    data-bs-target="#details-modal"
+                    data-bs-target="#update-foodtrip"
+                    (click)="selectedData(tour)"
                   >
                     View all Details
                   </button>
                 </div>
-              </div>
-
-              <div class="costs" style="margin-right: 2em">
-                <p>
-                  <strong>Contact: </strong>
-                  <i class="uil uil-telegram-alt text-danger"></i
-                  >{{ tour.contact }}
-                </p>
-                <p>
-                  <strong>Email: </strong>
-                  <i class="uil uil-telegram-alt text-danger"></i
-                  >{{ tour.email }}
-                </p>
               </div>
             </div>
           </div>
@@ -93,8 +95,9 @@
               <button
                 id="edit"
                 data-bs-toggle="modal"
-                data-bs-target="#edit-modal"
+                data-bs-target="#update-foodtrip"
                 class="btn btn-primary edit"
+                (click)="selectedData(tour)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -118,8 +121,7 @@
               <button
                 id="delete"
                 class="btn btn-danger delete"
-                data-bs-toggle="modal"
-                data-bs-target="#delete-modal"
+                (click)="confirm($event, tour.id)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -151,23 +153,196 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Foodtrips</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Foodtrip</h1>
         <button
+          #addFoodCloseModal
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body">
+        <form action="" [formGroup]="formBuild">
+          <div class="mb-2">
+            <label for="foodTripTitle" class="form-label">Food Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="foodTripTitle"
+            />
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['foodTripTitle'].hasError('required') &&
+                formBuild.controls['foodTripTitle'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+
+          <div class="mb-2">
+            <label for="descriptionSummary" class="form-label"
+              >Description (Summary):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionSummary"
+              formControlName="descriptionSummary"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['descriptionSummary'].hasError('required') &&
+                formBuild.controls['descriptionSummary'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionIntro" class="form-label"
+              >Description (Introduction):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionIntro"
+              formControlName="descriptionIntro"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['descriptionIntro'].hasError('required') &&
+                formBuild.controls['descriptionIntro'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionBody" class="form-label"
+              >Description (Body):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionBody"
+              formControlName="descriptionBody"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['descriptionBody'].hasError('required') &&
+                formBuild.controls['descriptionBody'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionOutro" class="form-label"
+              >Description (Outro):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionOutro"
+              formControlName="descriptionOutro"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['descriptionOutro'].hasError('required') &&
+                formBuild.controls['descriptionOutro'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+
+          <div class="mb-2">
+            <label for="upload" class="form-label">Food Gallery:</label>
+            <p-fileUpload
+              id="upload"
+              name="myfile[]"
+              [customUpload]="true"
+              (uploadHandler)="myUploader($event)"
+              [multiple]="true"
+            ></p-fileUpload>
+          </div>
+
+          <div class="mb-2">
+            <label for="originated" class="form-label">Originated at:</label>
+            <select
+              name="originated"
+              id="originated"
+              formControlName="originated"
+              class="form-select"
+            >
+              <option
+                *ngFor="let municipality of municipalities"
+                [value]="municipality.municipality"
+              >
+                {{ municipality.municipality }}
+              </option>
+            </select>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['originated'].hasError('required') &&
+                formBuild.controls['originated'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="originatedId" class="form-label">Originated Id:</label>
+            <select
+              name="originatedId"
+              id="originatedId"
+              formControlName="originatedId"
+              class="form-select"
+            >
+              <option
+                *ngFor="let municipality of municipalities"
+                [value]="municipality.id"
+              >
+                {{ municipality.municipality }}
+              </option>
+            </select>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['originatedId'].hasError('required') &&
+                formBuild.controls['originatedId'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+        </form>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+          Cancel
         </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="addTourist()">
+          Add Foodtrip
+        </button>
       </div>
     </div>
   </div>
@@ -192,7 +367,7 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
@@ -222,7 +397,7 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
@@ -236,28 +411,202 @@
 <!-- Edit modal -->
 <div
   class="modal fade"
-  id="edit-modal"
+  id="update-foodtrip"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Foodtrip</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Foodtrip</h1>
         <button
+          #updateFoodCloseModal
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body">
+        <form action="" [formGroup]="updateForm">
+          <div class="mb-2">
+            <label for="foodTripTitle" class="form-label">Food Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="foodTripTitle"
+            />
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['foodTripTitle'].hasError('required') &&
+                updateForm.controls['foodTripTitle'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+
+          <div class="mb-2">
+            <label for="descriptionSummary" class="form-label"
+              >Description (Summary):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionSummary"
+              formControlName="descriptionSummary"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['descriptionSummary'].hasError(
+                  'required'
+                ) && updateForm.controls['descriptionSummary'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionIntro" class="form-label"
+              >Description (Introduction):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionIntro"
+              formControlName="descriptionIntro"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['descriptionIntro'].hasError('required') &&
+                updateForm.controls['descriptionIntro'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionBody" class="form-label"
+              >Description (Body):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionBody"
+              formControlName="descriptionBody"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['descriptionBody'].hasError('required') &&
+                updateForm.controls['descriptionBody'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="descriptionOutro" class="form-label"
+              >Description (Outro):</label
+            >
+            <textarea
+              class="form-control"
+              id="descriptionOutro"
+              formControlName="descriptionOutro"
+              rows="3"
+            ></textarea>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['descriptionOutro'].hasError('required') &&
+                updateForm.controls['descriptionOutro'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+
+          <div class="mb-2">
+            <label for="upload" class="form-label">Food Gallery:</label>
+            <p-fileUpload
+              id="upload"
+              name="myfile[]"
+              [customUpload]="true"
+              (uploadHandler)="myUploader($event)"
+              [multiple]="true"
+            ></p-fileUpload>
+          </div>
+
+          <div class="mb-2">
+            <label for="originated" class="form-label">Originated at:</label>
+            <select
+              name="originated"
+              id="originated"
+              formControlName="originated"
+              class="form-select"
+            >
+              <option
+                *ngFor="let municipality of municipalities"
+                [value]="municipality.municipality"
+              >
+                {{ municipality.municipality }}
+              </option>
+            </select>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['originated'].hasError('required') &&
+                updateForm.controls['originated'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="originatedId" class="form-label">Originated Id:</label>
+            <select
+              name="originatedId"
+              id="originatedId"
+              formControlName="originatedId"
+              class="form-select"
+            >
+              <option
+                *ngFor="let municipality of municipalities"
+                [value]="municipality.id"
+              >
+                {{ municipality.municipality }}
+              </option>
+            </select>
+
+            <small
+              class="text-danger"
+              *ngIf="
+                updateForm.controls['originatedId'].hasError('required') &&
+                updateForm.controls['originatedId'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+        </form>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+          Cancel
         </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="updateTour()">
+          Update Foodtrip
+        </button>
       </div>
     </div>
   </div>
@@ -275,7 +624,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Foodtrip</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Tour</h1>
         <button
           type="button"
           class="btn-close"

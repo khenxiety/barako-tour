@@ -1,8 +1,10 @@
 <section
   data-aos="fade-up"
   [ngStyle]="{
-    background:
-      'linear-gradient(rgba(0, 0, 0, 0.3),rgb(0, 0, 0,0.3)),url(/assets/images/Verde.jpg)',
+    backgroundImage:
+      'linear-gradient(rgba(0, 0, 0, 0.3),rgb(0, 0, 0,0.3)),url(' +
+      '{{data?.imageGallery[0].previewImageSrc}}' +
+      '}})',
     backgroundAttachment: 'fixed',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -15,7 +17,7 @@
       <div class="col d-flex">
         <h1 class="h1-responsive text-center">
           <!-- <span style="font-weight: 200">Isla</span> -->
-          Isla Verde
+          {{ data?.tourTitle }}
         </h1>
       </div>
     </div>
@@ -36,10 +38,13 @@
     <div class="row my-4">
       <div class="col">
         <header>
-          <h2 class="text-uppercase">Isla Verde Tropical Friendly Resort</h2>
+          <h2 class="text-uppercase">{{ data?.tourTitle }}</h2>
 
           <div class="location mt-3">
-            <small><app-pin></app-pin> <em>Isla Verde Batangas</em></small>
+            <small
+              ><app-pin></app-pin>
+              <em>{{ data?.location }}, Batangas</em></small
+            >
           </div>
         </header>
       </div>
@@ -48,31 +53,36 @@
     <div class="row my-4">
       <div class="col-sm-12 col-md-6 col-lg-6">
         <article>
-          <p class="introduction text-justify">
-            Isla Verde Tropical Friendly Resort is on a small island in the
-            Verde Island Passage between Batangas on Luzon and Puerto Galera on
-            Mindoro in the Philippines. We are only about an hour and a half by
-            coach from Manila to Batangas, then a short ride to Tabangao to take
-            a banca across the strait.
-          </p>
-
-          <p class="body text-justify">
-            The Verde Island Passage is famous for the diversity of its marine
-            life and people come from around the world to our island to dive the
-            surrounding reefs. Our Resort is right at the boundary of the
-            Declared Marine Park, providing easy snorkelling access to the
-            shallower corals and fish.
-          </p>
+          <markdown
+            class="variable-binding text-justify"
+            [data]="data?.descriptionOutro"
+          ></markdown>
         </article>
         <div class="more-details mt-5">
           <ul class="p-0" style="list-style: none">
             <li class="mb-3">
               <h6>Contact:</h6>
-              <span>09999706684</span>
+              <span
+                ><a
+                  href="{{ data?.contact }}"
+                  target="_blank"
+                  class="body text-justify"
+                >
+                  {{ data?.contact }}
+                </a></span
+              >
             </li>
             <li>
               <h6>Email:</h6>
-              <span>09999706684</span>
+              <span
+                ><a
+                  href="{{ data?.email }}"
+                  target="_blank"
+                  class="body text-justify"
+                >
+                  {{ data?.email }}
+                </a></span
+              >
             </li>
           </ul>
         </div>
@@ -80,7 +90,7 @@
       <div class="col-sm col-md-6 col-lg-6">
         <div class="image w-100 d-flex justify-content-end">
           <p-galleria
-            [value]="images"
+            [value]="data?.imageGallery"
             [responsiveOptions]="responsiveOptions"
             [containerStyle]="{ 'max-width': '640px' }"
             [numVisible]="5"

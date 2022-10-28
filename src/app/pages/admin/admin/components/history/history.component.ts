@@ -82,14 +82,7 @@ export class HistoryComponent implements OnInit {
         { value: '', disabled: false },
         Validators.required
       ),
-      descriptionIntro: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
-      descriptionBody: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
+
       descriptionOutro: new FormControl(
         { value: '', disabled: false },
         Validators.required
@@ -113,14 +106,7 @@ export class HistoryComponent implements OnInit {
         { value: '', disabled: false },
         Validators.required
       ),
-      descriptionIntro: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
-      descriptionBody: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
+
       descriptionOutro: new FormControl(
         { value: '', disabled: false },
         Validators.required
@@ -160,8 +146,8 @@ export class HistoryComponent implements OnInit {
     const uploadingTask = await new Promise((resolve, reject) => {
       this.spinner.show();
 
-      event.files.forEach((element: any) => {
-        const storageRef = ref(
+      event.files.forEach(async (element: any) => {
+        const storageRef = await ref(
           this.storage,
           `images/${this.formBuild.value.tourTitle}/${element.name}`
         );
@@ -177,15 +163,13 @@ export class HistoryComponent implements OnInit {
             if (progress === 100) {
               setTimeout(() => {
                 getDownloadURL(upload.snapshot.ref).then((url) => {
-                  console.log(url);
-
                   resolve('uploaded');
 
                   this.imageUrl.push({
                     previewImageSrc: url,
                     thumbnailImageSrc: url,
-                    alt: snapshot.metadata.name,
-                    title: snapshot.metadata.name,
+                    alt: upload.snapshot.metadata.name,
+                    title: upload.snapshot.metadata.name,
                   });
                 });
               }, 2000);
@@ -201,6 +185,8 @@ export class HistoryComponent implements OnInit {
     });
 
     this.spinner.hide();
+
+    console.log(this.imageUrl);
     this.successToast('Images Uploaded');
   }
 
@@ -225,14 +211,7 @@ export class HistoryComponent implements OnInit {
         { value: data.descriptionSummary || '', disabled: false },
         Validators.required
       ),
-      descriptionIntro: new FormControl(
-        { value: data.descriptionIntro || '', disabled: false },
-        Validators.required
-      ),
-      descriptionBody: new FormControl(
-        { value: data.descriptionBody || '', disabled: false },
-        Validators.required
-      ),
+
       descriptionOutro: new FormControl(
         { value: data.descriptionOutro || '', disabled: false },
         Validators.required
@@ -316,16 +295,25 @@ export class HistoryComponent implements OnInit {
         'history/' + this.selectedTour.id
       );
 
-      let data = {
-        ...this.updateForm.value,
-      };
+      let data;
+      if (this.imageUrl.length === 0) {
+        data = {
+          ...this.updateForm.value,
+        };
+      } else {
+        data = {
+          ...this.updateForm.value,
+
+          imageGallery: arrayUnion(...this.imageUrl),
+        };
+      }
 
       updateDoc(updateInstance, data)
         .then((res: any) => {
           this.successToast('Tour Updated Successfully');
           this.getTours();
           this.spinner.hide();
-
+          this.imageUrl = [];
           this.updateTourCloseModal?.nativeElement.click();
           this.selectedTour = [];
         })

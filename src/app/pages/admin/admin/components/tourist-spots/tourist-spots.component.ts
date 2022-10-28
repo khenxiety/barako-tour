@@ -26,6 +26,7 @@ import { Router } from '@angular/router';
 import { doc } from 'firebase/firestore';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
   selector: 'app-tourist-spots',
@@ -49,13 +50,15 @@ export class TouristSpotsComponent implements OnInit {
   searchValue: any;
 
   selectedTour: any = [];
+  public comments: Array<any> = [];
   constructor(
     private firestore: Firestore,
     private router: Router,
     private messageService: MessageService,
     private spinner: NgxSpinnerService,
     private confirmationService: ConfirmationService,
-    private storage: Storage
+    private storage: Storage,
+    private commentsService: CommentsService
   ) {}
 
   ngOnInit(): void {
@@ -91,20 +94,15 @@ export class TouristSpotsComponent implements OnInit {
     });
   }
 
+  getComments() {}
+
   buildForm() {
     this.formBuild = new FormGroup({
       descriptionSummary: new FormControl(
         { value: '', disabled: false },
         Validators.required
       ),
-      descriptionIntro: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
-      descriptionBody: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
+
       descriptionOutro: new FormControl(
         { value: '', disabled: false },
         Validators.required
@@ -131,14 +129,7 @@ export class TouristSpotsComponent implements OnInit {
         { value: '', disabled: false },
         Validators.required
       ),
-      descriptionIntro: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
-      descriptionBody: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
+
       descriptionOutro: new FormControl(
         { value: '', disabled: false },
         Validators.required
@@ -198,11 +189,14 @@ export class TouristSpotsComponent implements OnInit {
             if (progress === 100) {
               setTimeout(() => {
                 getDownloadURL(upload.snapshot.ref).then((url) => {
-                  console.log(url);
-
                   resolve('uploaded');
 
-                  this.imageUrl.push(url);
+                  this.imageUrl.push({
+                    previewImageSrc: url,
+                    thumbnailImageSrc: url,
+                    alt: upload.snapshot.metadata.name,
+                    title: upload.snapshot.metadata.name,
+                  });
                 });
               }, 2000);
             }
@@ -239,14 +233,7 @@ export class TouristSpotsComponent implements OnInit {
         { value: data.descriptionSummary || '', disabled: false },
         Validators.required
       ),
-      descriptionIntro: new FormControl(
-        { value: data.descriptionIntro || '', disabled: false },
-        Validators.required
-      ),
-      descriptionBody: new FormControl(
-        { value: data.descriptionBody || '', disabled: false },
-        Validators.required
-      ),
+
       descriptionOutro: new FormControl(
         { value: data.descriptionOutro || '', disabled: false },
         Validators.required
@@ -287,6 +274,7 @@ export class TouristSpotsComponent implements OnInit {
       const tourInstance = collection(this.firestore, 'tours');
 
       addDoc(tourInstance, data).then((res) => {
+        this.imageUrl = [];
         console.log(res);
         this.spinner.hide();
         this.addTourCloseModal?.nativeElement.click();
@@ -333,12 +321,22 @@ export class TouristSpotsComponent implements OnInit {
         'tours/' + this.selectedTour.id
       );
 
-      let data = {
-        ...this.updateForm.value,
-      };
+      let data;
+      if (this.imageUrl.length === 0) {
+        data = {
+          ...this.updateForm.value,
+        };
+      } else {
+        data = {
+          ...this.updateForm.value,
+
+          imageGallery: arrayUnion(...this.imageUrl),
+        };
+      }
 
       updateDoc(updateInstance, data)
         .then((res: any) => {
+          this.imageUrl = [];
           console.log(res);
           this.successToast('Tour Updated Successfully');
           this.getTours();

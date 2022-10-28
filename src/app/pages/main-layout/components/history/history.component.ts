@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { collection, Firestore } from '@angular/fire/firestore';
 import { getDocs } from 'firebase/firestore';
+import { MarkdownService } from 'ngx-markdown';
 
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss'],
+  providers: [MarkdownService],
 })
 export class HistoryComponent implements OnInit {
   images: Array<any> = [
@@ -83,7 +85,7 @@ export class HistoryComponent implements OnInit {
       numVisible: 1,
     },
   ];
-
+  tours: Array<any> = [];
   municipalitiesList: Array<any> = [];
   constructor(private firestore: Firestore) {}
 
@@ -92,6 +94,8 @@ export class HistoryComponent implements OnInit {
       top: 0,
     });
     this.getMunicipalities();
+
+    this.getTours();
   }
 
   searchFilter(event: any) {
@@ -118,6 +122,18 @@ export class HistoryComponent implements OnInit {
         }),
       ];
       // this.spinner.hide();
+    });
+  }
+
+  getTours() {
+    const tourQuery = collection(this.firestore, 'tours');
+
+    getDocs(tourQuery).then((res: any) => {
+      this.tours = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
     });
   }
 }
