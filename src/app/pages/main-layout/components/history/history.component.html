@@ -159,7 +159,7 @@
               <h5 class="mb-3">Tourist Spots</h5>
               <ul class="px-3">
                 <li *ngFor="let spots of tours" class="mb-2">
-                  <a href="" *ngIf="history.id === spots.locationId">{{
+                  <a href="" *ngIf="history.id === spots.locationId && spots">{{
                     spots?.tourTitle
                   }}</a>
                 </li>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { collection, Firestore } from '@angular/fire/firestore';
+import { collection, Firestore, query, where } from '@angular/fire/firestore';
 import { getDocs } from 'firebase/firestore';
 import { MarkdownService } from 'ngx-markdown';
 
@@ -94,7 +94,6 @@ export class HistoryComponent implements OnInit {
       top: 0,
     });
     this.getMunicipalities();
-
     this.getTours();
   }
 
@@ -127,6 +126,7 @@ export class HistoryComponent implements OnInit {
 
   getTours() {
     const tourQuery = collection(this.firestore, 'tours');
+    // const q = query(tourQuery, where('locationId', '==', );
 
     getDocs(tourQuery).then((res: any) => {
       this.tours = [

@@ -16,7 +16,6 @@ import { AboutComponent } from './components/about/about.component';
 import { HistoryComponent } from './components/history/history.component';
 import { TouristSpotsComponent } from './components/tourist-spots/tourist-spots.component';
 import { FoodtripsComponent } from './components/foodtrips/foodtrips.component';
-import { SublianComponent } from './components/sublian/sublian.component';
 import { TabViewModule } from 'primeng/tabview';
 import { GalleriaModule } from 'primeng/galleria';
 import { PinComponent } from './components/svg-icons/pin/pin.component';
@@ -86,7 +85,6 @@ const routes: Routes = [
     HistoryComponent,
     TouristSpotsComponent,
     FoodtripsComponent,
-    SublianComponent,
     PinComponent,
     TourDetailsComponent,
     CommentsComponent,
