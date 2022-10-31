@@ -1,1 +1,180 @@
-<p>foodtrips works!</p>
+<section
+  data-aos="fade-up"
+  [ngStyle]="{
+    background:
+      'linear-gradient(rgba(0, 0, 0, 0.2),rgb(0, 0, 0,0.2)),url(/assets/images/bulalo2.jpg)',
+    backgroundAttachment: 'fixed',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPositionY: '-400px'
+  }"
+  class="hero"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col d-flex">
+        <h1 class="h1-responsive text-center">
+          <!-- <span style="font-weight: 200">Isla</span> -->
+          Foodtrips
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="black-gradient"></div> -->
+</section>
+
+<div class="page-wrapper" data-aos="fade-up">
+  <div
+    class="container py-5 text-brown"
+    style="
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 80px);
+    "
+  >
+    <div class="row my-4">
+      <div class="col">
+        <h3 class="text-center text-brown">Foodtrips in Batangas</h3>
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col-12 flex2">
+        <div class="ghost">
+          <button
+            class="btn custom-btn-drop shadow2"
+            type="button"
+            style="visibility: hidden"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              class="bi bi-filter"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="input">
+          <div class="row text-center">
+            <div class="col-10 flex3">
+              <input
+                type="text"
+                class="custom-input"
+                (keyup)="searchFilter($event)"
+                [(ngModel)]="searchValue"
+              />
+            </div>
+
+            <div class="col-2">
+              <button
+                class="fab-button btn flex"
+                (click)="searchFilter($event)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="white"
+                  class="bi bi-search"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="filter">
+          <button
+            class="btn custom-btn-drop"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              class="bi bi-filter me-2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
+              />
+            </svg>
+            Filter
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-dark" href="#">Login</a></li>
+            <li>
+              <a class="dropdown-item text-dark" href="#">Sign Up</a>
+            </li>
+            <li>
+              <a class="dropdown-item text-dark" href="#">Help</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <span *ngIf="searchValue">
+          <h4>Search Result for:</h4>
+          <span>{{ searchValue }}</span>
+        </span>
+      </div>
+    </div>
+    <div class="row my-5" *ngFor="let tour of tours">
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <header class="mb-4">
+          <h2 class="text-uppercase">{{ tour.foodTripTitle }}</h2>
+
+          <div class="location mt-3">
+            <small
+              ><app-pin></app-pin>
+              <em>{{ tour.originated }}, Batangas</em></small
+            >
+          </div>
+        </header>
+        <article>
+          <p class="introduction text-justify">
+            {{ tour.descriptionSummary }}
+          </p>
+        </article>
+
+        <div class="more">
+          <a routerLink="./foodtrip-details/{{ tour.id }}" class="text-brown"
+            >More Details</a
+          >
+        </div>
+      </div>
+      <div class="col-sm col-md-6 col-lg-6">
+        <div class="image w-100 d-flex justify-content-end">
+          <div class="about-img">
+            <img
+              class="image"
+              [src]="tour.imageGallery[0].previewImageSrc"
+              [alt]="tour.imageGallery[0].previewImageSrc"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col col-sm-12 col-md-12 col-lg-6">
+        <app-comments></app-comments>
+      </div>
+    </div>
+  </div>
+</div>

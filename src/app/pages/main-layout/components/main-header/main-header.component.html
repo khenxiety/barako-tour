@@ -39,12 +39,22 @@
             </li>
             <li>
               <a
+                routerLink="/barako-tour/foodtrips"
+                routerLinkActive="active"
+                [ngClass]="navScroll ? 'text-brown' : 'text-white'"
+                (click)="toCollapse()"
+                >Foodtrips</a
+              >
+            </li>
+            <li>
+              <a
                 routerLink="/barako-tour/history"
                 routerLinkActive="active"
                 [ngClass]="navScroll ? 'text-brown' : 'text-white'"
                 >History</a
               >
             </li>
+
             <li>
               <a
                 routerLink="/barako-tour/about"
@@ -71,6 +81,14 @@
                 routerLinkActive="active"
                 (click)="toCollapse()"
                 >Tourism</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/barako-tour/foodtrips"
+                routerLinkActive="active"
+                (click)="toCollapse()"
+                >Foodtrips</a
               >
             </li>
             <li>

@@ -96,14 +96,7 @@ export class EventsComponent implements OnInit {
         { value: '', disabled: false },
         Validators.required
       ),
-      descriptionIntro: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
-      descriptionBody: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
+
       descriptionOutro: new FormControl(
         { value: '', disabled: false },
         Validators.required
@@ -131,14 +124,7 @@ export class EventsComponent implements OnInit {
         { value: '', disabled: false },
         Validators.required
       ),
-      descriptionIntro: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
-      descriptionBody: new FormControl(
-        { value: '', disabled: false },
-        Validators.required
-      ),
+
       descriptionOutro: new FormControl(
         { value: '', disabled: false },
         Validators.required
@@ -247,14 +233,7 @@ export class EventsComponent implements OnInit {
         { value: data.descriptionSummary || '', disabled: false },
         Validators.required
       ),
-      descriptionIntro: new FormControl(
-        { value: data.descriptionIntro || '', disabled: false },
-        Validators.required
-      ),
-      descriptionBody: new FormControl(
-        { value: data.descriptionBody || '', disabled: false },
-        Validators.required
-      ),
+
       descriptionOutro: new FormControl(
         { value: data.descriptionOutro || '', disabled: false },
         Validators.required

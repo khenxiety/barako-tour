@@ -136,4 +136,16 @@ export class HistoryComponent implements OnInit {
       ];
     });
   }
+  getToursSpecific(locationId: any) {
+    const tourQuery = collection(this.firestore, 'tours');
+    const q = query(tourQuery, where('locationId', '==', locationId));
+
+    getDocs(q).then((res: any) => {
+      return [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+    });
+  }
 }

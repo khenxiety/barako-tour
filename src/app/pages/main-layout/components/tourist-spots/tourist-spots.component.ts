@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { collection, Firestore, getDocs } from '@angular/fire/firestore';
+import {
+  collection,
+  Firestore,
+  getDocs,
+  query,
+  where,
+} from '@angular/fire/firestore';
 import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
@@ -99,6 +105,7 @@ export class TouristSpotsComponent implements OnInit {
       ];
     });
   }
+
   getUserComments() {
     this.commentsService.getComments().subscribe((res) => {
       this.comments = res;

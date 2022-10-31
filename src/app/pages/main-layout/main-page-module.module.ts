@@ -26,6 +26,7 @@ import 'prismjs/components/prism-typescript.min.js';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
 import 'prismjs/plugins/line-highlight/prism-line-highlight.js';
 import { CommentsComponent } from './components/comments/comments.component';
+import { FoodtripDetailsComponent } from './components/foodtrip-details/foodtrip-details.component';
 const routes: Routes = [
   {
     path: 'barako-tour',
@@ -60,6 +61,14 @@ const routes: Routes = [
         component: TourDetailsComponent,
       },
       {
+        path: 'foodtrips',
+        component: FoodtripsComponent,
+      },
+      {
+        path: 'foodtrips/foodtrip-details/:id',
+        component: FoodtripDetailsComponent,
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
@@ -88,6 +97,7 @@ const routes: Routes = [
     PinComponent,
     TourDetailsComponent,
     CommentsComponent,
+    FoodtripDetailsComponent,
   ],
   imports: [
     CommonModule,

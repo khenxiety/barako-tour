@@ -17,7 +17,7 @@
       <div class="col d-flex">
         <h1 class="h1-responsive text-center">
           <!-- <span style="font-weight: 200">Isla</span> -->
-          {{ data?.tourTitle }}
+          {{ data?.foodTripTitle }}
         </h1>
       </div>
     </div>
@@ -38,12 +38,12 @@
     <div class="row my-4">
       <div class="col">
         <header>
-          <h2 class="text-uppercase">{{ data?.tourTitle }}</h2>
+          <h2 class="text-uppercase">{{ data?.foodTripTitle }}</h2>
 
           <div class="location mt-3">
             <small
               ><app-pin></app-pin>
-              <em>{{ data?.location }}, Batangas</em></small
+              <em>{{ data?.originated }}, Batangas</em></small
             >
           </div>
         </header>
@@ -58,34 +58,6 @@
             [data]="data?.descriptionOutro"
           ></markdown>
         </article>
-        <div class="more-details mt-5">
-          <ul class="p-0" style="list-style: none">
-            <li class="mb-3">
-              <h6>Contact:</h6>
-              <span
-                ><a
-                  href="{{ data?.contact }}"
-                  target="_blank"
-                  class="body text-justify"
-                >
-                  {{ data?.contact }}
-                </a></span
-              >
-            </li>
-            <li>
-              <h6>Email:</h6>
-              <span
-                ><a
-                  href="{{ data?.email }}"
-                  target="_blank"
-                  class="body text-justify"
-                >
-                  {{ data?.email }}
-                </a></span
-              >
-            </li>
-          </ul>
-        </div>
       </div>
       <div class="col-sm col-md-6 col-lg-6">
         <div class="image w-100 d-flex justify-content-end">

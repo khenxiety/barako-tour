@@ -77,11 +77,6 @@
   justify-content: center;
   align-items: center;
 }
-.flex2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .flex3 {
   display: flex;
@@ -109,8 +104,6 @@
 
   .image {
     width: 100%;
-    height: 400px;
-    aspect-ratio: 1;
   }
 }
 .about-img::after {
@@ -137,51 +130,4 @@
   .p-tabview-selected {
     // background-color: red;
   }
-}
-
-.input {
-  background-color: rgba(255, 255, 255, 0.644);
-  width: 40%;
-  min-width: 300px;
-  margin: 0;
-  border-radius: 50px;
-  padding: 0.5em;
-  box-shadow: 0 1px 3px rgba(113, 113, 113, 0.12),
-    0 1px 2px rgba(112, 112, 112, 0.24);
-  a {
-    text-decoration: none;
-  }
-  .fab-button {
-    background-color: #d91b2b;
-    border: none;
-    height: 100%;
-    border-radius: 100%;
-    float: right;
-    height: 50px;
-    width: 50px;
-  }
-
-  &:hover {
-    box-shadow: 0 3px 6px rgba(113, 113, 113, 0.16),
-      0 3px 6px rgba(113, 113, 113, 0.23);
-  }
-}
-.custom-input {
-  background: transparent;
-  height: 100%;
-  width: 95%;
-  border: none;
-  outline: none;
-}
-.custom-btn-drop {
-  display: flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.644);
-
-  color: black;
-  border-radius: 21px;
-  box-shadow: 0 1px 3px rgba(113, 113, 113, 0.12),
-    0 1px 2px rgba(112, 112, 112, 0.24);
-
-  max-height: 40px;
 }

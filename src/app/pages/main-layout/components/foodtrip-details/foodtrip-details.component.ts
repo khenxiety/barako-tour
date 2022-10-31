@@ -11,11 +11,11 @@ import {
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-tour-details',
-  templateUrl: './tour-details.component.html',
-  styleUrls: ['./tour-details.component.scss'],
+  selector: 'app-foodtrip-details',
+  templateUrl: './foodtrip-details.component.html',
+  styleUrls: ['./foodtrip-details.component.scss'],
 })
-export class TourDetailsComponent implements OnInit {
+export class FoodtripDetailsComponent implements OnInit {
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -47,15 +47,13 @@ export class TourDetailsComponent implements OnInit {
     });
 
     this.getTour();
-    console.log(this.dataId);
   }
 
   getTour() {
-    const tourInstance = doc(this.firestore, 'tours/' + this.dataId);
+    const tourInstance = doc(this.firestore, 'foodtrip/' + this.dataId);
 
     getDoc(tourInstance).then((res: any) => {
       this.data = res.data();
-      console.log(this.data, this.dataId);
     });
   }
 }
