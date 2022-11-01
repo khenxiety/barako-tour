@@ -27,6 +27,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
 import 'prismjs/plugins/line-highlight/prism-line-highlight.js';
 import { CommentsComponent } from './components/comments/comments.component';
 import { FoodtripDetailsComponent } from './components/foodtrip-details/foodtrip-details.component';
+import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 const routes: Routes = [
   {
     path: 'barako-tour',
@@ -98,6 +99,7 @@ const routes: Routes = [
     TourDetailsComponent,
     CommentsComponent,
     FoodtripDetailsComponent,
+    PlaceholderComponent,
   ],
   imports: [
     CommonModule,

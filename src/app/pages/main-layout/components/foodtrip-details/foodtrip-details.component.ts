@@ -32,7 +32,7 @@ export class FoodtripDetailsComponent implements OnInit {
   ];
 
   data: any;
-
+  image: any = '';
   dataId: any;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -54,6 +54,8 @@ export class FoodtripDetailsComponent implements OnInit {
 
     getDoc(tourInstance).then((res: any) => {
       this.data = res.data();
+
+      this.image = `url(${this.data?.imageGallery[0].previewImageSrc})`;
     });
   }
 }

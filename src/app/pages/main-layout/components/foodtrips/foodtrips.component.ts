@@ -19,6 +19,8 @@ export class FoodtripsComponent implements OnInit {
   public comments: Array<any> = [];
 
   searchValue: any;
+
+  isLoading: boolean = false;
   constructor(
     private firestore: Firestore,
     private commentsService: CommentsService
@@ -28,7 +30,7 @@ export class FoodtripsComponent implements OnInit {
     window.scroll({
       top: 0,
     });
-
+    this.isLoading = true;
     this.getTours();
     this.getUserComments();
   }
@@ -50,6 +52,7 @@ export class FoodtripsComponent implements OnInit {
   }
 
   getTours() {
+    this.isLoading = true;
     const tourQuery = collection(this.firestore, 'foodtrip');
 
     getDocs(tourQuery).then((res: any) => {
@@ -58,14 +61,13 @@ export class FoodtripsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+      this.isLoading = false;
     });
   }
 
   getUserComments() {
     this.commentsService.getComments().subscribe((res) => {
       this.comments = res;
-
-      console.log(res);
     });
   }
   addUserComments() {
@@ -77,8 +79,6 @@ export class FoodtripsComponent implements OnInit {
     };
 
     this.commentsService.addComment(data).subscribe((res) => {
-      console.log(res);
-
       this.comment = '';
     });
   }

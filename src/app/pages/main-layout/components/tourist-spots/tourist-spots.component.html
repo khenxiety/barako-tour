@@ -134,6 +134,10 @@
         </span>
       </div>
     </div>
+    <app-placeholder
+      [isLoading]="isLoading"
+      [renderOn]="'tourism'"
+    ></app-placeholder>
     <div class="row my-5" *ngFor="let tour of tours; let even = even">
       <div class="col-sm-12 col-md-6 col-lg-6">
         <header class="mb-4">

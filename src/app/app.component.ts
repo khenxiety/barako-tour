@@ -35,7 +35,5 @@ export class AppComponent implements OnInit {
     // double each values
 
     const total = object.filter((res) => res.id != 2);
-
-    console.log(total);
   }
 }

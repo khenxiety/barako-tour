@@ -1,0 +1,167 @@
+<div class="row text-brown my-5" *ngIf="isLoading">
+  <div class="col">
+    <header class="text-capitalize">
+      <h1>
+        <p class="placeholder-glow">
+          <span class="placeholder col-4 placeholder-lg placeholder"></span>
+        </p>
+      </h1>
+      <div class="location mt-3">
+        <p class="placeholder-glow">
+          <span class="placeholder col-3 placeholder-s placeholder-glow"></span>
+        </p>
+      </div>
+    </header>
+
+    <article class="description my-4">
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder col-12 placeholder-s"></span>
+      </p>
+
+      <p
+        class="placeholder-glow mt-4"
+        *ngIf="renderOn == 'tourism' || renderOn == 'foodtrips'"
+      >
+        <span class="placeholder placeholder-lg col-3"></span>
+      </p>
+
+      <p class="placeholder-glow" *ngIf="renderOn == 'tour details'">
+        <span class="placeholder col-6 placeholder-s"></span>
+      </p>
+      <p class="placeholder-glow" *ngIf="renderOn == 'tour details'">
+        <span class="placeholder col-6 placeholder-s"></span>
+      </p>
+      <!-- <div [innerHTML]="typescriptMarkdown | language : 'typescript' | markdown"></div> -->
+    </article>
+  </div>
+
+  <div class="col">
+    <div class="placeholder-image"></div>
+
+    <div class="row mt-5" *ngIf="renderOn == 'history'">
+      <div class="col-4">
+        <h5 class="mb-3">
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-6 placeholder-lg placeholder-glow"
+            ></span>
+          </p>
+        </h5>
+        <ul class="px-3">
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+        </ul>
+      </div>
+      <div class="col-4">
+        <h5 class="mb-3">
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-6 placeholder-lg placeholder-glow"
+            ></span>
+          </p>
+        </h5>
+        <ul class="px-3">
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+        </ul>
+      </div>
+      <div class="col-4">
+        <h5 class="mb-3">
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-6 placeholder-lg placeholder-glow"
+            ></span>
+          </p>
+        </h5>
+        <ul class="px-3">
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+          <p class="placeholder-glow">
+            <span
+              class="placeholder col-12 placeholder-s placeholder-glow"
+            ></span>
+          </p>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

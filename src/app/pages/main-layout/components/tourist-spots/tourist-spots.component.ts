@@ -60,7 +60,7 @@ export class TouristSpotsComponent implements OnInit {
       numVisible: 1,
     },
   ];
-
+  isLoading: boolean = false;
   comment: any;
   public tours: Array<any> = [];
   public comments: Array<any> = [];
@@ -76,6 +76,7 @@ export class TouristSpotsComponent implements OnInit {
       top: 0,
     });
 
+    this.isLoading = true;
     this.getTours();
     this.getUserComments();
   }
@@ -96,6 +97,7 @@ export class TouristSpotsComponent implements OnInit {
 
   getTours() {
     const tourQuery = collection(this.firestore, 'tours');
+    this.isLoading = true;
 
     getDocs(tourQuery).then((res: any) => {
       this.tours = [
@@ -103,14 +105,13 @@ export class TouristSpotsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+      this.isLoading = false;
     });
   }
 
   getUserComments() {
     this.commentsService.getComments().subscribe((res) => {
       this.comments = res;
-
-      console.log(res);
     });
   }
   addUserComments() {
@@ -122,8 +123,6 @@ export class TouristSpotsComponent implements OnInit {
     };
 
     this.commentsService.addComment(data).subscribe((res) => {
-      console.log(res);
-
       this.comment = '';
     });
   }

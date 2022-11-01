@@ -99,6 +99,10 @@
         </div>
       </div>
 
+      <app-placeholder
+        [isLoading]="isLoading"
+        [renderOn]="'history'"
+      ></app-placeholder>
       <div
         class="row text-brown my-5"
         *ngFor="let history of municipalitiesList"

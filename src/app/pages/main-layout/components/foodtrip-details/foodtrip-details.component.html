@@ -1,10 +1,7 @@
 <section
   data-aos="fade-up"
+  [style.background-image]="image"
   [ngStyle]="{
-    backgroundImage:
-      'linear-gradient(rgba(0, 0, 0, 0.3),rgb(0, 0, 0,0.3)),url(' +
-      '{{data?.imageGallery[0].previewImageSrc}}' +
-      '}})',
     backgroundAttachment: 'fixed',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',

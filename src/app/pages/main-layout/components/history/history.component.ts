@@ -85,6 +85,8 @@ export class HistoryComponent implements OnInit {
       numVisible: 1,
     },
   ];
+
+  isLoading: boolean = false;
   tours: Array<any> = [];
   municipalitiesList: Array<any> = [];
   constructor(private firestore: Firestore) {}
@@ -93,6 +95,8 @@ export class HistoryComponent implements OnInit {
     window.scroll({
       top: 0,
     });
+
+    this.isLoading = true;
     this.getMunicipalities();
     this.getTours();
   }
@@ -112,14 +116,16 @@ export class HistoryComponent implements OnInit {
   }
 
   getMunicipalities() {
+    this.isLoading = true;
     const tourQuery = collection(this.firestore, 'history');
-
     getDocs(tourQuery).then((res: any) => {
       this.municipalitiesList = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+      this.isLoading = false;
+
       // this.spinner.hide();
     });
   }
@@ -134,6 +140,7 @@ export class HistoryComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+      this.isLoading = false;
     });
   }
   getToursSpecific(locationId: any) {

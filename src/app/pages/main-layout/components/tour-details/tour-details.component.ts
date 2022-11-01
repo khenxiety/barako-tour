@@ -34,6 +34,10 @@ export class TourDetailsComponent implements OnInit {
   data: any;
 
   dataId: any;
+
+  isLoading: boolean = false;
+
+  image: any = '';
   constructor(
     private activatedRoute: ActivatedRoute,
     private firestore: Firestore
@@ -46,16 +50,18 @@ export class TourDetailsComponent implements OnInit {
       top: 0,
     });
 
+    this.isLoading = true;
     this.getTour();
-    console.log(this.dataId);
   }
 
   getTour() {
     const tourInstance = doc(this.firestore, 'tours/' + this.dataId);
-
+    this.isLoading = true;
     getDoc(tourInstance).then((res: any) => {
       this.data = res.data();
-      console.log(this.data, this.dataId);
+
+      this.image = `url(${this.data?.imageGallery[0].previewImageSrc})`;
+      this.isLoading = false;
     });
   }
 }
