@@ -13,6 +13,24 @@
           <h3 class="text-center text-brown">About Barako Tour</h3>
         </div>
       </div>
+
+      <div class="row my-5">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <article>
+            <markdown
+              class="variable-binding text-justify text-brown"
+              [data]="aboutContent[0]?.aboutDescription"
+            ></markdown>
+          </article>
+        </div>
+        <div class="col-sm col-md-6 col-lg-6">
+          <div
+            class="image w-100 d-flex justify-content-end align-items-center"
+          >
+            <img class="image" src="assets/logo2.png" alt="" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

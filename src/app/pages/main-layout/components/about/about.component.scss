@@ -1,73 +1,94 @@
-
-*{
-    transition: .3s all ease-in-out;
-
+* {
+  transition: 0.3s all ease-in-out;
 }
-.page-wrapper{
-    min-height: 100vh;
-    padding-top: 80px;
+.page-wrapper {
+  min-height: 100vh;
+  padding-top: 80px;
 
-    
+  color: white;
+  position: relative;
 
+  h1 {
+    font-weight: 700;
+  }
 
-   
-
-    color: white;
-    position: relative;
-
-    h1{
-        font-weight: 700;
-    }
-
-    .page-content{
-        background:linear-gradient(#eff1db,#eff1dbda),url('/assets/batangas map.png') ;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-attachment: fixed;
-    }
+  .page-content {
+    background: linear-gradient(#eff1db, #eff1dbda),
+      url("/assets/batangas map.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+  }
 }
 
-.image{
-    height:calc(100vh - 80px - 30vh);
-    width:100%;
+.image {
+  height: calc(100vh - 80px - 30vh);
+  width: 100%;
 }
 
-.custom-btn{
-    border: none;
-    background: rgba(0, 0, 0, 0.618);
-    color: white;
-    padding: 1em;
+.custom-btn {
+  border: none;
+  background: rgba(0, 0, 0, 0.618);
+  color: white;
+  padding: 1em;
 
+  &:hover {
+    background-color: #d91b2b;
+  }
 
-    &:hover{
-        background-color: #d91b2b;
-    }
-
-    &:active{
-        background-color: #d91b2b;
-
-    }
-    
+  &:active {
+    background-color: #d91b2b;
+  }
 }
-.ghost-div{
-    width: 90px;
-    min-height: 300px;
-
-
+.ghost-div {
+  width: 90px;
+  min-height: 300px;
 }
 
-
-.flex{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.flex3{
-    display: flex;
-    justify-content: right;
-    align-items: center;
-
+.flex3 {
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
 
+.about-img {
+  padding: 1.2em;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(196, 196, 196, 0.63),
+      rgb(255, 255, 255)
+    ),
+    url("/assets/images/BT.png");
+  background-size: cover;
+  background-position: center;
+
+  position: relative;
+  width: 80%;
+  transition: all 0.5s;
+  transform: rotateZ(7deg);
+
+  height: max-content;
+}
+.about-img::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  height: 20px;
+  width: 100%;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/rip.svg) bottom
+    center;
+  background-size: 150%;
+  filter: drop-shadow(0 6px 2px rgba(0, 0, 0, 0.24));
+}
+.image {
+  aspect-ratio: 1;
+  height: 200px;
+  width: 100%;
+}

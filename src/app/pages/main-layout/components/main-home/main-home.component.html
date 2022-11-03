@@ -208,7 +208,14 @@
                   <div class="title text-center mb-3">
                     {{ food.foodTripTitle }}
                   </div>
-                  <button class="btn custom-btn">View</button>
+                  <button
+                    class="btn custom-btn"
+                    routerLink="/barako-tour/foodtrips/foodtrip-details/{{
+                      food.id
+                    }}"
+                  >
+                    View
+                  </button>
                 </div>
               </div>
             </ng-template>
@@ -250,12 +257,21 @@
             <!-- <ng-template swiperSlide>
               <div class="ghost-div"></div>
             </ng-template> -->
-            <ng-template swiperSlide *ngFor="let count of test">
+            <ng-template swiperSlide *ngFor="let count of festivals">
               <div class="card">
                 <div class="black-gradient"></div>
-                <img src="{{ count.pic }}" alt="{{ count.pic }}" />
+                <img
+                  src="{{
+                    count.imageGallery[0]?.previewImageSrc
+                      ? count.imageGallery[0]?.previewImageSrc
+                      : '/assets/images/bats.jpg'
+                  }}"
+                  alt="{{ count.imageGallery[0] }}"
+                />
                 <div class="floating-btn">
-                  <div class="title text-center mb-3">Some Title</div>
+                  <div class="title text-center mb-3">
+                    {{ count.festivalTitle }}
+                  </div>
                   <button class="btn custom-btn">View</button>
                 </div>
               </div>

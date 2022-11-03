@@ -49,6 +49,8 @@ export class MainHomeComponent implements OnInit {
   ];
 
   foodtrips: Array<any> = [];
+  festivals: Array<any> = [];
+
   tours: Array<any> = [];
   constructor(private firestore: Firestore) {}
 
@@ -59,6 +61,7 @@ export class MainHomeComponent implements OnInit {
 
     this.getTours();
     this.getFoodtrips();
+    this.getFestival();
   }
   config2: SwiperOptions = {
     slidesPerView: 1,
@@ -108,6 +111,18 @@ export class MainHomeComponent implements OnInit {
 
     getDocs(tourQuery).then((res: any) => {
       this.foodtrips = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+    });
+  }
+
+  getFestival(): void {
+    const tourQuery = collection(this.firestore, 'festivals');
+
+    getDocs(tourQuery).then((res: any) => {
+      this.festivals = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
         }),

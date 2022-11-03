@@ -166,8 +166,12 @@
           <div class="about-img">
             <img
               class="image"
-              [src]="tour.imageGallery[0].previewImageSrc"
-              [alt]="tour.imageGallery[0].previewImageSrc"
+              [src]="
+                tour?.imageGallery[0]?.previewImageSrc
+                  ? tour?.imageGallery[0]?.previewImageSrc
+                  : 'assets/logo2.png'
+              "
+              [alt]="tour?.imageGallery[0]?.previewImageSrc"
             />
           </div>
         </div>

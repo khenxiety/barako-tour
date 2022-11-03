@@ -3,6 +3,7 @@ import {
   collection,
   Firestore,
   getDocs,
+  limit,
   query,
   where,
 } from '@angular/fire/firestore';
@@ -76,7 +77,6 @@ export class TouristSpotsComponent implements OnInit {
       top: 0,
     });
 
-    this.isLoading = true;
     this.getTours();
     this.getUserComments();
   }
@@ -97,6 +97,8 @@ export class TouristSpotsComponent implements OnInit {
 
   getTours() {
     const tourQuery = collection(this.firestore, 'tours');
+
+    const limitq = query(tourQuery, limit(10));
     this.isLoading = true;
 
     getDocs(tourQuery).then((res: any) => {
