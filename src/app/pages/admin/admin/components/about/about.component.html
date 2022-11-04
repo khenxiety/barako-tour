@@ -9,5 +9,32 @@
         <h3>Manage About</h3>
       </header>
     </div>
+
+    <div class="row my-4">
+      <div class="col-12">
+        <form action="" [formGroup]="updateForm">
+          <div class="form-group">
+            <label for="description">About Description</label>
+
+            <textarea
+              name="about"
+              formControlName="aboutDescription"
+              class="form-control"
+              id="about"
+              cols="30"
+              rows="20"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-primary" (click)="selectData(tours[0].id)">
+          Update About
+        </button>
+      </div>
+    </div>
   </div>
 </div>

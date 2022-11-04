@@ -10,7 +10,7 @@ import { SwiperModule } from 'swiper/angular';
 import { FooterComponent } from './components/footer/footer.component';
 import { EventComponent } from './components/event/event.component';
 import { CalendarModule } from 'primeng/calendar';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageModule } from 'primeng/image';
 import { AboutComponent } from './components/about/about.component';
 import { HistoryComponent } from './components/history/history.component';
@@ -28,6 +28,9 @@ import 'prismjs/plugins/line-highlight/prism-line-highlight.js';
 import { CommentsComponent } from './components/comments/comments.component';
 import { FoodtripDetailsComponent } from './components/foodtrip-details/foodtrip-details.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+
 const routes: Routes = [
   {
     path: 'barako-tour',
@@ -100,6 +103,8 @@ const routes: Routes = [
     CommentsComponent,
     FoodtripDetailsComponent,
     PlaceholderComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     CommonModule,
@@ -107,6 +112,7 @@ const routes: Routes = [
     SwiperModule,
     CalendarModule,
     FormsModule,
+    ReactiveFormsModule,
     ImageModule,
     TabViewModule,
     GalleriaModule,
