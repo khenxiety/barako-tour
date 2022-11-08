@@ -138,38 +138,46 @@
       [isLoading]="isLoading"
       [renderOn]="'foodtrips'"
     ></app-placeholder>
-    <div class="row my-5" *ngFor="let tour of tours">
-      <div class="col-sm-12 col-md-6 col-lg-6">
-        <header class="mb-4">
-          <h2 class="text-uppercase">{{ tour.foodTripTitle }}</h2>
+    <div class="row" *ngFor="let tour of tours; let i = index">
+      <div [ngClass]="i % 2 === 0 ? 'row my-5' : 'row flex-row-reverse my-5'">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <header class="mb-4">
+            <h2 class="text-uppercase">{{ tour.foodTripTitle }}</h2>
 
-          <div class="location mt-3">
-            <small
-              ><app-pin></app-pin>
-              <em>{{ tour.originated }}, Batangas</em></small
+            <div class="location mt-3">
+              <small
+                ><app-pin></app-pin>
+                <em>{{ tour.originated }}, Batangas</em></small
+              >
+            </div>
+          </header>
+          <article>
+            <p class="introduction text-justify">
+              {{ tour.descriptionSummary }}
+            </p>
+          </article>
+
+          <div class="more">
+            <a routerLink="./foodtrip-details/{{ tour.id }}" class="text-brown"
+              >More Details</a
             >
           </div>
-        </header>
-        <article>
-          <p class="introduction text-justify">
-            {{ tour.descriptionSummary }}
-          </p>
-        </article>
-
-        <div class="more">
-          <a routerLink="./foodtrip-details/{{ tour.id }}" class="text-brown"
-            >More Details</a
-          >
         </div>
-      </div>
-      <div class="col-sm col-md-6 col-lg-6">
-        <div class="image w-100 d-flex justify-content-end">
-          <div class="about-img">
-            <img
-              class="image"
-              [src]="tour.imageGallery[0].previewImageSrc"
-              [alt]="tour.imageGallery[0].previewImageSrc"
-            />
+        <div class="col-sm col-md-6 col-lg-6">
+          <div
+            [ngClass]="
+              i % 2 === 0
+                ? 'image w-100 d-flex justify-content-end'
+                : 'image w-100 d-flex justify-content-start'
+            "
+          >
+            <div [ngClass]="i % 2 === 0 ? 'about-img' : 'about-img2'">
+              <img
+                class="image"
+                [src]="tour.imageGallery[0].previewImageSrc"
+                [alt]="tour.imageGallery[0].previewImageSrc"
+              />
+            </div>
           </div>
         </div>
       </div>

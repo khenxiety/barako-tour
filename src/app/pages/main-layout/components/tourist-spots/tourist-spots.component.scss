@@ -113,7 +113,43 @@
     aspect-ratio: 1;
   }
 }
+.about-img2 {
+  padding: 1.2em;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(196, 196, 196, 0.63),
+      rgb(255, 255, 255)
+    ),
+    url("/assets/images/BT.png");
+  background-size: cover;
+  background-position: center;
+
+  position: relative;
+  width: 80%;
+  transition: all 0.5s;
+  transform: rotateZ(-7deg);
+
+  height: max-content;
+
+  .image {
+    width: 100%;
+    height: 400px;
+    aspect-ratio: 1;
+  }
+}
 .about-img::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  height: 20px;
+  width: 100%;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/rip.svg) bottom
+    center;
+  background-size: 150%;
+  filter: drop-shadow(0 6px 2px rgba(0, 0, 0, 0.24));
+}
+.about-img2::after {
   content: "";
   position: absolute;
   top: 100%;

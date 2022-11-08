@@ -144,7 +144,7 @@
               <img
                 [src]="item.previewImageSrc"
                 [alt]="item.alt"
-                style="width: 100%; aspect-ratio: 1"
+                style="width: 100%; aspect-ratio: 1; height: 500px"
               />
             </ng-template>
 
@@ -161,29 +161,21 @@
           <div class="row mt-5">
             <div class="col-4">
               <h5 class="mb-3">Tourist Spots</h5>
-              <ul class="px-3">
-                <li *ngFor="let spots of tours" class="mb-2">
-                  <a href="" *ngIf="history.id === spots.locationId && spots">{{
-                    spots?.tourTitle
-                  }}</a>
-                </li>
-              </ul>
+              <a href="" class="mt-4"
+                >See all Tourist Spots in {{ history.municipality }}</a
+              >
             </div>
             <div class="col-4">
               <h5 class="mb-3">Foodtrips</h5>
-              <ul class="px-3">
-                <li *ngFor="let spots of tourist" class="mb-2">
-                  <a href="">{{ spots.title }}</a>
-                </li>
-              </ul>
+              <a href="" class="mt-4"
+                >See all Foodtrips Spots in {{ history.municipality }}</a
+              >
             </div>
             <div class="col-4">
               <h5 class="mb-3">Festivals</h5>
-              <ul class="px-3">
-                <li *ngFor="let spots of tourist" class="mb-2">
-                  <a href="">{{ spots.title }}</a>
-                </li>
-              </ul>
+              <a href="" class="mt-4"
+                >See all Festivals Spots in {{ history.municipality }}</a
+              >
             </div>
           </div>
         </div>

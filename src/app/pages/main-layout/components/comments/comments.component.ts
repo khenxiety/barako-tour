@@ -32,12 +32,10 @@ export class CommentsComponent implements OnInit {
       comment: this.comment,
 
       commentDate: new Date().toString(),
-      user: 'user',
+      user: 'Guest',
     };
 
     this.commentsService.addComment(data).subscribe((res) => {
-      console.log(res);
-
       this.comment = '';
     });
   }

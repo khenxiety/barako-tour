@@ -1,3 +1,4 @@
+<p-toast position="top-right"></p-toast>
 <header class="shadow2">
   <div class="container">
     <div class="row">
@@ -32,7 +33,7 @@
         </div>
       </div>
       <div class="col-5">
-        <form>
+        <form [formGroup]="usersForm">
           <div class="form-header"><h3>Login</h3></div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label"
@@ -41,12 +42,21 @@
             <input
               type="email"
               class="form-control"
+              formControlName="email"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
             />
             <!-- <div id="emailHelp" class="form-text">
               We'll never share your email with anyone else.
             </div> -->
+            <small
+              class="text-danger"
+              *ngIf="
+                usersForm.controls['email'].hasError('required') &&
+                usersForm.controls['email'].touched
+              "
+              >Please fill up the missing field.</small
+            >
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label"
@@ -56,7 +66,16 @@
               type="password"
               class="form-control"
               id="exampleInputPassword1"
+              formControlName="password"
             />
+            <small
+              class="text-danger"
+              *ngIf="
+                usersForm.controls['password'].hasError('required') &&
+                usersForm.controls['password'].touched
+              "
+              >Please fill up the missing field.</small
+            >
           </div>
           <div class="mb-3 form-check">
             <input
@@ -68,11 +87,7 @@
               >Show Password</label
             >
           </div>
-          <button
-            class="btn btn-secondary"
-            type="button"
-            routerLink="/barako-admin"
-          >
+          <button class="btn btn-secondary" type="button" (click)="signIn()">
             Login
           </button>
         </form>

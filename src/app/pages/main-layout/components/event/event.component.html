@@ -15,12 +15,31 @@
       </div>
       <div class="row my-4">
         <div class="col-md-5 mb-3 d-flex justify-content-center">
-          <p-calendar
+          <!-- <p-calendar
             [(ngModel)]="date14"
             [inline]="true"
             [showWeek]="true"
             (ngModelChange)="test()"
-          ></p-calendar>
+          ></p-calendar> -->
+          <p-calendar
+            [inline]="true"
+            [(ngModel)]="date14"
+            (ngModelChange)="test()"
+          >
+            <ng-template pTemplate="date" let-date>
+              <span
+                [ngStyle]="{
+                  backgroundColor:
+                    date.month + '/' + date.day == '10/4'
+                      ? '#7cc67c'
+                      : 'inherit',
+                  width: '20px'
+                }"
+                style="border-radius: 50%"
+                >{{ date.day }}</span
+              >
+            </ng-template>
+          </p-calendar>
         </div>
         <div class="col-md-7">
           <div class="card text-brown">

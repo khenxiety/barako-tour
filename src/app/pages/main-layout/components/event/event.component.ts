@@ -12,6 +12,6 @@ export class EventComponent implements OnInit {
   ngOnInit(): void {}
 
   test() {
-    console.log(this.date14);
+    console.log(this.date14?.toLocaleDateString());
   }
 }

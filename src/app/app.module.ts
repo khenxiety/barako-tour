@@ -21,6 +21,7 @@ import 'prismjs';
 import 'prismjs/components/prism-typescript.min.js';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
 import 'prismjs/plugins/line-highlight/prism-line-highlight.js';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [AppComponent, AdminLoginComponent],
   imports: [
@@ -37,6 +38,8 @@ import 'prismjs/plugins/line-highlight/prism-line-highlight.js';
     ToastModule,
     NgxSpinnerModule,
     MarkdownModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

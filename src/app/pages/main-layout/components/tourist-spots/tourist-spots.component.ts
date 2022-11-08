@@ -61,6 +61,7 @@ export class TouristSpotsComponent implements OnInit {
       numVisible: 1,
     },
   ];
+  public municipalities: Array<any> = [];
   isLoading: boolean = false;
   comment: any;
   public tours: Array<any> = [];
@@ -79,6 +80,7 @@ export class TouristSpotsComponent implements OnInit {
 
     this.getTours();
     this.getUserComments();
+    this.getMunicipalities();
   }
 
   searchFilter(event: any) {
@@ -93,6 +95,35 @@ export class TouristSpotsComponent implements OnInit {
         res.tourTitle.toLowerCase().includes(this.searchValue.toLowerCase()) ||
         res.location.toLowerCase().includes(this.searchValue.toLowerCase())
     );
+  }
+  async filter(event: any) {
+    console.log(event);
+
+    await this.getTours();
+    // const filterValue = (event.target as HTMLInputElement).value;
+    // if (filterValue == '') {
+    //   this.getTours();
+    //   return;
+    // }
+
+    this.tours = this.tours.filter(
+      (res: any) =>
+        res.tourTitle.toLowerCase().includes(event.toLowerCase()) ||
+        res.location.toLowerCase().includes(event.toLowerCase())
+    );
+  }
+  getMunicipalities() {
+    const municipalities = collection(this.firestore, 'history');
+
+    getDocs(municipalities).then((res) => {
+      this.municipalities = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+      console.log(this.municipalities);
+      this.isLoading = false;
+    });
   }
 
   getTours() {
