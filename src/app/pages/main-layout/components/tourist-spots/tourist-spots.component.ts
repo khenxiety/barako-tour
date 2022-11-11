@@ -84,17 +84,28 @@ export class TouristSpotsComponent implements OnInit {
   }
 
   searchFilter(event: any) {
+    this.getTours();
     const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
     if (filterValue == '') {
-      this.getTours();
-      return;
-    }
+      this.isLoading = false;
 
-    this.tours = this.tours.filter(
-      (res: any) =>
-        res.tourTitle.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-        res.location.toLowerCase().includes(this.searchValue.toLowerCase())
-    );
+      this.getTours();
+      this.searchValue = '';
+      return;
+    } else {
+      setTimeout(() => {
+        this.isLoading = false;
+
+        this.tours = this.tours.filter(
+          (res: any) =>
+            res.tourTitle
+              .toLowerCase()
+              .includes(this.searchValue.toLowerCase()) ||
+            res.location.toLowerCase().includes(this.searchValue.toLowerCase())
+        );
+      }, 1000);
+    }
   }
   async filter(event: any) {
     console.log(event);

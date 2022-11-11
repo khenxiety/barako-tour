@@ -89,6 +89,9 @@ export class HistoryComponent implements OnInit {
   isLoading: boolean = false;
   tours: Array<any> = [];
   municipalitiesList: Array<any> = [];
+
+  municipalitiesFilter: Array<any> = [];
+  public searchValue: any;
   constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {
@@ -102,17 +105,28 @@ export class HistoryComponent implements OnInit {
   }
 
   searchFilter(event: any) {
+    this.getMunicipalities();
     const filterValue = (event.target as HTMLInputElement).value;
-    if (filterValue == '') {
-      this.getMunicipalities();
-      return;
-    }
+    console.log(this.searchValue);
+    if (filterValue == '' || filterValue == 'All') {
+      this.isLoading = false;
 
-    this.municipalitiesList = this.municipalitiesList.filter(
-      (res: any) =>
-        res.municipality.toLowerCase().includes(filterValue.toLowerCase()) ||
-        res.mayor.toLowerCase().includes(filterValue.toLowerCase())
-    );
+      this.getMunicipalities();
+      this.searchValue = '';
+      return;
+    } else {
+      setTimeout(() => {
+        this.isLoading = false;
+
+        this.municipalitiesList = this.municipalitiesList.filter(
+          (res: any) =>
+            res.municipality
+              .toLowerCase()
+              .includes(this.searchValue.toLowerCase()) ||
+            res.mayor.toLowerCase().includes(this.searchValue.toLowerCase())
+        );
+      }, 1000);
+    }
   }
 
   getMunicipalities() {
@@ -124,6 +138,7 @@ export class HistoryComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+      this.municipalitiesFilter = this.municipalitiesList;
       this.isLoading = false;
 
       // this.spinner.hide();
@@ -140,6 +155,8 @@ export class HistoryComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+
+      console.log(this.municipalitiesFilter);
       this.isLoading = false;
     });
   }
