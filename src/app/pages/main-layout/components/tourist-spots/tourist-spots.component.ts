@@ -77,7 +77,6 @@ export class TouristSpotsComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     console.log(filterValue);
     if (filterValue == '') {
-<<<<<<< HEAD
       this.getTours();
       return;
     }
@@ -95,26 +94,6 @@ export class TouristSpotsComponent implements OnInit {
           res.location.toLowerCase().includes(this.searchValue.toLowerCase())
       );
     }, 500);
-=======
-      this.isLoading = false;
-
-      this.getTours();
-      this.searchValue = '';
-      return;
-    } else {
-      setTimeout(() => {
-        this.isLoading = false;
-
-        this.tours = this.tours.filter(
-          (res: any) =>
-            res.tourTitle
-              .toLowerCase()
-              .includes(this.searchValue.toLowerCase()) ||
-            res.location.toLowerCase().includes(this.searchValue.toLowerCase())
-        );
-      }, 1000);
-    }
->>>>>>> 460adf4e7e02ac04c320bef9af30dc3d17161b8c
   }
   async filter(event: any) {
     console.log(event);

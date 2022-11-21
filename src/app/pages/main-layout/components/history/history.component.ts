@@ -29,7 +29,7 @@ export class HistoryComponent implements OnInit {
 
   isLoading: boolean = false;
   tours: Array<any> = [];
-  municipalitiesDropdown: Array<any> = [];
+  municipalitiesList: Array<any> = [];
 
   municipalitiesFilter: Array<any> = [];
   public searchValue: any;
@@ -64,7 +64,7 @@ export class HistoryComponent implements OnInit {
       setTimeout(() => {
         this.isLoading = false;
 
-        this.municipalitiesDropdown = this.municipalitiesDropdown.filter(
+        this.municipalitiesList = this.municipalitiesList.filter(
           (res: any) =>
             res.municipality
               .toLowerCase()
@@ -87,9 +87,8 @@ export class HistoryComponent implements OnInit {
 
     setTimeout(() => {
       this.isLoading = false;
-      this.municipalitiesDropdown = this.municipalitiesDropdown.filter(
-        (res: any) =>
-          res.municipality.toLowerCase().includes(event.toLowerCase())
+      this.municipalitiesList = this.municipalitiesList.filter((res: any) =>
+        res.municipality.toLowerCase().includes(event.toLowerCase())
       );
     }, 500);
   }
@@ -98,12 +97,12 @@ export class HistoryComponent implements OnInit {
     this.isLoading = true;
     const tourQuery = collection(this.firestore, 'history');
     getDocs(tourQuery).then((res: any) => {
-      this.municipalitiesDropdown = [
+      this.municipalitiesList = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
         }),
       ];
-      this.municipalitiesFilter = this.municipalitiesDropdown;
+      this.municipalitiesFilter = this.municipalitiesList;
       this.isLoading = false;
 
       // this.spinner.hide();
