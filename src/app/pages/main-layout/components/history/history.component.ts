@@ -29,13 +29,11 @@ export class HistoryComponent implements OnInit {
 
   isLoading: boolean = false;
   tours: Array<any> = [];
-  municipalitiesList: Array<any> = [];
-
   municipalitiesDropdown: Array<any> = [];
-  constructor(
-    private firestore: Firestore,
-    private activatedRoute: ActivatedRoute
-  ) {}
+
+  municipalitiesFilter: Array<any> = [];
+  public searchValue: any;
+  constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {
     window.scroll({
@@ -53,17 +51,28 @@ export class HistoryComponent implements OnInit {
   }
 
   searchFilter(event: any) {
+    this.getMunicipalities();
     const filterValue = (event.target as HTMLInputElement).value;
-    if (filterValue == '') {
-      this.getMunicipalities();
-      return;
-    }
+    console.log(this.searchValue);
+    if (filterValue == '' || filterValue == 'All') {
+      this.isLoading = false;
 
-    this.municipalitiesList = this.municipalitiesList.filter(
-      (res: any) =>
-        res.municipality.toLowerCase().includes(filterValue.toLowerCase()) ||
-        res.mayor.toLowerCase().includes(filterValue.toLowerCase())
-    );
+      this.getMunicipalities();
+      this.searchValue = '';
+      return;
+    } else {
+      setTimeout(() => {
+        this.isLoading = false;
+
+        this.municipalitiesDropdown = this.municipalitiesDropdown.filter(
+          (res: any) =>
+            res.municipality
+              .toLowerCase()
+              .includes(this.searchValue.toLowerCase()) ||
+            res.mayor.toLowerCase().includes(this.searchValue.toLowerCase())
+        );
+      }, 1000);
+    }
   }
 
   async filter(event: any) {
@@ -78,8 +87,9 @@ export class HistoryComponent implements OnInit {
 
     setTimeout(() => {
       this.isLoading = false;
-      this.municipalitiesList = this.municipalitiesList.filter((res: any) =>
-        res.municipality.toLowerCase().includes(event.toLowerCase())
+      this.municipalitiesDropdown = this.municipalitiesDropdown.filter(
+        (res: any) =>
+          res.municipality.toLowerCase().includes(event.toLowerCase())
       );
     }, 500);
   }
@@ -88,13 +98,12 @@ export class HistoryComponent implements OnInit {
     this.isLoading = true;
     const tourQuery = collection(this.firestore, 'history');
     getDocs(tourQuery).then((res: any) => {
-      this.municipalitiesList = [
+      this.municipalitiesDropdown = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
         }),
       ];
-
-      this.municipalitiesDropdown = [...this.municipalitiesList];
+      this.municipalitiesFilter = this.municipalitiesDropdown;
       this.isLoading = false;
 
       // this.spinner.hide();
@@ -111,6 +120,8 @@ export class HistoryComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+
+      console.log(this.municipalitiesFilter);
       this.isLoading = false;
     });
   }

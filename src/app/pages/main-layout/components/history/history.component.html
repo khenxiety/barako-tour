@@ -42,6 +42,8 @@
                   type="text"
                   class="custom-input"
                   (keyup)="searchFilter($event)"
+                  [(ngModel)]="searchValue"
+                  name="searchValue"
                 />
               </div>
 
@@ -64,26 +66,16 @@
             </div>
           </div>
           <div class="filter">
-            <button
-              class="btn custom-btn-drop"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+            <select
+              #select
+              class="form-select custom-btn-drop"
+              aria-label="Default select example"
+              (change)="searchFilter($event)"
+              [(ngModel)]="searchValue"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                class="bi bi-filter me-2"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
-                />
-              </svg>
               Filter
-            </button>
+            </select>
+
             <ul class="dropdown-menu">
               <li>
                 <a class="dropdown-item text-dark" (click)="filter('all')">
@@ -91,7 +83,7 @@
                 >
               </li>
               <li
-                *ngFor="let municipality of municipalitiesDropdown"
+                *ngFor="let municipality of municipalitiesFilter"
                 (click)="filter(municipality.municipality)"
               >
                 <a class="dropdown-item text-dark">{{
