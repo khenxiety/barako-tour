@@ -28,8 +28,6 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserComments();
-
-    console.log(this.commentIn);
   }
   successToast(detail: string) {
     this.messageService.add({

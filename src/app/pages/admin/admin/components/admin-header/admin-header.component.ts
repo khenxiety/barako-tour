@@ -17,4 +17,9 @@ export class AdminHeaderComponent implements OnInit {
     this.isCollapsed = this.isCollapsed ? false : true;
     this.collapse.emit(this.isCollapsed);
   }
+
+  signOut() {
+    localStorage.clear();
+    window.location.href = '/';
+  }
 }

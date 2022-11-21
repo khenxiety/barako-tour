@@ -43,6 +43,7 @@ export class TouristSpotsComponent implements OnInit {
 
   limit: number = 5;
 
+  public selectedFilter: string = '';
   public specificTourTitle: string = '';
   constructor(
     private firestore: Firestore,
@@ -50,8 +51,6 @@ export class TouristSpotsComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.paramsId = this.activatedRoute.snapshot.params['id'];
-
-    console.log(this.paramsId);
   }
 
   ngOnInit(): void {
@@ -75,9 +74,9 @@ export class TouristSpotsComponent implements OnInit {
   searchFilter(event: any) {
     this.getTours();
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
     if (filterValue == '') {
       this.getTours();
+      this.selectedFilter = 'Filter';
       return;
     }
     this.isLoading = true;
@@ -96,7 +95,6 @@ export class TouristSpotsComponent implements OnInit {
     }, 500);
   }
   async filter(event: any) {
-    console.log(event);
     if (event == 'all') {
       this.getTours();
       return;
@@ -106,6 +104,7 @@ export class TouristSpotsComponent implements OnInit {
     this.getAllTours();
 
     setTimeout(() => {
+      this.selectedFilter = event;
       this.isLoading = false;
       this.tours = this.tours.filter(
         (res: any) =>
@@ -150,7 +149,6 @@ export class TouristSpotsComponent implements OnInit {
         }),
       ];
 
-      console.log(this.tours);
       this.isLoading = false;
     });
   }

@@ -28,6 +28,7 @@ export class FoodtripsComponent implements OnInit {
   limit: number = 5;
 
   public specificFoodTitle: string = '';
+  public selectedFilter: string = '';
 
   constructor(
     private firestore: Firestore,
@@ -77,9 +78,9 @@ export class FoodtripsComponent implements OnInit {
     }, 500);
   }
   async filter(event: any) {
-    console.log(event);
     if (event == 'all') {
       this.getFoodtrips();
+      this.selectedFilter = 'Filter';
       return;
     }
     this.isLoading = true;
@@ -87,6 +88,7 @@ export class FoodtripsComponent implements OnInit {
     this.getAllFoodtrips();
 
     setTimeout(() => {
+      this.selectedFilter = event;
       this.isLoading = false;
       this.tours = this.tours.filter(
         (res: any) =>
@@ -124,7 +126,6 @@ export class FoodtripsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
-      console.log(this.tours);
       this.isLoading = false;
     });
   }
@@ -138,7 +139,6 @@ export class FoodtripsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
-      console.log(this.tours);
       this.isLoading = false;
     });
   }
@@ -155,7 +155,6 @@ export class FoodtripsComponent implements OnInit {
       ];
 
       this.specificFoodTitle = this.tours[0].originated;
-      console.log(this.tours);
       this.isLoading = false;
     });
   }

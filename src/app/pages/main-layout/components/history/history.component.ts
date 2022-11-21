@@ -33,6 +33,7 @@ export class HistoryComponent implements OnInit {
 
   municipalitiesFilter: Array<any> = [];
   public searchValue: any;
+  public selectedFilter: string = '';
   constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {
@@ -53,7 +54,6 @@ export class HistoryComponent implements OnInit {
   searchFilter(event: any) {
     this.getMunicipalities();
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(this.searchValue);
     if (filterValue == '' || filterValue == 'All') {
       this.isLoading = false;
 
@@ -76,8 +76,9 @@ export class HistoryComponent implements OnInit {
   }
 
   async filter(event: any) {
-    console.log(event);
     if (event == 'all') {
+      this.selectedFilter = 'Filter';
+
       this.getMunicipalities();
       return;
     }
@@ -86,6 +87,7 @@ export class HistoryComponent implements OnInit {
     this.getMunicipalities();
 
     setTimeout(() => {
+      this.selectedFilter = event;
       this.isLoading = false;
       this.municipalitiesList = this.municipalitiesList.filter((res: any) =>
         res.municipality.toLowerCase().includes(event.toLowerCase())
@@ -120,7 +122,6 @@ export class HistoryComponent implements OnInit {
         }),
       ];
 
-      console.log(this.municipalitiesFilter);
       this.isLoading = false;
     });
   }
