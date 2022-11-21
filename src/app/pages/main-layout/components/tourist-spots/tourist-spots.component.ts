@@ -5,8 +5,10 @@ import {
   getDocs,
   limit,
   query,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
 import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
@@ -15,38 +17,6 @@ import { CommentsService } from 'src/app/services/comments.service';
   styleUrls: ['./tourist-spots.component.scss'],
 })
 export class TouristSpotsComponent implements OnInit {
-  images: Array<any> = [
-    {
-      previewImageSrc: 'assets/images/islaverde1.jpg',
-      thumbnailImageSrc: 'assets/images/islaverde1.jpg',
-      alt: 'Description for Image 1',
-      title: 'Title 1',
-    },
-    {
-      previewImageSrc: 'assets/images/islaverde1.jpg',
-      thumbnailImageSrc: 'assets/images/islaverde1.jpg',
-      alt: 'Description for Image 1',
-      title: 'Title 2',
-    },
-    {
-      previewImageSrc: 'assets/images/islaverde2.jpeg',
-      thumbnailImageSrc: 'assets/images/islaverde2.jpeg',
-      alt: 'Description for Image 1',
-      title: 'Title 3',
-    },
-    {
-      previewImageSrc: 'assets/images/islaverde2.jpeg',
-      thumbnailImageSrc: 'assets/images/islaverde2.jpeg',
-      alt: 'Description for Image 1',
-      title: 'Title 4',
-    },
-    {
-      previewImageSrc: 'assets/images/islaverde2.jpeg',
-      thumbnailImageSrc: 'assets/images/islaverde2.jpeg',
-      alt: 'Description for Image 1',
-      title: 'Title 5',
-    },
-  ];
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -68,15 +38,34 @@ export class TouristSpotsComponent implements OnInit {
   public comments: Array<any> = [];
 
   searchValue: any;
+
+  paramsId: string = '';
+
+  limit: number = 5;
+
+  public specificTourTitle: string = '';
   constructor(
     private firestore: Firestore,
-    private commentsService: CommentsService
-  ) {}
+    private commentsService: CommentsService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.paramsId = this.activatedRoute.snapshot.params['id'];
+
+    console.log(this.paramsId);
+  }
 
   ngOnInit(): void {
     window.scroll({
       top: 0,
     });
+
+    if (this.paramsId) {
+      this.getSpecificTours();
+      this.getUserComments();
+      this.getMunicipalities();
+
+      return;
+    }
 
     this.getTours();
     this.getUserComments();
@@ -89,29 +78,41 @@ export class TouristSpotsComponent implements OnInit {
       this.getTours();
       return;
     }
+    this.isLoading = true;
 
-    this.tours = this.tours.filter(
-      (res: any) =>
-        res.tourTitle.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-        res.location.toLowerCase().includes(this.searchValue.toLowerCase())
-    );
+    this.getAllTours();
+
+    setTimeout(() => {
+      this.isLoading = false;
+      this.tours = this.tours.filter(
+        (res: any) =>
+          res.tourTitle
+            .toLowerCase()
+            .includes(this.searchValue.toLowerCase()) ||
+          res.location.toLowerCase().includes(this.searchValue.toLowerCase())
+      );
+    }, 500);
   }
   async filter(event: any) {
     console.log(event);
+    if (event == 'all') {
+      this.getTours();
+      return;
+    }
+    this.isLoading = true;
 
-    await this.getTours();
-    // const filterValue = (event.target as HTMLInputElement).value;
-    // if (filterValue == '') {
-    //   this.getTours();
-    //   return;
-    // }
+    this.getAllTours();
 
-    this.tours = this.tours.filter(
-      (res: any) =>
-        res.tourTitle.toLowerCase().includes(event.toLowerCase()) ||
-        res.location.toLowerCase().includes(event.toLowerCase())
-    );
+    setTimeout(() => {
+      this.isLoading = false;
+      this.tours = this.tours.filter(
+        (res: any) =>
+          res.tourTitle.toLowerCase().includes(event.toLowerCase()) ||
+          res.location.toLowerCase().includes(event.toLowerCase())
+      );
+    }, 500);
   }
+
   getMunicipalities() {
     const municipalities = collection(this.firestore, 'history');
 
@@ -121,15 +122,40 @@ export class TouristSpotsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
-      console.log(this.municipalities);
       this.isLoading = false;
     });
+  }
+
+  handleLimits() {
+    window.scroll({
+      top: 0,
+    });
+    this.limit = this.limit + 5;
+
+    this.getTours();
   }
 
   getTours() {
     const tourQuery = collection(this.firestore, 'tours');
 
-    const limitq = query(tourQuery, limit(10));
+    const limitq = query(tourQuery, limit(this.limit));
+    this.isLoading = true;
+
+    getDocs(limitq).then((res: any) => {
+      this.tours = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+
+      console.log(this.tours);
+      this.isLoading = false;
+    });
+  }
+
+  getAllTours() {
+    const tourQuery = collection(this.firestore, 'tours');
+
     this.isLoading = true;
 
     getDocs(tourQuery).then((res: any) => {
@@ -138,6 +164,23 @@ export class TouristSpotsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+    });
+  }
+
+  getSpecificTours() {
+    const tourQuery = collection(this.firestore, 'tours');
+    const q = query(tourQuery, where('locationId', '==', this.paramsId));
+
+    this.isLoading = true;
+
+    getDocs(q).then((res: any) => {
+      this.tours = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+
+      this.specificTourTitle = this.tours[0].location;
       this.isLoading = false;
     });
   }

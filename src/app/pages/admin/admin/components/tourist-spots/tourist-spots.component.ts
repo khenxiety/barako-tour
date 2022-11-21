@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
   deleteDoc,
@@ -228,6 +229,7 @@ export class TouristSpotsComponent implements OnInit {
 
   selectedData(data: any) {
     this.selectedTour = data;
+
     this.updateForm = new FormGroup({
       descriptionSummary: new FormControl(
         { value: data.descriptionSummary || '', disabled: false },
@@ -275,11 +277,11 @@ export class TouristSpotsComponent implements OnInit {
 
       addDoc(tourInstance, data).then((res) => {
         this.imageUrl = [];
-        console.log(res);
         this.spinner.hide();
         this.addTourCloseModal?.nativeElement.click();
         this.successToast('Data Added Successfully');
         this.getTours();
+        this.formBuild.reset();
       });
     } else {
       this.formBuild.markAllAsTouched();
@@ -356,5 +358,36 @@ export class TouristSpotsComponent implements OnInit {
     } else {
       this.errorToast('Tour does not exist!');
     }
+  }
+
+  deleteImage(image: any) {
+    if (this.selectedTour.id) {
+      this.spinner.show();
+      const updateInstance = doc(
+        this.firestore,
+        'tours/' + this.selectedTour.id
+      );
+
+      let data = {
+        imageGallery: arrayRemove(image),
+      };
+
+      updateDoc(updateInstance, data)
+        .then((res: any) => {
+          this.imageUrl = [];
+          console.log(res);
+          this.successToast('Image Deleted Successfully');
+          this.getTours();
+          this.spinner.hide();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.errorToast(err.code);
+          this.getTours();
+        });
+    } else {
+      this.errorToast('Tour does not exist!');
+    }
+    return;
   }
 }

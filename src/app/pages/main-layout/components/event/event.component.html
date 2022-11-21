@@ -13,14 +13,9 @@
           <h3 class="text-center text-brown">Events in Batangas</h3>
         </div>
       </div>
-      <div class="row my-4">
-        <div class="col-md-5 mb-3 d-flex justify-content-center">
-          <!-- <p-calendar
-            [(ngModel)]="date14"
-            [inline]="true"
-            [showWeek]="true"
-            (ngModelChange)="test()"
-          ></p-calendar> -->
+      <div class="row my-4" *ngFor="let event of events">
+        <!-- <div class="col-md-5 mb-3 d-flex justify-content-center">
+          
           <p-calendar
             [inline]="true"
             [(ngModel)]="date14"
@@ -28,6 +23,8 @@
           >
             <ng-template pTemplate="date" let-date>
               <span
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
                 [ngStyle]="{
                   backgroundColor:
                     date.month + '/' + date.day == '10/4'
@@ -40,12 +37,12 @@
               >
             </ng-template>
           </p-calendar>
-        </div>
+        </div> -->
         <div class="col-md-7">
           <div class="card text-brown">
             <div class="card-body">
               <p-image
-                src="assets/images/sublian.jpg"
+                src="{{ event?.imageGallery[0]?.thumbnailImageSrc }}"
                 alt="Image"
                 [preview]="true"
                 width="100%"
@@ -55,16 +52,29 @@
               </p-image>
 
               <div class="text-wrapper my-3">
-                <header><h3 class="text-brown">Sublian Festival</h3></header>
+                <header>
+                  <h3 class="text-brown">{{ event?.festivalTitle }}</h3>
+                </header>
 
-                <small>Event Date: July 23rd</small>
+                <small>
+                  <strong>Event Date:</strong>
+                  {{ event?.festivalDate | date: "MMMM d" }}</small
+                >
+                <br />
+                <small>
+                  <strong>Originated:</strong> {{ event?.originated }}</small
+                >
 
-                <p class="text-brown mt-2">
-                  The Sublian festival, a two week long celebration which
-                  culminates every year on the 23rd of July, is rooted in the
-                  Batangueños’ devotion to the town’s patron: the Holy Cross in
-                  Bauan and Agoncillo, and the Sto. Niño in Batangas City.
-                </p>
+                <markdown
+                  class="variable-binding text-justify my-4"
+                  [data]="event?.descriptionOutro"
+                ></markdown>
+              </div>
+
+              <div class="button-group">
+                <button class="btn btn-primary" (click)="sendReminder(event)">
+                  Send me a reminder
+                </button>
               </div>
             </div>
           </div>
@@ -74,4 +84,65 @@
   </div>
 
   <div class="bg-image"></div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button
+          #modalCloseButton
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        {{ date14 | date }}
+        <form action="">
+          <div class="mb-2">
+            <label for="email">Enter your Email to notify:</label>
+            <input
+              type="text"
+              id="email"
+              name="name"
+              [(ngModel)]="email"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-2">
+            <label for="name">Enter your Fullname:</label>
+            <input
+              type="text"
+              name="name"
+              [(ngModel)]="fullname"
+              id="name"
+              class="form-control"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="sendEmailNotif()"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -10,9 +10,7 @@
     >
       <div class="row my-4">
         <div class="col">
-          <h3 class="text-center text-brown">
-            History of Municipalities in Batangas
-          </h3>
+          <h3 class="text-center text-brown">Municipalities</h3>
         </div>
       </div>
       <div class="row my-4">
@@ -87,12 +85,18 @@
               Filter
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item text-dark" href="#">Login</a></li>
               <li>
-                <a class="dropdown-item text-dark" href="#">Sign Up</a>
+                <a class="dropdown-item text-dark" (click)="filter('all')">
+                  All</a
+                >
               </li>
-              <li>
-                <a class="dropdown-item text-dark" href="#">Help</a>
+              <li
+                *ngFor="let municipality of municipalitiesDropdown"
+                (click)="filter(municipality.municipality)"
+              >
+                <a class="dropdown-item text-dark">{{
+                  municipality.municipality
+                }}</a>
               </li>
             </ul>
           </div>
@@ -131,6 +135,11 @@
             ></markdown>
             <!-- <div [innerHTML]="typescriptMarkdown | language : 'typescript' | markdown"></div> -->
           </article>
+
+          <article>
+            <div class="mb-2"><strong>Mayor:</strong> {{ history?.mayor }}</div>
+            <div><strong>Contact:</strong> {{ history?.contact }}</div>
+          </article>
         </div>
 
         <div class="col">
@@ -161,28 +170,27 @@
           <div class="row mt-5">
             <div class="col-4">
               <h5 class="mb-3">Tourist Spots</h5>
-              <a href="" class="mt-4"
+              <a
+                [routerLink]="['/barako-tour/tourist-spots/', history.id]"
+                class="mt-4"
                 >See all Tourist Spots in {{ history.municipality }}</a
               >
             </div>
             <div class="col-4">
               <h5 class="mb-3">Foodtrips</h5>
-              <a href="" class="mt-4"
-                >See all Foodtrips Spots in {{ history.municipality }}</a
+              <a
+                [routerLink]="['/barako-tour/foodtrips/', history.id]"
+                class="mt-4"
+                >See all Foodtrips in {{ history.municipality }}</a
               >
             </div>
             <div class="col-4">
               <h5 class="mb-3">Festivals</h5>
               <a href="" class="mt-4"
-                >See all Festivals Spots in {{ history.municipality }}</a
+                >See all Festivals in {{ history.municipality }}</a
               >
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row my-4">
-        <div class="col col-sm-12 col-md-12 col-lg-6">
-          <app-comments></app-comments>
         </div>
       </div>
     </div>

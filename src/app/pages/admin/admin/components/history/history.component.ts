@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
   deleteDoc,
@@ -10,6 +11,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import {
+  deleteObject,
   getDownloadURL,
   ref,
   Storage,
@@ -328,5 +330,39 @@ export class HistoryComponent implements OnInit {
     } else {
       this.errorToast('Tour does not exist!');
     }
+  }
+
+  deleteImage(image: any) {
+    if (this.selectedTour.id) {
+      this.spinner.show();
+      const storageRef = ref(this.storage, `images/undefined/${image.name}`);
+
+      deleteObject(storageRef).then(() => {
+        console.log('deleted');
+        const updateInstance = doc(
+          this.firestore,
+          'history/' + this.selectedTour.id
+        );
+        let data = {
+          imageGallery: arrayRemove(image),
+        };
+        updateDoc(updateInstance, data)
+          .then((res: any) => {
+            this.imageUrl = [];
+            console.log(res);
+            this.successToast('Image Deleted Successfully');
+            this.getTours();
+            this.spinner.hide();
+          })
+          .catch((err) => {
+            console.log(err);
+            this.errorToast(err.code);
+            this.getTours();
+          });
+      });
+    } else {
+      this.errorToast('Tour does not exist!');
+    }
+    return;
   }
 }

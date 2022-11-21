@@ -569,6 +569,44 @@
               Please fill up the field
             </small>
           </div>
+          <div class="mb-2">
+            <label for="" class="mb-2">Gallery</label>
+            <div class="row">
+              <div
+                class="col-3"
+                *ngFor="
+                  let tourImage of selectedTour.imageGallery;
+                  let i = index
+                "
+              >
+                <div class="image-delete">
+                  <button
+                    class="delete"
+                    (click)="deleteImage(selectedTour.imageGallery[i])"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="white"
+                      class="bi bi-x"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                      />
+                    </svg>
+                  </button>
+                  <img
+                    src="{{ tourImage.thumbnailImageSrc }}"
+                    style="aspect-ratio: 1"
+                    width="100%"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="mb-2">
             <label for="upload" class="form-label">Tour Gallery:</label>

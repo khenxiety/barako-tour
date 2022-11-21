@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { formatDate } from '@angular/common';
 import {
   addDoc,
   arrayUnion,
@@ -26,6 +27,8 @@ import { Router } from '@angular/router';
 import { doc } from 'firebase/firestore';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import emailjs, { EmailJSResponseStatus, init } from '@emailjs/browser';
+init('user_2OS84QxjMn43nqkQifnJH');
 
 @Component({
   selector: 'app-events',
@@ -74,6 +77,7 @@ export class EventsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+      console.log(this.festivals);
 
       this.spinner.hide();
     });
@@ -115,7 +119,7 @@ export class EventsComponent implements OnInit {
         Validators.required
       ),
       festivalDate: new FormControl(
-        { value: '', disabled: false },
+        { value: String(''), disabled: false },
         Validators.required
       ),
     });
@@ -163,7 +167,9 @@ export class EventsComponent implements OnInit {
       detail: detail,
     });
   }
-
+  dateChange(evenet: any): void {
+    console.log(this.rangeDates);
+  }
   async myUploader(event: any) {
     const uploadingTask = await new Promise((resolve, reject) => {
       this.spinner.show();
@@ -259,11 +265,20 @@ export class EventsComponent implements OnInit {
   }
 
   addTourist() {
+    console.log(this.formBuild.value);
     if (this.formBuild.valid) {
       this.spinner.show();
 
       let data = {
-        ...this.formBuild.value,
+        descriptionSummary: this.formBuild.value.descriptionSummary,
+        descriptionOutro: this.formBuild.value.descriptionOutro,
+        festivalTitle: this.formBuild.value.festivalTitle,
+        originated: this.formBuild.value.originated,
+        originatedId: this.formBuild.value.originatedId,
+        festivalDate: String(
+          formatDate(this.formBuild.value.festivalDate, 'MM-dd-yyyy', 'en')
+        ),
+
         imageGallery: this.imageUrl,
       };
       const tourInstance = collection(this.firestore, 'festivals');
@@ -354,13 +369,24 @@ export class EventsComponent implements OnInit {
   }
 
   public toDate(data: any) {
-    console.log(data[0].seconds);
+    return new Date(data.seconds);
+  }
 
-    const date1 = new Date(data[0]?.seconds);
-    const date2 = new Date(data[1]?.seconds);
+  sendEmailNotif(): void {
+    let data = {
+      // full_name: this.fullname,
+      // eventDate: this.date14?.toLocaleDateString(),
+      // message: this.message,
+      // event: this.eventName,
+      // email: this.email,
+    };
+    emailjs
+      .send('service_qqa8bhn', 'template_33py05l', data, 'xhRrK14ZM1juEgWdu')
+      .then((res: EmailJSResponseStatus) => {
+        console.log(res.text);
 
-    console.log(date1);
-
-    return date1.toLocaleDateString() + ' - ' + date2.toLocaleDateString();
+        // this.modalCloseButton?.nativeElement.click();
+        // this.addEvent();
+      });
   }
 }

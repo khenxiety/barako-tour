@@ -19,6 +19,7 @@ export class CommentsService {
   getComments(): Observable<any> {
     const dbInstance = collection(this.firestore, 'comments');
     const q = query(dbInstance, limit(3), orderBy('commentDate', 'desc'));
+    //momentjs
 
     return from(collectionSnapshots(q)).pipe(
       map((res) => {

@@ -1,0 +1,26 @@
+.post-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: max-content;
+
+  .costs {
+    height: 100%;
+  }
+}
+.card {
+  height: max-content;
+  width: 100%;
+  padding: 1em 1em;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.action-btns {
+  transform: translateX(25px);
+  position: absolute;
+  right: 0;
+  top: 0;
+}

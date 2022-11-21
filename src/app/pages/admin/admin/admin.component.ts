@@ -41,7 +41,7 @@ export class AdminComponent implements OnInit {
       route: '/manage-about',
     },
     {
-      title: 'manage-accounts',
+      title: 'manage-subscribed',
       route: '/manage-accounts',
     },
     {

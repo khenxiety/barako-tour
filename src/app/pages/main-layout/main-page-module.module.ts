@@ -30,6 +30,7 @@ import { FoodtripDetailsComponent } from './components/foodtrip-details/foodtrip
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { ToastModule } from 'primeng/toast';
 
 const routes: Routes = [
   {
@@ -49,7 +50,7 @@ const routes: Routes = [
         component: AboutComponent,
       },
       {
-        path: 'history',
+        path: 'municipalities',
         component: HistoryComponent,
       },
       {
@@ -61,11 +62,19 @@ const routes: Routes = [
         component: TouristSpotsComponent,
       },
       {
+        path: 'tourist-spots/:id',
+        component: TouristSpotsComponent,
+      },
+      {
         path: 'tourist-spots/tour-details/:id',
         component: TourDetailsComponent,
       },
       {
         path: 'foodtrips',
+        component: FoodtripsComponent,
+      },
+      {
+        path: 'foodtrips/:id',
         component: FoodtripsComponent,
       },
       {
@@ -117,6 +126,7 @@ const routes: Routes = [
     TabViewModule,
     GalleriaModule,
     MarkdownModule,
+    ToastModule,
   ],
 })
 export class MainPageModuleModule {}

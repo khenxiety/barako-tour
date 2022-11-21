@@ -52,6 +52,7 @@ export class MainHomeComponent implements OnInit {
   festivals: Array<any> = [];
 
   tours: Array<any> = [];
+
   constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {

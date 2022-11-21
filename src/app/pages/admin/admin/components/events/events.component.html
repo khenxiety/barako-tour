@@ -77,7 +77,7 @@
                   </p>
                   <p>
                     <strong>Date:</strong>
-                    {{ toDate(tour?.festivalDate) }}
+                    {{ tour?.festivalDate }}
                   </p>
 
                   <button
@@ -304,10 +304,16 @@
             <p-calendar
               [(ngModel)]="rangeDates"
               formControlName="festivalDate"
-              selectionMode="range"
               [readonlyInput]="true"
               inputId="range"
+              (ngModelChange)="dateChange($event)"
             ></p-calendar>
+            <!-- <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="rangeDates"
+              (keyup)="dateChange($event)"
+            /> -->
 
             <small
               class="text-danger"
@@ -544,13 +550,19 @@
           </div>
           <div class="mb-2 d-flex flex-column">
             <label for="festivalDate" class="form-label">Festival Date:</label>
-            <p-calendar
+            <!-- <p-calendar
               [(ngModel)]="rangeDates"
               formControlName="festivalDate"
               selectionMode="range"
               [readonlyInput]="true"
               inputId="range"
-            ></p-calendar>
+            ></p-calendar> -->
+            <!-- <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="rangeDates"
+              (change)="dateChange($event)"
+            /> -->
 
             <small
               class="text-danger"

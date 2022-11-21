@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
   deleteDoc,
@@ -335,5 +336,35 @@ export class FoodtripsComponent implements OnInit {
     } else {
       this.errorToast('Data does not exist!');
     }
+  }
+  deleteImage(image: any) {
+    if (this.selectedTour.id) {
+      this.spinner.show();
+      const updateInstance = doc(
+        this.firestore,
+        'foodtrip/' + this.selectedTour.id
+      );
+
+      let data = {
+        imageGallery: arrayRemove(image),
+      };
+
+      updateDoc(updateInstance, data)
+        .then((res: any) => {
+          this.imageUrl = [];
+          console.log(res);
+          this.successToast('Image Deleted Successfully');
+          this.getTours();
+          this.spinner.hide();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.errorToast(err.code);
+          this.getTours();
+        });
+    } else {
+      this.errorToast('Tour does not exist!');
+    }
+    return;
   }
 }
