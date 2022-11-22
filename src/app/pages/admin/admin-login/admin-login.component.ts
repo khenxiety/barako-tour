@@ -94,6 +94,10 @@ export class AdminLoginComponent implements OnInit {
       });
   }
 
+  handlePassword(event: any) {
+    console.log(event);
+  }
+
   signIn() {
     if (this.usersForm.valid) {
       signInWithEmailAndPassword(

@@ -217,7 +217,11 @@
 
     <div class="row my-3">
       <div class="col col-sm-12 col-md-12 col-lg-6">
-        <app-comments [commentIn]="'Tourism Page'"></app-comments>
+        <app-comments
+          [commentIn]="'Tourism Page'"
+          [isLoaded]="!isLoading"
+          *ngIf="!isLoading"
+        ></app-comments>
       </div>
     </div>
   </div>

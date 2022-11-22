@@ -75,7 +75,13 @@ export class FestivalsComponent implements OnInit {
         }),
       ];
 
-      console.log(this.festivals);
+      this.festivals.sort((a, b) => {
+        if (a.originated < b.originated) return -1;
+        if (a.originated > b.originated) return 1;
+
+        return 0;
+      });
+
       this.spinner.hide();
     });
   }
@@ -88,6 +94,13 @@ export class FestivalsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+
+      this.municipalities.sort((a, b) => {
+        if (a.municipality < b.municipality) return -1;
+        if (a.municipality > b.municipality) return 1;
+
+        return 0;
+      });
       this.spinner.hide();
     });
   }
@@ -381,7 +394,7 @@ export class FestivalsComponent implements OnInit {
     const date1 = new Date(data[0]?.seconds);
     const date2 = new Date(data[1]?.seconds);
 
-    console.log(date1);
+    // console.log(date1);
 
     return date1.toLocaleDateString() + ' - ' + date2.toLocaleDateString();
   }

@@ -131,6 +131,12 @@ export class EventComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+      this.municipalitiesFilter.sort((a, b) => {
+        if (a.municipality < b.municipality) return -1;
+        if (a.municipality > b.municipality) return 1;
+
+        return 0;
+      });
 
       // this.spinner.hide();
     });

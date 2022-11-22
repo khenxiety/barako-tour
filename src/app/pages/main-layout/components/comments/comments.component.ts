@@ -11,13 +11,14 @@ import { CommentsService } from 'src/app/services/comments.service';
 })
 export class CommentsComponent implements OnInit {
   @Input() commentIn: string = '';
+  @Input() isLoaded: boolean = false;
 
   comment: any;
   public tours: Array<any> = [];
   public comments: Array<any> = [];
 
-  public email: string = '';
-  public displayName: string = '';
+  public email: any;
+  public displayName: any;
 
   searchValue: any;
   constructor(
@@ -27,7 +28,10 @@ export class CommentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUserComments();
+    console.log(this.isLoaded);
+    if (this.isLoaded) {
+      this.getUserComments();
+    }
   }
   successToast(detail: string) {
     this.messageService.add({
@@ -45,13 +49,33 @@ export class CommentsComponent implements OnInit {
   }
 
   getUserComments() {
-    this.commentsService.getComments().subscribe((res) => {
+    this.commentsService.getComments(this.commentIn).subscribe((res) => {
       this.comments = res;
+
+      console.log(res);
     });
   }
   addUserComments() {
-    if (this.email == '' && this.displayName) {
+    if (this.email == undefined && this.displayName == undefined) {
       this.errorToast('Please Add a display name and your email to proceed');
+      return;
+    }
+    if (!this.email.includes('@') || !this.email.includes('.com')) {
+      this.errorToast('Please put a valid email to proceed');
+      return;
+    }
+
+    if (this.email == undefined) {
+      this.errorToast('Please Add an email to proceed');
+      return;
+    }
+    if (this.displayName == undefined) {
+      this.errorToast('Please Add a display name to proceed');
+      return;
+    }
+
+    if (this.comment == undefined) {
+      this.errorToast('Please Add a comment to continue');
       return;
     }
     let data = {

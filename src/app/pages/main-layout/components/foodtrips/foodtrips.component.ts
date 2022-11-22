@@ -112,6 +112,17 @@ export class FoodtripsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+
+      this.municipalities.sort((a, b) => {
+        if (a.municipality < b.municipality) {
+          return -1;
+        }
+        if (a.municipality > b.municipality) {
+          return 1;
+        }
+
+        return 0;
+      });
       this.isLoading = false;
     });
   }
@@ -126,6 +137,17 @@ export class FoodtripsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+      this.tours.sort((a, b) => {
+        if (a.originated < b.originated) {
+          return -1;
+        }
+        if (a.originated > b.originated) {
+          return 1;
+        }
+
+        return 0;
+      });
+      console.log(this.tours);
       this.isLoading = false;
     });
   }
@@ -139,6 +161,21 @@ export class FoodtripsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+
+      console.log(this.tours);
+
+      this.tours.sort((a, b) => {
+        if (a.originated < b.originated) {
+          return -1;
+        }
+        if (a.originated > b.originated) {
+          return 1;
+        }
+
+        return 0;
+      });
+      console.log(this.tours);
+
       this.isLoading = false;
     });
   }
@@ -160,9 +197,7 @@ export class FoodtripsComponent implements OnInit {
   }
 
   getUserComments() {
-    this.commentsService.getComments().subscribe((res) => {
-      this.comments = res;
-    });
+    return;
   }
   addUserComments() {
     let data = {

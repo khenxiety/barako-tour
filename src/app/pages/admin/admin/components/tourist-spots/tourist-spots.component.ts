@@ -79,6 +79,13 @@ export class TouristSpotsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+
+      this.tours.sort((a, b) => {
+        if (a.tourTitle < b.tourTitle) return -1;
+        if (a.tourTitle > b.tourTitle) return 1;
+
+        return 0;
+      });
       this.spinner.hide();
     });
   }
@@ -91,6 +98,13 @@ export class TouristSpotsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+
+      this.municipalities.sort((a, b) => {
+        if (a.municipality < b.municipality) return -1;
+        if (a.municipality > b.municipality) return 1;
+
+        return 0;
+      });
       this.spinner.hide();
     });
   }

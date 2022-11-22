@@ -8,6 +8,7 @@ import {
   limit,
   orderBy,
   query,
+  where,
 } from '@angular/fire/firestore';
 import emailjs, { EmailJSResponseStatus, init } from '@emailjs/browser';
 
@@ -19,9 +20,15 @@ import { from, map, Observable } from 'rxjs';
 export class CommentsService {
   constructor(private firestore: Firestore) {}
 
-  getComments(): Observable<any> {
+  getComments(commentIn: any): Observable<any> {
+    console.log(commentIn);
     const dbInstance = collection(this.firestore, 'comments');
-    const q = query(dbInstance, limit(3), orderBy('commentDate', 'asc'));
+    const q = query(
+      dbInstance,
+      limit(3),
+      orderBy('commentDate', 'desc'),
+      where('commentIn', '==', commentIn)
+    );
     //momentjs
 
     return from(collectionSnapshots(q)).pipe(

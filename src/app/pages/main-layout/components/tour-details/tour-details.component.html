@@ -120,8 +120,11 @@
 
     <div class="row my-5">
       <div class="col col-sm-12 col-md-12 col-lg-6">
+        <!-- promise error -->
         <app-comments
           [commentIn]="'Tourism Page:' + ' ' + data?.tourTitle"
+          [isLoaded]="isLoaded"
+          *ngIf="!isLoading"
         ></app-comments>
       </div>
     </div>

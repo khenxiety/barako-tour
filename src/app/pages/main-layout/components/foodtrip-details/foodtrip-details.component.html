@@ -88,7 +88,9 @@
     <div class="row my-5">
       <div class="col col-sm-12 col-md-12 col-lg-6">
         <app-comments
-          [commentIn]="'Foodtrip Page:' + ' ' + data?.tourTitle"
+          [commentIn]="'Foodtrip Page:' + ' ' + data?.foodTripTitle"
+          [isLoaded]="!isLoading"
+          *ngIf="!isLoading"
         ></app-comments>
       </div>
     </div>

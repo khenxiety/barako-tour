@@ -38,6 +38,10 @@ export class TourDetailsComponent implements OnInit {
   isLoading: boolean = false;
 
   image: any = '';
+
+  commentInput: any;
+
+  isLoaded: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private firestore: Firestore
@@ -59,9 +63,14 @@ export class TourDetailsComponent implements OnInit {
     this.isLoading = true;
     getDoc(tourInstance).then((res: any) => {
       this.data = res.data();
+      this.commentInput = 'Tourism Page:' + ' ' + this.data?.tourTitle;
 
       this.image = `url(${this.data?.imageGallery[0].previewImageSrc})`;
       this.isLoading = false;
+
+      this.isLoaded = true;
+
+      console.log(this.isLoaded);
     });
   }
 }

@@ -52,6 +52,7 @@ export class EventsComponent implements OnInit {
   searchValue: any;
   municipalities: Array<any> = [];
   selectedTour: any = [];
+
   constructor(
     private firestore: Firestore,
     private router: Router,
@@ -317,7 +318,7 @@ export class EventsComponent implements OnInit {
 
     deleteDoc(deleteTourInstance)
       .then((res) => {
-        this.successToast('Tour Deleted Successfully');
+        this.successToast('Data Deleted Successfully');
         this.getTours();
       })
       .catch((err) => {

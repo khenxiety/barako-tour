@@ -1,4 +1,5 @@
 <p-toast position="top-right"></p-toast>
+<p-confirmPopup></p-confirmPopup>
 
 <div class="page-wrapper p-3">
   <div class="container-fluid">
@@ -6,17 +7,11 @@
       <app-breadcrumbs [location]="'Manage Accounts'"></app-breadcrumbs>
 
       <header>
-        <h3>Manage Accounts</h3>
+        <h3>Manage Subscribers</h3>
       </header>
       <div class="row my-3">
         <header class="d-flex justify-content-between">
-          <button
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#add-tourist"
-          >
-            Add Foodtrip
-          </button>
+          <div></div>
           <div class="filters d-flex justify-content-between">
             <input
               type="text"
@@ -64,7 +59,12 @@
                         {{ subscribe.eventDate }}
                       </p>
 
-                      <button type="button" class="btn btn-primary">
+                      <button
+                        type="button"
+                        (click)="sendEmailNotif(subscribe)"
+                        class="btn btn-primary"
+                        [disabled]="isClicked"
+                      >
                         Notify
                       </button>
                     </div>
@@ -72,7 +72,7 @@
 
                   <div class="costs" style="margin-right: 2em">
                     <p>
-                      <strong>Contact: </strong>
+                      <strong>Subscriber Name: </strong>
                       <i class="uil uil-telegram-alt text-danger"></i
                       >{{ subscribe.name }}
                     </p>
@@ -112,7 +112,11 @@
                   </button>
                 </div>
                 <div class="right">
-                  <button id="delete" class="btn btn-danger delete">
+                  <button
+                    id="delete"
+                    class="btn btn-danger delete"
+                    (click)="confirm($event, subscribe.id)"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"

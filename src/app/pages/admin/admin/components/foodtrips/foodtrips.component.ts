@@ -74,6 +74,12 @@ export class FoodtripsComponent implements OnInit {
         }),
       ];
 
+      this.foodtrip.sort((a, b) => {
+        if (a.foodTripTitle < b.foodTripTitle) return -1;
+        if (a.foodTripTitle > b.foodTripTitle) return 1;
+
+        return 0;
+      });
       console.log(this.foodtrip);
       this.spinner.hide();
     });
@@ -87,6 +93,13 @@ export class FoodtripsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
+
+      this.municipalities.sort((a, b) => {
+        if (a.municipality < b.municipality) return -1;
+        if (a.municipality > b.municipality) return 1;
+
+        return 0;
+      });
       this.spinner.hide();
     });
   }

@@ -34,6 +34,8 @@ export class FoodtripDetailsComponent implements OnInit {
   data: any;
   image: any = '';
   dataId: any;
+
+  isLoading: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private firestore: Firestore
@@ -45,6 +47,7 @@ export class FoodtripDetailsComponent implements OnInit {
     window.scroll({
       top: 0,
     });
+    this.isLoading = true;
 
     this.getTour();
   }
@@ -54,6 +57,7 @@ export class FoodtripDetailsComponent implements OnInit {
 
     getDoc(tourInstance).then((res: any) => {
       this.data = res.data();
+      this.isLoading = false;
 
       this.image = `url(${this.data?.imageGallery[0].previewImageSrc})`;
     });
