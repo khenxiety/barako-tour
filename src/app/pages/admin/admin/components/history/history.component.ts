@@ -260,6 +260,7 @@ export class HistoryComponent implements OnInit {
       addDoc(tourInstance, data).then((res) => {
         this.spinner.hide();
         this.imageUrl = [];
+        this.formBuild.reset();
         this.addTourCloseModal?.nativeElement.click();
         this.successToast('Data Added Successfully');
         this.getTours();

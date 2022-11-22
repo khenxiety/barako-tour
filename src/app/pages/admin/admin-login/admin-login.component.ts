@@ -95,7 +95,7 @@ export class AdminLoginComponent implements OnInit {
   }
 
   handlePassword(event: any) {
-    console.log(event);
+    event.type = event.type === 'password' ? 'text' : 'password';
   }
 
   signIn() {
@@ -119,5 +119,9 @@ export class AdminLoginComponent implements OnInit {
       this.usersForm.markAllAsTouched();
       this.errorToast('Please fill up all the required fields');
     }
+  }
+
+  showPassword(password: any) {
+    password.type = password.type === 'password' ? 'text' : 'password';
   }
 }

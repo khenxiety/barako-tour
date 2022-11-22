@@ -309,6 +309,7 @@ export class FestivalsComponent implements OnInit {
         this.addFestivalCloseModal?.nativeElement.click();
         this.successToast('Data Added Successfully');
         this.getTours();
+        this.formBuild.reset();
       });
     } else {
       this.formBuild.markAllAsTouched();

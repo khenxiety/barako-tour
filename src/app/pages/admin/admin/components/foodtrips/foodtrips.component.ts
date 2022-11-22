@@ -275,6 +275,7 @@ export class FoodtripsComponent implements OnInit {
         this.addFoodCloseModal?.nativeElement.click();
         this.successToast('Data Added Successfully');
         this.getTours();
+        this.formBuild.reset();
       });
     } else {
       this.formBuild.markAllAsTouched();
