@@ -154,3 +154,19 @@ h6 {
 :host ::ng-deep .p-galleria-thumbnail-container {
   background: var(--text-color-dark);
 }
+
+.text-limit{
+  height: 300px; overflow: hidden;
+}
+
+@media (max-width:528px) {
+
+
+  .hero{
+    h1{
+
+      font-size: 3em;
+    }
+  }
+  
+}

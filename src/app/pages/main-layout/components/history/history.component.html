@@ -10,7 +10,7 @@
     >
       <div class="row my-4">
         <div class="col">
-          <h3 class="text-center text-brown">Municipalities</h3>
+          <h3 class="text-center text-brown">Cities & Municipalities</h3>
         </div>
       </div>
       <div class="row my-4">
@@ -137,18 +137,21 @@
             </div>
           </header>
 
-          <article class="description my-4">
+          <article
+            [ngClass]="
+              isShowLess ? 'description my-4 ' : 'description my-4 text-limit'
+            "
+          >
             <markdown
               class="variable-binding"
               [data]="history.descriptionOutro"
             ></markdown>
+
             <!-- <div [innerHTML]="typescriptMarkdown | language : 'typescript' | markdown"></div> -->
           </article>
-
-          <article>
-            <div class="mb-2"><strong>Mayor:</strong> {{ history?.mayor }}</div>
-            <div><strong>Contact:</strong> {{ history?.contact }}</div>
-          </article>
+          <a class="pointer" (click)="showLess()"
+            >Show {{ isShowLess ? "More" : "less" }}</a
+          >
         </div>
 
         <div class="col">

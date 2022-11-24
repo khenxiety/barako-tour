@@ -134,7 +134,7 @@
             <li
               *ngFor="let municipality of municipalities"
               value="{{ municipality.municipality }}"
-              (click)="filter(municipality.municipality)"
+              (click)="filter(municipality)"
             >
               {{ municipality.municipality }}
             </li>
@@ -154,6 +154,13 @@
       [isLoading]="isLoading"
       [renderOn]="'tourism'"
     ></app-placeholder>
+    <div class="row" *ngIf="tours.length == 0">
+      <div class="col-12 d-flex justify-content-center">
+        <h5>
+          No Tours found for <strong>{{ selectedFilter }}</strong>
+        </h5>
+      </div>
+    </div>
     <div class="row" *ngFor="let tour of tours; let i = index">
       <div
         [ngClass]="i % 2 === 0 ? 'row flex-row-reverse my-5' : 'row my-5'"
@@ -185,8 +192,8 @@
           <div
             [ngClass]="
               i % 2 === 0
-                ? 'image w-100 d-flex justify-content-start'
-                : 'image w-100 d-flex justify-content-end'
+                ? 'image w-100 d-flex justify-content-start mt-5'
+                : 'image w-100 d-flex justify-content-end mt-5'
             "
           >
             <div [ngClass]="i % 2 === 0 ? 'about-img2' : 'about-img'">
@@ -215,7 +222,7 @@
       </div>
     </div>
 
-    <div class="row my-3">
+    <!-- <div class="row my-3">
       <div class="col col-sm-12 col-md-12 col-lg-6">
         <app-comments
           [commentIn]="'Tourism Page'"
@@ -223,6 +230,6 @@
           *ngIf="!isLoading"
         ></app-comments>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

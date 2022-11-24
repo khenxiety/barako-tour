@@ -27,10 +27,10 @@ export class AdminComponent implements OnInit {
       route: '/manage-foodtrips',
       icon: 'https://img.icons8.com/ios/50/000000/wok.png',
     },
-    {
-      title: 'manage-festivals',
-      route: '/manage-festivals',
-    },
+    // {
+    //   title: 'manage-festivals',
+    //   route: '/manage-festivals',
+    // },
 
     {
       title: 'manage-event',
@@ -44,10 +44,10 @@ export class AdminComponent implements OnInit {
       title: 'manage-subscribed',
       route: '/manage-accounts',
     },
-    {
-      title: 'manage-comments',
-      route: '/manage-comments',
-    },
+    // {
+    //   title: 'manage-comments',
+    //   route: '/manage-comments',
+    // },
   ];
   constructor(private messageService: MessageService) {}
 

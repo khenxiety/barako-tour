@@ -85,17 +85,8 @@ export class FoodtripsComponent implements OnInit {
     }
     this.isLoading = true;
 
-    this.getAllFoodtrips();
-
-    setTimeout(() => {
-      this.selectedFilter = event;
-      this.isLoading = false;
-      this.tours = this.tours.filter(
-        (res: any) =>
-          res.foodTripTitle.toLowerCase().includes(event.toLowerCase()) ||
-          res.originated.toLowerCase().includes(event.toLowerCase())
-      );
-    }, 500);
+    this.getFoodtripFilter(event.id);
+    this.selectedFilter = event.municipality;
   }
   handleLimits() {
     this.limit = this.limit + 5;
@@ -103,6 +94,31 @@ export class FoodtripsComponent implements OnInit {
     this.getFoodtrips();
   }
 
+  getFoodtripFilter(event: any) {
+    const filterDb = collection(this.firestore, 'foodtrip');
+
+    const filterQ = query(filterDb, where('originatedId', '==', event));
+    getDocs(filterQ).then((res: any) => {
+      this.tours = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+
+      this.tours.sort((a, b) => {
+        if (a.location < b.location) {
+          return -1;
+        }
+        if (a.location > b.location) {
+          return 1;
+        }
+
+        return 0;
+      });
+
+      this.isLoading = false;
+    });
+  }
   getMunicipalities() {
     const municipalities = collection(this.firestore, 'history');
 

@@ -36,7 +36,11 @@
     <div class="row my-4">
       <div class="col">
         <h3 class="text-center text-brown">
-          Foodtrips in {{ specificFoodTitle ? specificFoodTitle : "Batangas" }}
+          {{
+            specificFoodTitle
+              ? "Foodtrips in" + " " + specificFoodTitle
+              : "Food Ala Eh"
+          }}
         </h3>
       </div>
     </div>
@@ -129,7 +133,7 @@
             </li>
             <li
               *ngFor="let municipality of municipalities"
-              (click)="filter(municipality.municipality)"
+              (click)="filter(municipality)"
             >
               <a class="dropdown-item text-dark">{{
                 municipality.municipality
@@ -152,6 +156,14 @@
       [isLoading]="isLoading"
       [renderOn]="'foodtrips'"
     ></app-placeholder>
+
+    <div class="row" *ngIf="tours.length == 0">
+      <div class="col-12 d-flex justify-content-center">
+        <h5>
+          No Foodtrips found for <strong>{{ selectedFilter }}</strong>
+        </h5>
+      </div>
+    </div>
     <div class="row" *ngFor="let tour of tours; let i = index">
       <div [ngClass]="i % 2 === 0 ? 'row my-5' : 'row flex-row-reverse my-5'">
         <div class="col-sm-12 col-md-6 col-lg-6">
@@ -181,8 +193,8 @@
           <div
             [ngClass]="
               i % 2 === 0
-                ? 'image w-100 d-flex justify-content-end'
-                : 'image w-100 d-flex justify-content-start'
+                ? 'image w-100 d-flex justify-content-end mt-5'
+                : 'image w-100 d-flex justify-content-start mt-5'
             "
           >
             <div [ngClass]="i % 2 === 0 ? 'about-img' : 'about-img2'">
@@ -206,7 +218,7 @@
       </div>
     </div>
 
-    <div class="row my-3">
+    <!-- <div class="row my-3">
       <div class="col col-sm-12 col-md-12 col-lg-6">
         <app-comments
           [commentIn]="'Foodtrip Page'"
@@ -214,6 +226,6 @@
           *ngIf="!isLoading"
         ></app-comments>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

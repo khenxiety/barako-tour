@@ -52,6 +52,14 @@ export class CommentsComponent implements OnInit {
     this.commentsService.getComments(this.commentIn).subscribe((res) => {
       this.comments = res;
 
+      this.comments.sort((a: any, b: any) => {
+        if (a.commentDate < b.commentDate) return -1;
+        if (a.commentDate > b.commentDate) return 1;
+        return 0;
+      });
+
+      console.log(this.comments);
+
       console.log(res);
     });
   }

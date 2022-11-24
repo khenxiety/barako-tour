@@ -11,6 +11,7 @@ import { MarkdownService } from 'ngx-markdown';
   providers: [MarkdownService],
 })
 export class HistoryComponent implements OnInit {
+  public isShowLess: boolean = false;
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -49,6 +50,10 @@ export class HistoryComponent implements OnInit {
     this.isLoading = true;
     this.getMunicipalities();
     this.getTours();
+  }
+
+  showLess() {
+    this.isShowLess = this.isShowLess ? false : true;
   }
 
   searchFilter(event: any) {
@@ -107,12 +112,9 @@ export class HistoryComponent implements OnInit {
       this.municipalitiesFilter = this.municipalitiesList;
       this.isLoading = false;
       this.municipalitiesFilter.sort((a, b) => {
-        if (a.municipality < b.municipality) {
-          return -1;
-        }
-        if (a.municipality > b.municipality) {
-          return 1;
-        }
+        if (a.municipality < b.municipality) return -1;
+
+        if (a.municipality > b.municipality) return 1;
 
         return 0;
       });

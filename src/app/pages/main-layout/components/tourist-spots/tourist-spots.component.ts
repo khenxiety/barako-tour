@@ -95,23 +95,52 @@ export class TouristSpotsComponent implements OnInit {
     }, 500);
   }
   async filter(event: any) {
+    console.log(event);
     if (event == 'all') {
       this.getTours();
       return;
     }
     this.isLoading = true;
 
-    this.getAllTours();
+    // this.getAllTours();
+    this.getTourFilter(event.id);
+    this.selectedFilter = event.municipality;
 
-    setTimeout(() => {
-      this.selectedFilter = event;
+    // setTimeout(() => {
+    //   this.selectedFilter = event;
+    //   this.isLoading = false;
+    //   this.tours = this.tours.filter(
+    //     (res: any) =>
+    //       res.tourTitle.toLowerCase().includes(event.toLowerCase()) ||
+    //       res.location.toLowerCase().includes(event.toLowerCase())
+    //   );
+    // }, 500);
+  }
+
+  getTourFilter(event: any) {
+    const filterDb = collection(this.firestore, 'tours');
+
+    const filterQ = query(filterDb, where('locationId', '==', event));
+    getDocs(filterQ).then((res: any) => {
+      this.tours = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+
+      this.tours.sort((a, b) => {
+        if (a.location < b.location) {
+          return -1;
+        }
+        if (a.location > b.location) {
+          return 1;
+        }
+
+        return 0;
+      });
+
       this.isLoading = false;
-      this.tours = this.tours.filter(
-        (res: any) =>
-          res.tourTitle.toLowerCase().includes(event.toLowerCase()) ||
-          res.location.toLowerCase().includes(event.toLowerCase())
-      );
-    }, 500);
+    });
   }
 
   getMunicipalities() {
@@ -135,15 +164,14 @@ export class TouristSpotsComponent implements OnInit {
 
         return 0;
       });
-      console.log(this.municipalities);
       this.isLoading = false;
     });
   }
 
   handleLimits() {
-    window.scroll({
-      top: 0,
-    });
+    // window.scroll({
+    //   top: 0,
+    // });
     this.limit = this.limit + 5;
 
     this.getTours();
@@ -172,7 +200,6 @@ export class TouristSpotsComponent implements OnInit {
 
         return 0;
       });
-      console.log(this.tours);
 
       this.isLoading = false;
     });
