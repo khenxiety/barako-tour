@@ -33,6 +33,14 @@
     z-index: 1;
   }
 }
+.active {
+  background-color: #403330;
+  color: white;
+}
+.btn-outline-primary {
+  border-color: #403330;
+  color: #403330;
+}
 .page-wrapper {
   min-height: 100vh;
 
@@ -227,15 +235,16 @@
   max-height: 40px;
 }
 
-
-@media (max-width:528px) {
-
-
-  .hero{
-    h1{
-
+@media (max-width: 528px) {
+  .hero {
+    h1 {
       font-size: 3em;
     }
   }
-  
+
+  .custom-btn-drop {
+    span {
+      display: none;
+    }
+  }
 }

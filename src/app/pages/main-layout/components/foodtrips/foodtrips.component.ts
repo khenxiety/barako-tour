@@ -19,6 +19,10 @@ export class FoodtripsComponent implements OnInit {
   comment: any;
   public tours: Array<any> = [];
   public comments: Array<any> = [];
+  // pagination
+  public toursPerPage: number = 5;
+  public selectedPage = 1;
+  toursArray: any[] = [];
 
   searchValue: any;
   public municipalities: Array<any> = [];
@@ -39,9 +43,7 @@ export class FoodtripsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.scroll({
-      top: 0,
-    });
+    this.windowUp();
 
     if (this.paramsId) {
       this.isLoading = true;
@@ -54,6 +56,44 @@ export class FoodtripsComponent implements OnInit {
     this.getFoodtrips();
     this.getMunicipalities();
     this.getUserComments();
+  }
+
+  windowUp(): void {
+    window.scroll({
+      top: 0,
+    });
+  }
+  changePageSize(event: Event) {
+    const newSize = (event.target as HTMLInputElement).value;
+    this.toursPerPage = Number(newSize);
+    this.changePage(1);
+  }
+
+  get pageNumbers(): number[] {
+    console.log(this.tours);
+    return Array(Math.ceil(this.tours.length / this.toursPerPage))
+      .fill(0)
+      .map((x, i) => i + 1);
+  }
+
+  changePage(page: any) {
+    this.windowUp();
+
+    this.selectedPage += page;
+    this.slicedData();
+  }
+  previousPage(page: any) {
+    this.windowUp();
+
+    this.selectedPage -= page;
+    this.slicedData();
+  }
+  slicedData() {
+    let pageIndex = (this.selectedPage - 1) * this.toursPerPage;
+    let endIndex =
+      (this.selectedPage - 1) * this.toursPerPage + this.toursPerPage;
+    this.toursArray = [];
+    this.toursArray = this.tours.slice(pageIndex, endIndex);
   }
 
   searchFilter(event: any) {
@@ -147,7 +187,7 @@ export class FoodtripsComponent implements OnInit {
     const tourQuery = collection(this.firestore, 'foodtrip');
     const limitq = query(tourQuery, limit(this.limit));
 
-    getDocs(limitq).then((res: any) => {
+    getDocs(tourQuery).then((res: any) => {
       this.tours = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
@@ -163,6 +203,8 @@ export class FoodtripsComponent implements OnInit {
 
         return 0;
       });
+      let pageIndex = (this.selectedPage - 1) * this.toursPerPage;
+      this.toursArray = this.tours.slice(pageIndex, this.toursPerPage);
       console.log(this.tours);
       this.isLoading = false;
     });

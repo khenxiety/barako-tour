@@ -27,6 +27,10 @@ export class HistoryComponent implements OnInit {
     },
   ];
   paramsId: string = '';
+  // pagination
+  public toursPerPage: number = 5;
+  public selectedPage = 1;
+  municipalitiesArray: any[] = [];
 
   isLoading: boolean = false;
   tours: Array<any> = [];
@@ -38,9 +42,7 @@ export class HistoryComponent implements OnInit {
   constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {
-    window.scroll({
-      top: 0,
-    });
+    this.windowUp();
 
     // if (this.paramsId) {
     //   this.getMunicipalities();
@@ -55,7 +57,44 @@ export class HistoryComponent implements OnInit {
   showLess() {
     this.isShowLess = this.isShowLess ? false : true;
   }
+  windowUp(): void {
+    window.scroll({
+      top: 0,
+    });
+  }
 
+  changePageSize(event: Event) {
+    const newSize = (event.target as HTMLInputElement).value;
+    this.toursPerPage = Number(newSize);
+    this.changePage(1);
+  }
+
+  get pageNumbers(): number[] {
+    console.log(this.tours);
+    return Array(Math.ceil(this.tours.length / this.toursPerPage))
+      .fill(0)
+      .map((x, i) => i + 1);
+  }
+
+  changePage(page: any) {
+    this.windowUp();
+
+    this.selectedPage += page;
+    this.slicedData();
+  }
+  previousPage(page: any) {
+    this.windowUp();
+
+    this.selectedPage -= page;
+    this.slicedData();
+  }
+  slicedData() {
+    let pageIndex = (this.selectedPage - 1) * this.toursPerPage;
+    let endIndex =
+      (this.selectedPage - 1) * this.toursPerPage + this.toursPerPage;
+    this.municipalitiesArray = [];
+    this.municipalitiesArray = this.tours.slice(pageIndex, endIndex);
+  }
   searchFilter(event: any) {
     this.getMunicipalities();
     const filterValue = (event.target as HTMLInputElement).value;
@@ -110,7 +149,6 @@ export class HistoryComponent implements OnInit {
         }),
       ];
       this.municipalitiesFilter = this.municipalitiesList;
-      this.isLoading = false;
       this.municipalitiesFilter.sort((a, b) => {
         if (a.municipality < b.municipality) return -1;
 
@@ -118,6 +156,12 @@ export class HistoryComponent implements OnInit {
 
         return 0;
       });
+      let pageIndex = (this.selectedPage - 1) * this.toursPerPage;
+      this.municipalitiesArray = this.municipalitiesList.slice(
+        pageIndex,
+        this.toursPerPage
+      );
+      this.isLoading = false;
 
       // this.spinner.hide();
     });

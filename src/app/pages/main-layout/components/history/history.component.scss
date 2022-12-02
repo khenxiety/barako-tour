@@ -155,18 +155,20 @@ h6 {
   background: var(--text-color-dark);
 }
 
-.text-limit{
-  height: 300px; overflow: hidden;
+.text-limit {
+  height: 300px;
+  overflow: hidden;
 }
 
-@media (max-width:528px) {
-
-
-  .hero{
-    h1{
-
+@media (max-width: 528px) {
+  .hero {
+    h1 {
       font-size: 3em;
     }
   }
-  
+  .custom-btn-drop {
+    span {
+      display: none;
+    }
+  }
 }

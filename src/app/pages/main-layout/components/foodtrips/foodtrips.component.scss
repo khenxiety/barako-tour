@@ -174,7 +174,14 @@
     // background-color: red;
   }
 }
-
+.active {
+  background-color: #403330;
+  color: white;
+}
+.btn-outline-primary {
+  border-color: #403330;
+  color: #403330;
+}
 .input {
   background-color: rgba(255, 255, 255, 0.644);
   width: 40%;
@@ -222,14 +229,16 @@
   max-height: 40px;
 }
 
-@media (max-width:528px) {
-
-
-  .hero{
-    h1{
-
+@media (max-width: 528px) {
+  .hero {
+    h1 {
       font-size: 3em;
     }
   }
-  
+
+  .custom-btn-drop {
+    span {
+      display: none;
+    }
+  }
 }

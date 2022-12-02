@@ -31,6 +31,12 @@ export class TouristSpotsComponent implements OnInit {
       numVisible: 1,
     },
   ];
+  // pagination
+
+  public toursPerPage: number = 5;
+  public selectedPage = 1;
+  toursArray: any[] = [];
+
   public municipalities: Array<any> = [];
   isLoading: boolean = false;
   comment: any;
@@ -54,9 +60,7 @@ export class TouristSpotsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.scroll({
-      top: 0,
-    });
+    this.windowUp();
 
     if (this.paramsId) {
       this.getSpecificTours();
@@ -69,6 +73,44 @@ export class TouristSpotsComponent implements OnInit {
     this.getTours();
     this.getUserComments();
     this.getMunicipalities();
+  }
+  windowUp(): void {
+    window.scroll({
+      top: 0,
+    });
+  }
+
+  changePageSize(event: Event) {
+    const newSize = (event.target as HTMLInputElement).value;
+    this.toursPerPage = Number(newSize);
+    this.changePage(1);
+  }
+
+  get pageNumbers(): number[] {
+    console.log(this.tours);
+    return Array(Math.ceil(this.tours.length / this.toursPerPage))
+      .fill(0)
+      .map((x, i) => i + 1);
+  }
+
+  changePage(page: any) {
+    this.windowUp();
+
+    this.selectedPage += page;
+    this.slicedData();
+  }
+  previousPage(page: any) {
+    this.windowUp();
+
+    this.selectedPage -= page;
+    this.slicedData();
+  }
+  slicedData() {
+    let pageIndex = (this.selectedPage - 1) * this.toursPerPage;
+    let endIndex =
+      (this.selectedPage - 1) * this.toursPerPage + this.toursPerPage;
+    this.toursArray = [];
+    this.toursArray = this.tours.slice(pageIndex, endIndex);
   }
 
   searchFilter(event: any) {
@@ -183,7 +225,7 @@ export class TouristSpotsComponent implements OnInit {
     const limitq = query(tourQuery, limit(this.limit));
     this.isLoading = true;
 
-    getDocs(limitq).then((res: any) => {
+    getDocs(tourQuery).then((res: any) => {
       this.tours = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
@@ -200,6 +242,8 @@ export class TouristSpotsComponent implements OnInit {
 
         return 0;
       });
+      let pageIndex = (this.selectedPage - 1) * this.toursPerPage;
+      this.toursArray = this.tours.slice(pageIndex, this.toursPerPage);
 
       this.isLoading = false;
     });
@@ -243,6 +287,8 @@ export class TouristSpotsComponent implements OnInit {
       ];
 
       this.specificTourTitle = this.tours[0].location;
+      let pageIndex = (this.selectedPage - 1) * this.toursPerPage;
+      this.toursArray = this.tours.slice(pageIndex, this.toursPerPage);
       this.isLoading = false;
     });
   }
