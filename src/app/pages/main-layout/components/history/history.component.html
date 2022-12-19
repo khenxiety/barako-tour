@@ -77,20 +77,23 @@
                 width="24"
                 height="24"
                 fill="currentColor"
-                class="bi bi-filter me-2"
+                class="bi bi-filter"
                 viewBox="0 0 16 16"
               >
                 <path
                   d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
                 />
               </svg>
-              {{
-                selectedFilter
-                  ? selectedFilter
-                  : selectedFilter == "all"
-                  ? "Filter"
-                  : "Filter"
-              }}
+
+              <span class="ms-2">
+                {{
+                  selectedFilter
+                    ? selectedFilter
+                    : selectedFilter == "all"
+                    ? "Filter"
+                    : "Filter"
+                }}
+              </span>
             </button>
 
             <ul class="dropdown-menu">
@@ -118,11 +121,11 @@
       ></app-placeholder>
       <div
         class="row text-brown my-5"
-        *ngFor="let history of municipalitiesList"
+        *ngFor="let history of municipalitiesArray"
       >
         <div class="col">
           <header class="text-capitalize">
-            <h1>{{ history.municipality }}</h1>
+            <h1>{{ history?.municipality }}</h1>
             <div class="location mt-3">
               <small
                 ><app-pin></app-pin
@@ -130,7 +133,7 @@
                   <a
                     target="_blank"
                     href="https://www.google.com/maps/d/u/0/viewer?msa=0&mid=1sgwv3EEVqvUyDpfw6tIcftXUbts&ll=13.987037941443775%2C120.93070137797133&z=15"
-                    >{{ history.municipality }}, Batangas</a
+                    >{{ history?.municipality }}, Batangas</a
                   >
                 </em></small
               >
@@ -144,7 +147,7 @@
           >
             <markdown
               class="variable-binding"
-              [data]="history.descriptionOutro"
+              [data]="history?.descriptionOutro"
             ></markdown>
 
             <!-- <div [innerHTML]="typescriptMarkdown | language : 'typescript' | markdown"></div> -->
@@ -156,7 +159,7 @@
 
         <div class="col">
           <p-galleria
-            [value]="history.imageGallery"
+            [value]="history?.imageGallery"
             [responsiveOptions]="responsiveOptions"
             [containerStyle]="{ 'max-width': '640px' }"
             [numVisible]="5"
@@ -185,7 +188,7 @@
               <a
                 [routerLink]="['/barako-tour/tourist-spots/', history.id]"
                 class="mt-4"
-                >See all Tourist Spots in {{ history.municipality }}</a
+                >See all Tourist Spots in {{ history?.municipality }}</a
               >
             </div>
             <div class="col-4">
@@ -193,15 +196,98 @@
               <a
                 [routerLink]="['/barako-tour/foodtrips/', history.id]"
                 class="mt-4"
-                >See all Foodtrips in {{ history.municipality }}</a
+                >See all Foodtrips in {{ history?.municipality }}</a
               >
             </div>
             <div class="col-4">
               <h5 class="mb-3">Festivals</h5>
               <a href="" class="mt-4"
-                >See all Festivals in {{ history.municipality }}</a
+                >See all Festivals in {{ history?.municipality }}</a
               >
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-3" *ngIf="!isLoading">
+        <div class="col-12 d-flex justify-content-center">
+          <div class="form-inline float-left mr-1">
+            <select
+              class="form-control"
+              [value]="toursPerPage"
+              name="page"
+              (change)="changePageSize($event)"
+              id=""
+            >
+              <option value="5">5 items</option>
+              <option value="10">10 items</option>
+
+              <option value="15">15 items</option>
+
+              <option value="20">20 items</option>
+
+              <option value="25">25 items</option>
+            </select>
+          </div>
+
+          <div class="ms-2 btn-group float-right">
+            <!-- <button
+              class="btn btn-outline-primary"
+              *ngFor="let page of pageNumbers"
+              (click)="changePage(page)"
+              [class.active]="page == selectedPage"
+            >
+              {{ page }}
+            </button> -->
+            <button
+              class="btn"
+              (click)="previousPage(1)"
+              *ngIf="selectedPage >= 2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="me-2 bi bi-chevron-double-left"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                />
+              </svg>
+              Previous
+            </button>
+
+            <button
+              class="btn"
+              (click)="changePage(1)"
+              *ngIf="selectedPage != pageNumbers[-1]"
+            >
+              Next
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="ms-2 bi bi-chevron-double-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
