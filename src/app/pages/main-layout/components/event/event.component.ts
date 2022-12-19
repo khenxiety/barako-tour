@@ -205,7 +205,7 @@ export class EventComponent implements OnInit {
       .send('service_qqa8bhn', 'template_33py05l', data, 'xhRrK14ZM1juEgWdu')
       .then((res: EmailJSResponseStatus) => {
         console.log(res.text);
-        this.successToast('Subscrived to the event successfully');
+        this.successToast('Subscribed to the event successfully');
         this.addEvent();
 
         this.modalClose();

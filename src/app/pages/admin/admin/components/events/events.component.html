@@ -422,18 +422,20 @@
       <div class="modal-body">
         <form action="" [formGroup]="updateForm">
           <div class="mb-2">
-            <label for="festivalDate" class="form-label">Festival Title:</label>
+            <label for="festivalTitle" class="form-label"
+              >Festival Title:</label
+            >
             <input
               type="text"
               class="form-control"
-              formControlName="festivalDate"
+              formControlName="festivalTitle"
             />
 
             <small
               class="text-danger"
               *ngIf="
-                updateForm.controls['festivalDate'].hasError('required') &&
-                updateForm.controls['festivalDate'].touched
+                updateForm.controls['festivalTitle'].hasError('required') &&
+                updateForm.controls['festivalTitle'].touched
               "
             >
               Please fill up the field
@@ -563,6 +565,13 @@
               [(ngModel)]="rangeDates"
               (change)="dateChange($event)"
             /> -->
+            <p-calendar
+              [(ngModel)]="rangeDates"
+              formControlName="festivalDate"
+              [readonlyInput]="true"
+              inputId="range"
+              (ngModelChange)="dateChange($event)"
+            ></p-calendar>
 
             <small
               class="text-danger"

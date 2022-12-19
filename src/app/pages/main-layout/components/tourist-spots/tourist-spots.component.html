@@ -37,8 +37,11 @@
     <div class="row my-4">
       <div class="col">
         <h3 class="text-center text-brown">
-          Tourist Spots in
-          {{ specificTourTitle ? specificTourTitle : "Batangas" }}
+          {{
+            specificTourTitle
+              ? "Tara Dine sa " + specificTourTitle
+              : "Tara Dine!"
+          }}
         </h3>
       </div>
     </div>
