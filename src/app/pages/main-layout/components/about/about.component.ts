@@ -8,6 +8,8 @@ import { collection, Firestore, getDocs } from '@angular/fire/firestore';
 })
 export class AboutComponent implements OnInit {
   aboutContent: Array<any> = [];
+  cmsContent: Array<any> = [];
+
   constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {
@@ -16,6 +18,8 @@ export class AboutComponent implements OnInit {
     });
 
     this.getAbout();
+    this.getContents();
+
   }
 
   getAbout(): void {
@@ -28,7 +32,23 @@ export class AboutComponent implements OnInit {
         }),
       ];
 
-      console.log(this.aboutContent);
     });
+  }
+
+  async getContents(){
+    const contentInstance = collection(this.firestore, 'contents');
+   
+    try {
+      const content = await getDocs(contentInstance)
+      this.cmsContent = [
+        ...content.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+
+    } catch (error) {
+      throw error
+    }
+
   }
 }

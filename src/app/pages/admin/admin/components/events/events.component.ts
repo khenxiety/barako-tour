@@ -78,7 +78,6 @@ export class EventsComponent implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
-      console.log(this.festivals);
 
       this.spinner.hide();
     });
@@ -169,7 +168,6 @@ export class EventsComponent implements OnInit {
     });
   }
   dateChange(evenet: any): void {
-    console.log(this.rangeDates);
   }
   async myUploader(event: any) {
     const uploadingTask = await new Promise((resolve, reject) => {
@@ -215,7 +213,6 @@ export class EventsComponent implements OnInit {
 
     this.spinner.hide();
 
-    console.log(this.imageUrl);
     this.successToast('Images Uploaded');
   }
 
@@ -266,7 +263,6 @@ export class EventsComponent implements OnInit {
   }
 
   addTourist() {
-    console.log(this.formBuild.value);
     if (this.formBuild.valid) {
       this.spinner.show();
 
@@ -385,7 +381,6 @@ export class EventsComponent implements OnInit {
     emailjs
       .send('service_qqa8bhn', 'template_33py05l', data, 'xhRrK14ZM1juEgWdu')
       .then((res: EmailJSResponseStatus) => {
-        console.log(res.text);
 
         // this.modalCloseButton?.nativeElement.click();
         // this.addEvent();

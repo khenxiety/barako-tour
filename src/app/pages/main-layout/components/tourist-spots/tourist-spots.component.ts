@@ -87,7 +87,6 @@ export class TouristSpotsComponent implements OnInit {
   }
 
   get pageNumbers(): number[] {
-    console.log(this.tours);
     return Array(Math.ceil(this.tours.length / this.toursPerPage))
       .fill(0)
       .map((x, i) => i + 1);
@@ -164,13 +163,13 @@ export class TouristSpotsComponent implements OnInit {
 
     const filterQ = query(filterDb, where('locationId', '==', event));
     getDocs(filterQ).then((res: any) => {
-      this.tours = [
+      this.toursArray = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
         }),
       ];
 
-      this.tours.sort((a, b) => {
+      this.toursArray.sort((a, b) => {
         if (a.location < b.location) {
           return -1;
         }

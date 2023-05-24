@@ -15,7 +15,7 @@
       <div class="col d-flex">
         <h1 class="h1-responsive text-center">
           <!-- <span style="font-weight: 200">Isla</span> -->
-          Foodtrips
+          Local Ala eh
         </h1>
       </div>
     </div>
@@ -38,8 +38,8 @@
         <h3 class="text-center text-brown">
           {{
             specificFoodTitle
-              ? "Foodtrips in" + " " + specificFoodTitle
-              : "Food Ala Eh"
+              ? "Local Products in" + " " + specificFoodTitle
+              : "Local Products and Produce"
           }}
         </h3>
       </div>
@@ -170,23 +170,29 @@
       <div [ngClass]="i % 2 === 0 ? 'row my-5' : 'row flex-row-reverse my-5'">
         <div class="col-sm-12 col-md-6 col-lg-6">
           <header class="mb-4">
-            <h2 class="text-uppercase">{{ tour.foodTripTitle }}</h2>
+            <h2 class="text-uppercase">{{ tour?.foodTripTitle }}</h2>
 
             <div class="location mt-3">
               <small
                 ><app-pin></app-pin>
-                <em>{{ tour.originated }}, Batangas</em></small
+                <em>{{ tour?.originated }}, Batangas</em></small
               >
             </div>
           </header>
           <article>
             <p class="introduction text-justify">
-              {{ tour.descriptionSummary }}
+              {{ tour?.descriptionSummary }}
             </p>
           </article>
+          <div class="producer">
+            <p class="p-0">
+              <strong>Producer: </strong>
+              {{tour?.producer}}
+            </p>
+          </div>
 
           <div class="more">
-            <a routerLink="./foodtrip-details/{{ tour.id }}" class="text-brown"
+            <a routerLink="./details/{{ tour?.id }}" class="text-brown"
               >More Details</a
             >
           </div>

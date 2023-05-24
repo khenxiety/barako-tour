@@ -8,6 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PlaceholderComponent implements OnInit {
   @Input() isLoading: boolean = false;
   @Input() renderOn: string = '';
+  @Input() imageAllowed: boolean = true;
+
 
   responsiveOptions: any[] = [
     {

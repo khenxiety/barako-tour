@@ -1,5 +1,5 @@
 <div class="row text-brown my-5" *ngIf="isLoading">
-  <div class="col">
+  <div [ngClass]="imageAllowed ? 'col' : 'col-12'">
     <header class="text-capitalize">
       <h1>
         <p class="placeholder-glow">
@@ -66,7 +66,7 @@
   </div>
 
   <div class="col">
-    <div class="placeholder-image"></div>
+    <div class="placeholder-image" *ngIf="imageAllowed"></div>
 
     <div class="row mt-5" *ngIf="renderOn == 'history'">
       <div class="col-4">

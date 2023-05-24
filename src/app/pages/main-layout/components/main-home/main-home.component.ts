@@ -53,6 +53,8 @@ export class MainHomeComponent implements OnInit {
 
   tours: Array<any> = [];
 
+  contents:any[]=[]
+
   constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {
@@ -61,6 +63,7 @@ export class MainHomeComponent implements OnInit {
     });
 
     this.getTours();
+    this.getContents()
     this.getFoodtrips();
     this.getFestival();
   }
@@ -106,6 +109,21 @@ export class MainHomeComponent implements OnInit {
         }),
       ];
     });
+  }
+  async getContents(){
+    const contentInstance = collection(this.firestore,'contents')
+    try {
+      const contentData = await getDocs(contentInstance)
+      this.contents = [
+        ...contentData.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
+      
+
+    } catch (error) {
+      throw error
+    }
   }
   getFoodtrips() {
     const tourQuery = collection(this.firestore, 'foodtrip');

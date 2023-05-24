@@ -58,9 +58,7 @@ export class CommentsComponent implements OnInit {
         return 0;
       });
 
-      console.log(this.comments);
 
-      console.log(res);
     });
   }
   addUserComments() {

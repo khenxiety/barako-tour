@@ -154,13 +154,11 @@ export class EventComponent implements OnInit {
         }),
       ];
       this.isLoading = false;
-      console.log(this.events);
     });
   }
   sendReminder(event: any): void {
     this.selectedEvent = event;
 
-    console.log(this.selectedEvent);
   }
   addEvent(): void {
     const data = {
@@ -172,7 +170,6 @@ export class EventComponent implements OnInit {
     const addEvent = collection(this.firestore, 'subscribed');
 
     addDoc(addEvent, data).then((res) => {
-      console.log(res);
       this.selectedEvent = [];
 
       this.email = '';
@@ -204,7 +201,6 @@ export class EventComponent implements OnInit {
     emailjs
       .send('service_qqa8bhn', 'template_33py05l', data, 'xhRrK14ZM1juEgWdu')
       .then((res: EmailJSResponseStatus) => {
-        console.log(res.text);
         this.successToast('Subscribed to the event successfully');
         this.addEvent();
 

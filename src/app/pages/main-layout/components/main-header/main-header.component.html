@@ -7,8 +7,15 @@
       <div class="col-2 flex">
         <div class="logo">
           <a href="/">
-            <img
+            <!-- <img
               src="assets/logo2.png"
+              class="drop-shadow"
+              height="60px"
+              width="auto"
+              alt=""
+            /> -->
+            <img
+              [src]="contents.length !== 0  ? contents[0]?.officialSeal?.previewImageSrc : 'assets/logo2.png'"
               class="drop-shadow"
               height="60px"
               width="auto"
@@ -39,11 +46,11 @@
             </li>
             <li>
               <a
-                routerLink="/barako-tour/foodtrips"
+                routerLink="/barako-tour/localprod"
                 routerLinkActive="active"
                 [ngClass]="navScroll ? 'text-brown' : 'text-white'"
                 (click)="toCollapse()"
-                >Food Ala Eh</a
+                >Local Ala Eh</a
               >
             </li>
             <li>
@@ -85,7 +92,7 @@
             </li>
             <li>
               <a
-                routerLink="/barako-tour/foodtrips"
+                routerLink="/barako-tour/localprod"
                 routerLinkActive="active"
                 (click)="toCollapse()"
                 >Food Ala Eh</a

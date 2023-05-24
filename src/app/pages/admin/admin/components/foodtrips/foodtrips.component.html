@@ -75,6 +75,9 @@
                   <p>
                     <strong>Summary:</strong> {{ tour?.descriptionSummary }}
                   </p>
+                  <p>
+                    <strong>Producer:</strong> {{ tour?.producer }}
+                  </p>
 
                   <button
                     type="button"
@@ -288,6 +291,27 @@
               *ngIf="
                 formBuild.controls['originatedId'].hasError('required') &&
                 formBuild.controls['originatedId'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="producer" class="form-label"
+              >Producer:</label
+            >
+            <input
+              class="form-control"
+              id="producer"
+              formControlName="producer"
+              rows="3"
+            >
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['producer'].hasError('required') &&
+                formBuild.controls['producer'].touched
               "
             >
               Please fill up the field
@@ -549,6 +573,27 @@
               *ngIf="
                 updateForm.controls['originatedId'].hasError('required') &&
                 updateForm.controls['originatedId'].touched
+              "
+            >
+              Please fill up the field
+            </small>
+          </div>
+          <div class="mb-2">
+            <label for="producer" class="form-label"
+              >Producer:</label
+            >
+            <input
+              class="form-control"
+              id="producer"
+              formControlName="producer"
+              rows="3"
+            >
+
+            <small
+              class="text-danger"
+              *ngIf="
+                formBuild.controls['producer'].hasError('required') &&
+                formBuild.controls['producer'].touched
               "
             >
               Please fill up the field

@@ -82,6 +82,46 @@
         <div class="col-12">
           <header class="my-4">
             <h2 class="text-brown d-flex align-items-center">
+              Batangas History
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-map-fill ms-3"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.502.502 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5V.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.498.498 0 0 0-.196 0L5 14.09zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1-.5-.1z"
+                />
+              </svg>
+            </h2>
+          </header>
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <article>
+                <markdown
+                  class="variable-binding text-justify text-brown"
+                  [data]="contents[0]?.homepageContentHIstory"
+                  *ngIf="contents.length !==0 "
+                ></markdown>
+                <app-placeholder
+                  [isLoading]="contents.length ===0"
+                  [renderOn]="'home'"
+                  [imageAllowed]="false"
+                ></app-placeholder>
+              </article>
+            </div>
+            <!-- <div class="col hidden-sm-up">test</div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <header class="my-4">
+            <h2 class="text-brown d-flex align-items-center">
               Tourist Spots
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +200,7 @@
       <div class="row my-5">
         <div class="col-12">
           <header class="my-4">
-            <h2 class="text-brown">Foodtrips</h2>
+            <h2 class="text-brown">Local Ala eh</h2>
           </header>
           <div class="row">
             <div class="col-sm-12 col-md-6">
@@ -182,7 +222,7 @@
                 </p>
               </article>
             </div>
-            <!-- <div class="col hidden-sm-up">test</div> -->
+            
           </div>
 
           <swiper
@@ -214,7 +254,7 @@
                   </div>
                   <button
                     class="btn custom-btn"
-                    routerLink="/barako-tour/foodtrips/foodtrip-details/{{
+                    routerLink="/barako-tour/localprod/details/{{
                       food.id
                     }}"
                   >

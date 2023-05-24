@@ -70,15 +70,15 @@ const routes: Routes = [
         component: TourDetailsComponent,
       },
       {
-        path: 'foodtrips',
+        path: 'localprod',
         component: FoodtripsComponent,
       },
       {
-        path: 'foodtrips/:id',
+        path: 'localprod/:id',
         component: FoodtripsComponent,
       },
       {
-        path: 'foodtrips/foodtrip-details/:id',
+        path: 'localprod/details/:id',
         component: FoodtripDetailsComponent,
       },
       {

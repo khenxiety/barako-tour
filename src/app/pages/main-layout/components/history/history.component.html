@@ -121,7 +121,7 @@
       ></app-placeholder>
       <div
         class="row text-brown my-5"
-        *ngFor="let history of municipalitiesArray"
+        *ngFor="let history of municipalitiesArray; let i = index"
       >
         <div class="col">
           <header class="text-capitalize">
@@ -142,7 +142,7 @@
 
           <article
             [ngClass]="
-              isShowLess ? 'description my-4 ' : 'description my-4 text-limit'
+              isShowLess && activeItem === i + 1 ? 'description my-4 ' : 'description my-4 text-limit'
             "
           >
             <markdown
@@ -152,7 +152,7 @@
 
             <!-- <div [innerHTML]="typescriptMarkdown | language : 'typescript' | markdown"></div> -->
           </article>
-          <a class="pointer cursor-pointer text-brown" (click)="showLess()"
+          <a class="pointer cursor-pointer text-brown" (click)="showLess(i + 1)"
             >Show {{ isShowLess ? "less" : "more" }}</a
           >
         </div>
@@ -194,7 +194,7 @@
             <div class="col-4">
               <h5 class="mb-3">Foodtrips</h5>
               <a
-                [routerLink]="['/barako-tour/foodtrips/', history.id]"
+                [routerLink]="['/barako-tour/localprod/', history.id]"
                 class="mt-4"
                 >See all Foodtrips in {{ history?.municipality }}</a
               >

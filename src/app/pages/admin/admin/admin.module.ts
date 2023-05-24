@@ -21,6 +21,7 @@ import { EditorModule } from 'primeng/editor';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { ManageCommentsComponent } from './components/manage-comments/manage-comments.component';
 import { CalendarModule } from 'primeng/calendar';
+import { ManageContentsComponent } from './components/manage-contents/manage-contents.component';
 
 const routes: Routes = [
   {
@@ -60,9 +61,10 @@ const routes: Routes = [
         component: ManageUsersComponent,
       },
       {
-        path: 'manage-comments',
-        component: ManageCommentsComponent,
+        path: 'manage-contents',
+        component: ManageContentsComponent,
       },
+      
       {
         path: '',
         redirectTo: 'manage-history',
@@ -93,6 +95,7 @@ const routes: Routes = [
     AdminHeaderComponent,
     ManageUsersComponent,
     ManageCommentsComponent,
+    ManageContentsComponent,
   ],
   imports: [
     CommonModule,

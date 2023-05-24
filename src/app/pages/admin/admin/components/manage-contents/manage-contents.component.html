@@ -1,0 +1,88 @@
+<p-toast position="top-right"></p-toast>
+
+<div class="page-wrapper p-3">
+  <div class="container-fluid">
+    <div class="row">
+      <app-breadcrumbs [location]="'Manage Contents'"></app-breadcrumbs>
+
+      <header>
+        <h3>Manage Contents</h3>
+      </header>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <h4>Common Contents</h4>
+            <div class="mb-2">
+                <label for="upload" class="form-label">Official Seal:</label>
+                <div class="col-6" *ngFor="let tourImage of contents; let i = index">
+                    <div class="image-delete seal-img">
+                        <button
+                          class="delete"
+                          (click)="deleteImage(tourImage?.officialSeal[i])"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="white"
+                            class="bi bi-x"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                            />
+                          </svg>
+                        </button>
+                        <img
+                          src="{{ tourImage?.officialSeal?.thumbnailImageSrc }}"
+                          width="100%"
+                          alt=""
+                        />
+                      </div>
+                </div>
+                <p-fileUpload
+                  id="upload"
+                  name="myfile[]"
+                  [customUpload]="true"
+                  (uploadHandler)="myUploader($event)"
+                  [multiple]="false"
+                ></p-fileUpload>
+            </div>
+
+            <div class="mb-2" [formGroup]="contentFormGroup">
+                <label for="upload" class="form-label">Official Slogan:</label>
+                <input type="text" formControlName = "slogan" class="form-control">
+            </div>
+
+           
+        </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <h4>Home page</h4>
+  
+        <div class="mb-2" [formGroup]="contentFormGroup">
+          <label for="upload" class="form-label">History content:</label>
+          <textarea
+                class="form-control"
+                id="descriptionSummary"
+                formControlName="homepageContentHIstory"
+                rows="3"
+          ></textarea>
+      </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12">
+         <div class="mb-2">
+                <button type="button" class="btn btn-primary" (click)="submit()">
+                    Submit
+                </button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>

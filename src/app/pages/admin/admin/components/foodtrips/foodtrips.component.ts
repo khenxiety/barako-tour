@@ -80,7 +80,6 @@ export class FoodtripsComponent implements OnInit {
 
         return 0;
       });
-      console.log(this.foodtrip);
       this.spinner.hide();
     });
   }
@@ -127,6 +126,10 @@ export class FoodtripsComponent implements OnInit {
         { value: '', disabled: false },
         Validators.required
       ),
+      producer: new FormControl(
+        { value: '', disabled: false },
+        Validators.required
+      ),
     });
     this.updateForm = new FormGroup({
       descriptionSummary: new FormControl(
@@ -148,6 +151,10 @@ export class FoodtripsComponent implements OnInit {
         Validators.required
       ),
       originatedId: new FormControl(
+        { value: '', disabled: false },
+        Validators.required
+      ),
+      producer: new FormControl(
         { value: '', disabled: false },
         Validators.required
       ),
@@ -213,7 +220,6 @@ export class FoodtripsComponent implements OnInit {
 
     this.spinner.hide();
 
-    console.log(this.imageUrl);
     this.successToast('Images Uploaded');
   }
 
@@ -235,25 +241,29 @@ export class FoodtripsComponent implements OnInit {
     this.selectedTour = data;
     this.updateForm = new FormGroup({
       descriptionSummary: new FormControl(
-        { value: data.descriptionSummary || '', disabled: false },
+        { value: data?.descriptionSummary || '', disabled: false },
         Validators.required
       ),
 
       descriptionOutro: new FormControl(
-        { value: data.descriptionOutro || '', disabled: false },
+        { value: data?.descriptionOutro || '', disabled: false },
         Validators.required
       ),
 
       foodTripTitle: new FormControl(
-        { value: data.foodTripTitle || '', disabled: false },
+        { value: data?.foodTripTitle || '', disabled: false },
         Validators.required
       ),
       originated: new FormControl(
-        { value: data.originated || '', disabled: false },
+        { value: data?.originated || '', disabled: false },
         Validators.required
       ),
       originatedId: new FormControl(
-        { value: data.originatedId || '', disabled: false },
+        { value: data?.originatedId || '', disabled: false },
+        Validators.required
+      ),
+      producer: new FormControl(
+        { value: data?.producer || '', disabled: false },
         Validators.required
       ),
     });

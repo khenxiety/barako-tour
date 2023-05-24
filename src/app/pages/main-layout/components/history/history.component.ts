@@ -12,6 +12,7 @@ import { MarkdownService } from 'ngx-markdown';
 })
 export class HistoryComponent implements OnInit {
   public isShowLess: boolean = false;
+  public activeItem:number =0
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -54,8 +55,17 @@ export class HistoryComponent implements OnInit {
     this.getTours();
   }
 
-  showLess() {
+  showLess(activeItem:number) {
+    
+
+    if(this.activeItem === activeItem){
+      this.isShowLess = false;
+    this.activeItem = 0
+
+      return
+    }
     this.isShowLess = this.isShowLess ? false : true;
+    this.activeItem = activeItem
   }
   windowUp(): void {
     window.scroll({
@@ -70,7 +80,6 @@ export class HistoryComponent implements OnInit {
   }
 
   get pageNumbers(): number[] {
-    console.log(this.tours);
     return Array(Math.ceil(this.tours.length / this.toursPerPage))
       .fill(0)
       .map((x, i) => i + 1);
@@ -82,33 +91,37 @@ export class HistoryComponent implements OnInit {
     this.selectedPage += page;
     this.slicedData();
   }
+
   previousPage(page: any) {
     this.windowUp();
 
     this.selectedPage -= page;
     this.slicedData();
   }
+
   slicedData() {
     let pageIndex = (this.selectedPage - 1) * this.toursPerPage;
     let endIndex =
       (this.selectedPage - 1) * this.toursPerPage + this.toursPerPage;
     this.municipalitiesArray = [];
-    this.municipalitiesArray = this.tours.slice(pageIndex, endIndex);
+    this.municipalitiesArray = this.municipalitiesList.slice(pageIndex, endIndex);
   }
-  searchFilter(event: any) {
-    this.getMunicipalities();
+
+  async searchFilter(event: any) {
+    await this.getMunicipalities();
     const filterValue = (event.target as HTMLInputElement).value;
     if (filterValue == '' || filterValue == 'All') {
       this.isLoading = false;
 
-      this.getMunicipalities();
+      await this.getMunicipalities();
       this.searchValue = '';
       return;
     } else {
+      this.isLoading = true
       setTimeout(() => {
         this.isLoading = false;
 
-        this.municipalitiesList = this.municipalitiesList.filter(
+        this.municipalitiesArray = this.municipalitiesList.filter(
           (res: any) =>
             res.municipality
               .toLowerCase()
@@ -119,41 +132,39 @@ export class HistoryComponent implements OnInit {
     }
   }
 
-  async filter(event: any) {
-    if (event == 'all') {
+  async filter(filter: any) {
+    if (filter == 'all') {
       this.selectedFilter = 'Filter';
 
-      this.getMunicipalities();
+      await this.getMunicipalities();
       return;
     }
     this.isLoading = true;
+    await this.getMunicipalities();
 
-    this.getMunicipalities();
-
-    setTimeout(() => {
-      this.selectedFilter = event;
-      this.isLoading = false;
-      this.municipalitiesList = this.municipalitiesList.filter((res: any) =>
-        res.municipality.toLowerCase().includes(event.toLowerCase())
-      );
-    }, 500);
+    this.selectedFilter = filter;
+    this.isLoading = false;
+    this.municipalitiesArray = this.municipalitiesList.filter((res: any) =>
+      res.municipality.toLowerCase().includes(filter.toLowerCase())
+    );
   }
 
-  getMunicipalities() {
+  async getMunicipalities():Promise<any> {
     this.isLoading = true;
     const tourQuery = collection(this.firestore, 'history');
-    getDocs(tourQuery).then((res: any) => {
+
+    try {
+
+      const getMunicipalitiesList = await getDocs(tourQuery)
       this.municipalitiesList = [
-        ...res.docs.map((doc: any) => {
+        ...getMunicipalitiesList.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
         }),
       ];
       this.municipalitiesFilter = this.municipalitiesList;
       this.municipalitiesFilter.sort((a, b) => {
         if (a.municipality < b.municipality) return -1;
-
         if (a.municipality > b.municipality) return 1;
-
         return 0;
       });
       let pageIndex = (this.selectedPage - 1) * this.toursPerPage;
@@ -162,9 +173,15 @@ export class HistoryComponent implements OnInit {
         this.toursPerPage
       );
       this.isLoading = false;
-
-      // this.spinner.hide();
-    });
+      return
+      
+    } catch (error) {
+      console.error(error)
+    }
+    // getDocs(tourQuery).then((res: any) => {
+      
+    //   // this.spinner.hide();
+    // });
   }
 
   getTours() {
