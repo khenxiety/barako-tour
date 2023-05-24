@@ -112,7 +112,7 @@ export class TouristSpotsComponent implements OnInit {
     this.toursArray = this.tours.slice(pageIndex, endIndex);
   }
 
-  searchFilter(event: any) {
+  async searchFilter(event: any) {
     this.getTours();
     const filterValue = (event.target as HTMLInputElement).value;
     if (filterValue == '') {
@@ -122,11 +122,11 @@ export class TouristSpotsComponent implements OnInit {
     }
     this.isLoading = true;
 
-    this.getAllTours();
+    await this.getAllTours();
 
     setTimeout(() => {
       this.isLoading = false;
-      this.tours = this.tours.filter(
+      this.toursArray = this.tours.filter(
         (res: any) =>
           res.tourTitle
             .toLowerCase()
@@ -248,12 +248,12 @@ export class TouristSpotsComponent implements OnInit {
     });
   }
 
-  getAllTours() {
+  async getAllTours():Promise<any> {
     const tourQuery = collection(this.firestore, 'tours');
 
     this.isLoading = true;
 
-    getDocs(tourQuery).then((res: any) => {
+    const res = await getDocs(tourQuery)
       this.tours = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
@@ -269,7 +269,7 @@ export class TouristSpotsComponent implements OnInit {
 
         return 0;
       });
-    });
+  ;
   }
 
   getSpecificTours() {

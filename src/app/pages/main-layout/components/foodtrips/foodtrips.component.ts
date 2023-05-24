@@ -94,7 +94,7 @@ export class FoodtripsComponent implements OnInit {
     this.toursArray = this.tours.slice(pageIndex, endIndex);
   }
 
-  searchFilter(event: any) {
+  async searchFilter(event: any) {
     const filterValue = (event.target as HTMLInputElement).value;
     if (filterValue == '') {
       this.getFoodtrips();
@@ -102,7 +102,7 @@ export class FoodtripsComponent implements OnInit {
     }
     this.isLoading = true;
 
-    this.getAllFoodtrips();
+    await this.getAllFoodtrips();
 
     setTimeout(() => {
       this.isLoading = false;
@@ -206,11 +206,11 @@ export class FoodtripsComponent implements OnInit {
       this.isLoading = false;
     });
   }
-  getAllFoodtrips() {
+  async getAllFoodtrips():Promise<any> {
     this.isLoading = true;
     const tourQuery = collection(this.firestore, 'foodtrip');
     const limitq = query(tourQuery, limit(this.limit));
-    getDocs(tourQuery).then((res: any) => {
+    await getDocs(tourQuery).then((res: any) => {
       this.tours = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
@@ -225,12 +225,12 @@ export class FoodtripsComponent implements OnInit {
         if (a.originated > b.originated) {
           return 1;
         }
-
         return 0;
       });
 
       this.isLoading = false;
     });
+    
   }
   getSpecificFoodtrips() {
     this.isLoading = true;
